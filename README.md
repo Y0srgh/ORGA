@@ -4,8 +4,8 @@
 * This script is designed to install specific packages to avoid versions conflicts.
 ### Tailwind installation 
 * run these two commands
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+    npm install -D tailwindcss postcss autoprefixer
+    npx tailwindcss init -p
 ## Backend details
 * in the terminal run "npm run intsall-backend-dependencies" 
 * This script is designed to install specific packages to avoid versions conflicts.
