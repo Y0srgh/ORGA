@@ -5,6 +5,7 @@
 ### Tailwind installation 
 * run these two commands
     npm install -D tailwindcss postcss autoprefixer
+    
     npx tailwindcss init -p
 ## Backend details
 * in the terminal run "npm run intsall-backend-dependencies" 
