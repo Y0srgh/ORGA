@@ -10,7 +10,20 @@ const app = express();
 app.use(express.json());
 // Mount userRoutes middleware at the '/users' path
 app.use('/users',userRoutes);
+
+// Middleware for handling CORS POLICY
+// option 1: Allow All Origins with Default of cors(*)
 app.use(cors());
+
+// Option 2: Allow Custom Origins
+/*app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type'],
+    })
+)*/
+
 // Se connecter à la base de données MongoDB Atlas
 mongoose.connect(mongoDBURL)
     .then(() => {
