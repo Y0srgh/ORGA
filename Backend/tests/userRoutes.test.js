@@ -46,7 +46,7 @@ describe('User Routes', ()=> {
   //assertions to verify the response body
 }); */
 // Test case for PUT /users/update-password/:id
-it('should update a user password', async function()  {
+/* it('should update a user password', async function()  {
   this.timeout(6000);
   const userId = '66084692c74f968f094f046b'; 
   const newPassword = 'zayneb12345';
@@ -57,6 +57,29 @@ it('should update a user password', async function()  {
     .expect(200);
 
   // assertions to verify the response body
-});
-  
+}); */
+  // Test case for PUT /users/update-details/:id
+  it('should update user details', async function()  {
+    this.timeout(5000);
+    const userId = '66084692c74f968f094f046b'; // Replace with an actual user id
+    const updatedUserData = {
+      firstName: 'Yosr',
+      lastName: 'Ghozzi',
+      email: 'yosr.Ghozzi@insat.ucar.tn',
+      password: 'yosr123',
+      levelOfStudy:3,
+      phoneNumber:'27082088',
+      role:'Président',
+      StudentID:"2133433",
+      clubs:["a club"],
+      
+    };
+
+    const res = await request(app)
+      .put(`/users/update-details/${userId}`)
+      .send(updatedUserData)
+      .expect(200);
+
+    //assertions to verify the response body
+  });
 });
