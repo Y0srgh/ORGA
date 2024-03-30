@@ -89,4 +89,121 @@ export const findOneUser = async (req, res) => {
   }
 };
 
+export const updatePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
 
+    // Vérification si l'utilisateur existe
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    // Hachage du nouveau mot de passe
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Mettre à jour le mot de passe de l'utilisateur avec le mot de passe haché
+    user.password = hashedPassword;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du mot de passe de l'utilisateur :",
+      error
+    );
+    return res.status(500).json({
+      message:
+        "Une erreur est survenue lors de la mise à jour du mot de passe.",
+    });
+  }
+};
+
+export const updateUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const  {
+      firstName,
+      lastName,
+      email,
+      password,
+      levelOfStudy,
+      phoneNumber,
+      role,
+      StudentID,
+      clubs} = req.body;
+  
+      if ( 
+        
+        !firstName ||
+        !lastName ||
+        !email ||
+        !password ||
+        !levelOfStudy ||
+        !phoneNumber ||
+        !role ||
+        !StudentID ||
+        !clubs) {
+        return res.status(400).json({
+          message: 'Veuillez fournir tous les champs requis',
+        });
+      }
+  
+      let updatedFields = {
+      firstName,
+      lastName,
+      email,
+      password,
+      levelOfStudy,
+      phoneNumber,
+      role,
+      StudentID,
+      clubs
+      };
+  
+      if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        updatedFields.password = hashedPassword;
+      }
+  
+      const updatedUser = await User.findByIdAndUpdate(id, updatedFields, { new: true });
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: "Utilisateur non trouvé." });
+      }
+  
+      return res.status(200).json({ message: "Utilisateur mis à jour avec succès."});
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
+      return res.status(500).json({
+        message: "Une erreur est survenue lors de la mise à jour de l'utilisateur.",
+      });
+    }
+  };
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Vérification si l'utilisateur existe
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    return res.status(200).json({ message: "Utilisateur supprimé avec succès." });
+  } catch (error) {
+    console.error(
+      "Erreur lors de la suppression de l'utilisateur :",
+      error
+    );
+    return res.status(500).json({
+      message:
+        "Une erreur est survenue lors de la suppression de l'utilisateur.",
+    });
+  }
+};
