@@ -1,6 +1,6 @@
 # ORGA
 ## Frontend details
-* in the terminal run **"cd .\Frontend\"** then **npm run install-my-packages** 
+* in the terminal run **cd .\Frontend\** then **npm run install-my-packages** 
 * This script is designed to install specific packages to avoid versions conflicts.
 ### Tailwind installation 
 * run these two commands
@@ -9,7 +9,7 @@
     
     **npx tailwindcss init -p**
 ## Backend details
-* in the terminal run **"cd .\Backend\"** then **npm run intsall-backend-dependencies**
+* in the terminal run **cd .\Backend\** then **npm run intsall-backend-dependencies**
 * This script is designed to install specific packages to avoid versions conflicts.
 >[!NOTE]
 >you should first access the database on mongodb Atlas and add your current IP ADDRESS 
