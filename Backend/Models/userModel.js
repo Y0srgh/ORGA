@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema(
       required: true, // Password of the user
     },
     levelOfStudy: {
+      type:Number,
       enum: [1, 2, 3, 4, 5], // Enumerated levels of study (1-5)
       required: function () {
         return this.role === "Président"; // Level of study required only if the role is "Président"
@@ -30,6 +31,7 @@ const userSchema = mongoose.Schema(
       required: true, // Phone number of the user
     },
     role: {
+      type:String,
       enum: ["Président", "Admin", "Dvure"], // Enumerated roles for the user
       required: true,
     },

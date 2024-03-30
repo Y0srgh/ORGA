@@ -1,10 +1,11 @@
 import mongoose from "mongoose"; // Import Mongoose for MongoDB interaction
 // Importer l'URL de MongoDB et la configuration du port
 import { mongoDBURL, PORT } from "./Configurations/config.js"; 
+import  cors  from "cors";
 import userRoutes from "./Routes/userRoutes.js";
 // Import Express framework
 import express from "express"; 
-const app = express(); 
+export const app = express(); 
 
 // Middleware pour l'analyse du corps de la requête (parsing request body)
 app.use(express.json());
