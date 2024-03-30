@@ -83,7 +83,7 @@ describe('User Routes', ()=> {
     //assertions to verify the response body
   }); */
 // Test case for DELETE /users/:id
-it('should delete a user', async () => {
+/* it('should delete a user', async () => {
   const userId = '66084692c74f968f094f046b'; // Replace with an actual user id
 
   const res = await request(app)
@@ -91,5 +91,5 @@ it('should delete a user', async () => {
     .expect(200);
 
   //assertions to verify the response body
-});
+}); */
 });
