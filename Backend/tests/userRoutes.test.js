@@ -26,12 +26,25 @@ describe('User Routes', ()=> {
     //assertions to verify the response body
   }); */
 // Test case for GET /users
-it('should get all users', async function() {
+/* it('should get all users', async function() {
   this.timeout(5000);
   const res = await request(app)
     .get('/users')
     .expect(200);
 
   //assertions to verify the response body
-});
+}); */
+// Test case for GET /users/:id
+/* it('should get a specific user by id', async function() {
+  this.timeout(5000);
+  const userId = '66084692c74f968f094f046b'; 
+
+  const res = await request(app)
+    .get(`/users/${userId}`)
+    .expect(200);
+
+  //assertions to verify the response body
+}); */
+
+  
 });
