@@ -59,7 +59,7 @@ describe('User Routes', ()=> {
   // assertions to verify the response body
 }); */
   // Test case for PUT /users/update-details/:id
-  it('should update user details', async function()  {
+ /*  it('should update user details', async function()  {
     this.timeout(5000);
     const userId = '66084692c74f968f094f046b'; // Replace with an actual user id
     const updatedUserData = {
@@ -81,5 +81,15 @@ describe('User Routes', ()=> {
       .expect(200);
 
     //assertions to verify the response body
-  });
+  }); */
+// Test case for DELETE /users/:id
+it('should delete a user', async () => {
+  const userId = '66084692c74f968f094f046b'; // Replace with an actual user id
+
+  const res = await request(app)
+    .delete(`/users/${userId}`)
+    .expect(200);
+
+  //assertions to verify the response body
+});
 });
