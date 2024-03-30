@@ -2,7 +2,6 @@ import { User } from "./../models/User.js";
 
 export const addUser = async (req, res) => {
   try {
-    // Destructure request body to extract user data
     const {
         firstName,
         lastName,
@@ -14,8 +13,6 @@ export const addUser = async (req, res) => {
         StudentID,
         clubs
       } =req.body;
-      
-    // Check if all required fields are provided
 
     if (
         
@@ -36,7 +33,6 @@ export const addUser = async (req, res) => {
     }
 
 
-    // Check if user with the provided phone number already exists
 
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
@@ -44,7 +40,6 @@ export const addUser = async (req, res) => {
         .status(400)
         .json({ message: "Un utilisateur avec ce numéro de téléphone existe déjà." });
     }
-    // Creating a new user in the database
 
     const newUser = await User.create({
         firstName,
@@ -70,7 +65,6 @@ export const addUser = async (req, res) => {
 
 export const findAllUsers = async (req, res) => {
   try {
-        // Find all users in the database
     const users = await User.find({});
     return res.status(200).json({
       count: users.length,
@@ -169,7 +163,7 @@ export const updateUser = async (req, res) => {
       StudentID,
       clubs
       };
-        // If password is provided, hash it
+  
       if (password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         updatedFields.password = hashedPassword;

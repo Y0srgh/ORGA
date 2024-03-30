@@ -8,6 +8,8 @@ const app = express();
 // Middleware pour l'analyse du corps de la requête (parsing request body)
 app.use(express.json());
 
+app.use(cors());
+
 // Se connecter à la base de données MongoDB Atlas
 mongoose.connect(mongoDBURL)
     .then(() => {
