@@ -45,6 +45,18 @@ describe('User Routes', ()=> {
 
   //assertions to verify the response body
 }); */
+// Test case for PUT /users/update-password/:id
+it('should update a user password', async function()  {
+  this.timeout(6000);
+  const userId = '66084692c74f968f094f046b'; 
+  const newPassword = 'zayneb12345';
 
+  const res = await request(app)
+    .put(`/users/update-password/${userId}`)
+    .send({ password: newPassword })
+    .expect(200);
+
+  // assertions to verify the response body
+});
   
 });
