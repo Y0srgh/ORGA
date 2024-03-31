@@ -37,10 +37,10 @@ const SignupForm = () => {
               <div className="caret"></div>
             </div>
             <ul className="menu">
-                <li disabled>your type</li>
-                <li>Admin</li>
-                <li>Devure</li>
-                <li>Pres</li>
+              <li>your type</li>
+              <li>Admin</li>
+              <li>Devure</li>
+              <li>Pres</li>
             </ul>
           </div>
         </form>

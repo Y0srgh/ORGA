@@ -111,6 +111,12 @@
     background: #2a2d35;
 }
 
+.menu li.disabled {
+    color: #ccc; /* Change color to indicate disabled state */
+    pointer-events: none; /* Disable pointer events */
+  }
+  
+
 .active {
     background: #23242a;
 }
