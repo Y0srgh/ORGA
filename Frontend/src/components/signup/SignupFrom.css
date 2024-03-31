@@ -108,7 +108,8 @@
 }
 
 .menu li:hover {
-  background: #2a2d35;
+  background: #1C7895;
+  color: #fff;
 }
 
 .menu li.disabled {
