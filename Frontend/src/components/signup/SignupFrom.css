@@ -84,7 +84,7 @@
   list-style: none;
   padding: 0.2em 0.5em;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border:2px solid #BCBCBC;
   /*box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);*/
   border-radius: 0.5em;
   border-radius: 20px;
