@@ -40,7 +40,7 @@ const SignupForm = () => {
             <input type="password" required placeholder="Votre mot de passe" />
           </div>
 
-          <div className="dropdown">
+          <div className="input-box dropdown">
             <div className="select" onClick={toggleDropdown}>
               <span className="selected">{selectedType}</span>
               <div className={`caret ${isOpen ? "caret-rotate" : ""}`}></div>

@@ -1,12 +1,13 @@
 .wrapper {
   width: 420px;
+  height: 600px;
   background: seagreen;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: #fff;
   border-radius: 10px;
-  padding: 30px 40px;
+  padding: 80px 40px;
 }
 
 .wrapper .input-box {
@@ -16,8 +17,7 @@
   margin: 30px 0;
 }
 
-.input-box input,
-.input-box .select {
+.input-box input {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -29,101 +29,100 @@
   padding: 20px 45px 20px 20px;
 }
 
-.input-box .select {
-    padding: 0px 45px 0px 20px;
-    cursor: pointer;
-    color: #cccccc;
-
-}
-
 .dropdown {
-    min-width: 15em;
-    position: relative;
-    margin: 2em;
+  min-width: 15em;
+  position: relative;
+  margin: 2em;
 }
 
 .dropdown * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .select {
-    background: #2a2f3B;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px #2a2f3b solid;
-    border-radius: 0.5em;
-    padding: 1em;
-    cursor: pointer;
-    transition: background 0.3s;
+  background: transparent;
+
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+
+  padding: 10px 55px 10px 25px;
 }
 
 .select-clicked {
-    border: 2px #26489a solid;
-    box-shadow: 0 0 0.8 #26489a;
+  border: 2px #26489a solid;
+  box-shadow: 0 0 0.8 #26489a;
 }
 
-.select:hover {
-    background: #323741;
-}
 
 .caret {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #fff;
-    transition: 0.3s;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
 }
 
 .caret-rotate {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .menu {
-    list-style: none;
-    padding: 0.2em 0.5em;
-    background: #323741;
-    border: 1px #363a43 solid;
-    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-    border-radius: 0.5em;
-    color: #9fa5B5;
-    position: absolute;
-    top: 4em;
-    left: 50%;
-    width: 100%;
-    transform: translateX(-50%);
-    opacity: 0;
-    display: none;
-    transition: 0.2s;
-    z-index: 1;
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  /*box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);*/
+  border-radius: 0.5em;
+  border-radius: 20px;
+
+  color: #9fa5b5;
+  position: absolute;
+  top: 3.2em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
 }
 
 .menu li {
-    padding: 0.7em 0.5em;
-    margin: 0.3em 0;
-    border-radius: 0.5em;
-    cursor: pointer;
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
 }
 
 .menu li:hover {
-    background: #2a2d35;
+  background: #2a2d35;
 }
 
 .menu li.disabled {
-    color: #ccc; /* Change color to indicate disabled state */
-    pointer-events: none; /* Disable pointer events */
-  }
-  
+  color: #ccc; /* Change color to indicate disabled state */
+  pointer-events: none; /* Disable pointer events */
+}
 
 .active {
-    background: #23242a;
+  background: #23242a;
 }
 
 .menu-open {
-    display: block;
-    opacity: 1;
+  display: block;
+  opacity: 1;
 }
 
 /*
@@ -149,5 +148,3 @@
   font-size: 15px;
   font-weight: 700;
 }
-
-  
