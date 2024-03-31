@@ -15,7 +15,11 @@ const SignupForm = () => {
           </div>
           <div className="input-box">
             <label>Adresse Email</label>
-            <input type="email" required placeholder="prenom.nom@insat.ucar.tn" />
+            <input
+              type="email"
+              required
+              placeholder="prenom.nom@insat.ucar.tn"
+            />
           </div>
           <div className="input-box">
             <label>Numéro de téléphone</label>
@@ -25,8 +29,16 @@ const SignupForm = () => {
             <label>Mot de passe</label>
             <input type="password" required placeholder="Votre mot de passe" />
           </div>
-
-          
+          <div className="input-box">
+            <select className="dropdown">
+              <option value="" disabled selected>
+                Sélectionnez votre type de profil
+              </option>
+              <option value="admin">Admin</option>
+              <option value="dvure">Dvure</option>
+              <option value="president">Président</option>
+            </select>
+          </div>
         </form>
       </div>
     </div>
