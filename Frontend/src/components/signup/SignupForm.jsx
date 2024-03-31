@@ -4,7 +4,7 @@ import "./SignupFrom.css";
 const SignupForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("your type");
-  const types = ["Admin", "Devure", "Président"];
+  const types = ["Devure", "Président"];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
