@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignupFrom.css";
 
 const SignupForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState("your type");
+  const types = ["your type", "Admin", "Devure", "Pres"];
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const selectType = (type) => {
+    setSelectedType(type);
+    setIsOpen(false);
+  };
+
   return (
     <div>
       <div className="wrapper">
         <form action="">
-          {/* <h1>ORGA</h1>
-          <p className="slogan">ORGANISATION ET GESTION DES RESSOURCES ASSOCIATIVES</p>
-           */}
           <div className="input-box">
             <label>Prénom & Nom</label>
             <input type="text" required placeholder="Prénom  Nom" />
@@ -31,15 +41,16 @@ const SignupForm = () => {
           </div>
 
           <div className="dropdown">
-            <div className="select">
-              <span className="selected">your type</span>
-              <div className="caret"></div>
+            <div className="select" onClick={toggleDropdown}>
+              <span className="selected">{selectedType}</span>
+              <div className={`caret ${isOpen ? "caret-rotate" : ""}`}></div>
             </div>
-            <ul className="menu">
-              <li>your type</li>
-              <li>Admin</li>
-              <li>Devure</li>
-              <li>Pres</li>
+            <ul className={`menu ${isOpen ? "menu-open" : ""}`}>
+              {types.map((type, index) => (
+                <li key={index} onClick={() => selectType(type)}>
+                  {type}
+                </li>
+              ))}
             </ul>
           </div>
         </form>
