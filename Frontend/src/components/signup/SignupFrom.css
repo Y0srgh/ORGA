@@ -26,8 +26,26 @@
   outline: none;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: #7b7b7b;
   padding: 20px 45px 20px 20px;
+  font-weight: 700;
+}
+
+.input-box input::placeholder {
+    color: #cccccc;
+    font-weight: 400;
+
+}
+
+.input-box label {
+  position: absolute;
+  top: -10px; /* ajustez cette valeur selon vos besoins pour la distance entre le label et l'input */
+  left: 50px;
+  color: #1f7794;
+  background-color: white; /* pour cacher la bordure supérieure */
+  padding: 0 5px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .dropdown {
@@ -56,7 +74,7 @@
   outline: none;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: #CCCCCC;
 
   padding: 10px 55px 10px 25px;
 }
@@ -135,18 +153,5 @@
     right: 10px;
     transform: translateY(-50%);
 }
+*/
 
-.input-box input::placeholder {
-    color: #cccccc;
-}*/
-
-.input-box label {
-  position: absolute;
-  top: -10px; /* ajustez cette valeur selon vos besoins pour la distance entre le label et l'input */
-  left: 50px;
-  color: #1f7794;
-  background-color: white; /* pour cacher la bordure supérieure */
-  padding: 0 5px;
-  font-size: 15px;
-  font-weight: 700;
-}
