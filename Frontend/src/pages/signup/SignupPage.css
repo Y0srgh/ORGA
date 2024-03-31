@@ -16,10 +16,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background:orange;
-  /*background: url(./assets/background.jpg) no-repeat;
+  /*background:orange;*/
+  background: url(../../assets/audito.jpg) no-repeat;
   background-size: cover;
-  background-position: center;*/
+  background-position: center;
 }
 
 code {
