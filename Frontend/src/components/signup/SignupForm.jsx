@@ -29,15 +29,18 @@ const SignupForm = () => {
             <label>Mot de passe</label>
             <input type="password" required placeholder="Votre mot de passe" />
           </div>
-          <div className="input-box">
-            <select className="dropdown">
-              <option value="" disabled selected>
-                Sélectionnez votre type de profil
-              </option>
-              <option value="admin">Admin</option>
-              <option value="dvure">Dvure</option>
-              <option value="president">Président</option>
-            </select>
+          
+          <div className="dropdown">
+            <div className="select">
+              <span className="selected">your type</span>
+              <div className="caret"></div>
+            </div>
+            <ul className="menu">
+                <li disabled>your type</li>
+                <li>Admin</li>
+                <li>Devure</li>
+                <li>Pres</li>
+            </ul>
           </div>
         </form>
       </div>
