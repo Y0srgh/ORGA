@@ -40,7 +40,7 @@
 .input-box label {
   position: absolute;
   top: -10px; /* ajustez cette valeur selon vos besoins pour la distance entre le label et l'input */
-  left: 50px;
+  left: 45px;
   color: #1f7794;
   background-color: white; /* pour cacher la bordure supérieure */
   padding: 0 5px;
