@@ -42,7 +42,7 @@ export const addUser = async (req, res) => {
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
       return res
-        .status(400)
+        .status(409)
         .json({ message: "Un utilisateur avec ce numéro de téléphone existe déjà." });
     }
     // Creating a new user in the database
