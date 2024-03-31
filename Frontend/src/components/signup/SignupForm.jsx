@@ -53,6 +53,8 @@ const SignupForm = () => {
               ))}
             </ul>
           </div>
+          <button type="submit">S'inscrire</button>
+          
         </form>
       </div>
     </div>
