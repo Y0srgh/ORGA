@@ -155,7 +155,7 @@
 */
 
 .wrapper button {
-    width: 50%;
+    width: 60%;
     height: 45px;
     background: #1C7895;
     border: none;
@@ -167,8 +167,34 @@
     color: #fff;
     font-weight: 500;
     position: absolute; /* Change to absolute positioning */
-    left: 50%; /* Move the button to the center horizontally */
+    left: 49%; /* Move the button to the center horizontally */
     transform: translateX(-50%); /* Adjust for half of the button's width */
     bottom: 70px; /* Adjust the distance from the bottom */
 
+}
+
+.wrapper .login-link {
+    font-size: 11px;
+    text-align: center;
+    margin: 20px 0 15px;
+    font-weight: 500;
+    position: absolute;
+    bottom: 30px; /* Adjust the distance from the bottom */
+    left: 47%; /* Move the button to the center horizontally */
+    transform: translateX(-50%); /* Adjust for half of the button's width */
+}
+
+.login-link p a{
+    color: #1C7895;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.login-link p {
+    color: #C4C4C4;
+
+}
+
+.login-link p a:hover {
+    text-decoration: underline;
 }
