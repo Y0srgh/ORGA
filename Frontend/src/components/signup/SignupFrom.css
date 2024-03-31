@@ -39,4 +39,6 @@
   color: #1F7794;
   background-color: white; /* pour cacher la bordure supérieure */
   padding: 0 5px;
+  font-size: 15px;
+  font-weight: 700;
 }
