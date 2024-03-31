@@ -1,5 +1,6 @@
 import React from "react";
 import "./SignupFrom.css";
+import "./SignupForm.js";
 
 const SignupForm = () => {
   return (
@@ -29,7 +30,7 @@ const SignupForm = () => {
             <label>Mot de passe</label>
             <input type="password" required placeholder="Votre mot de passe" />
           </div>
-          
+
           <div className="dropdown">
             <div className="select">
               <span className="selected">your type</span>
