@@ -54,7 +54,11 @@ const SignupForm = () => {
             </ul>
           </div>
           <button type="submit">S'inscrire</button>
-          
+          <div className="login-link">
+            <p>
+              Avez-vous déjà un compte? <a href="#">se connecter</a>
+            </p>
+          </div>
         </form>
       </div>
     </div>
