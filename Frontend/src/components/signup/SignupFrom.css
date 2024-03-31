@@ -8,7 +8,7 @@
   color: #fff;
   border-radius: 10px;
   padding: 80px 40px;
-}
+  }
 
 .wrapper .input-box {
   position: relative;
@@ -155,7 +155,7 @@
 */
 
 .wrapper button {
-    width: 100%;
+    width: 50%;
     height: 45px;
     background: #1C7895;
     border: none;
@@ -165,5 +165,10 @@
     cursor: pointer;
     font-size: 16px;
     color: #fff;
-    font-weight: 700;
+    font-weight: 500;
+    position: absolute; /* Change to absolute positioning */
+    left: 50%; /* Move the button to the center horizontally */
+    transform: translateX(-50%); /* Adjust for half of the button's width */
+    bottom: 70px; /* Adjust the distance from the bottom */
+
 }
