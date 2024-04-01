@@ -28,6 +28,7 @@ const SignupForm = () => {
   const selectType = (type) => {
     setSelectedType(type);
     setIsOpen(false);
+    setRole(type); // Update role state with the selected type
   };
 
   return (
