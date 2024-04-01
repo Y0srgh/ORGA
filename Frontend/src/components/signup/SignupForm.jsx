@@ -46,7 +46,7 @@ const SignupForm = () => {
         enqueueSnackbar("La demande a été enregistrée avec succès!", {
           variant: "success",
         });
-        navigate("/");
+        navigate("/signup");
       })
       .catch((error) => {
         setLoading(false);
