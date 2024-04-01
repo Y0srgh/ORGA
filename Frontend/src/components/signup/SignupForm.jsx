@@ -6,8 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const SignupForm = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [role, setRole] = useState("");
+
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("Veillez choisir votre type");
+  const [selectedType, setSelectedType] = useState(
+    "Veillez choisir votre type"
+  );
   const types = ["Dvure", "Président"];
 
   const toggleDropdown = () => {
@@ -23,7 +32,7 @@ const SignupForm = () => {
     <div>
       <div className="wrapper">
         <form action="">
-            <h1>Bienvenue à bord !</h1>
+          <h1>Bienvenue à bord !</h1>
           <div className="input-box">
             <label>Prénom & Nom</label>
             <input type="text" required placeholder="Prénom  Nom" />
