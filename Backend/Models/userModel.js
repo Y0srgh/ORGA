@@ -29,6 +29,7 @@ const userSchema = mongoose.Schema(
     phoneNumber: {
       type: String,
       required: true, // Phone number of the user
+      unique: true,
     },
     role: {
       type:String,
@@ -40,6 +41,7 @@ const userSchema = mongoose.Schema(
       required: function () {
         return this.role === "Président"; // Student ID
       },
+      unique: true,
     },
     clubs: {
       type: [String],

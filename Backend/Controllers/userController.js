@@ -19,22 +19,19 @@ export const addUser = async (req, res) => {
     // Check if all required fields are provided
 
     if (
-        
-            !firstName ||
-            !lastName ||
-            !email ||
-            !password ||
-            !levelOfStudy ||
-            !phoneNumber ||
-            !role ||
-            !StudentID ||
-            !clubs
-          
-    ) {
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !levelOfStudy ||
+      !phoneNumber ||
+      !role ||
+      (role === 'Président' && (!StudentID || !clubs))
+  ) {
       return res
-        .status(400)
-        .json({ message: "Veuillez fournir tous les champs requis." });
-    }
+          .status(400)
+          .json({ message: "Veuillez fournir tous les champs requis." });
+  }
 
 
     // Check if user with the provided phone number already exists
@@ -143,8 +140,7 @@ export const updateUser = async (req, res) => {
       StudentID,
       clubs} = req.body;
   
-      if ( 
-        
+      if (
         !firstName ||
         !lastName ||
         !email ||
@@ -152,12 +148,12 @@ export const updateUser = async (req, res) => {
         !levelOfStudy ||
         !phoneNumber ||
         !role ||
-        !StudentID ||
-        !clubs) {
-        return res.status(400).json({
-          message: 'Veuillez fournir tous les champs requis',
-        });
-      }
+        (role === 'Président' && (!StudentID || !clubs))
+    ) {
+        return res
+            .status(400)
+            .json({ message: "Veuillez fournir tous les champs requis." });
+    }
   
       let updatedFields = {
       firstName,
