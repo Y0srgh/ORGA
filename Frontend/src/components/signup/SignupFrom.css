@@ -58,16 +58,16 @@
 
 .input-box {
   display: flex;
+  justify-content: space-between; /* Pour espacer les deux inputs */
 }
 
 .input-half {
-  width: 50%;
-  margin-right: 10px;
+  width: 48%;
+  position: relative; /* Pour positionner le label par rapport à cet élément */
 }
 
 .input-half label {
-  display: block;
-  margin-bottom: 5px;
+    position: absolute; /* Position absolue pour le label */
 }
 
 .dropdown {
