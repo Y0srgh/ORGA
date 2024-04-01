@@ -33,24 +33,26 @@ const SignupForm = () => {
 
   const handleSubmit = () => {
     const data = {
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNumber,
-        role,
+      firstName,
+      lastName,
+      email,
+      password,
+      phoneNumber,
+      role,
     };
     axios
-        .post('http://127.0.0.1:5500/users', data)
-        .then(()=>{
-            enqueueSnackbar('La demande a été enregistrée avec succès!', {variant: 'success'});
-            navigate("/")
-        })
-        .catch((error) => {
-            setLoading(false);
-            enqueueSnackbar('Error', {variant: 'error'});
-            console.log(error);
-          });
+      .post("http://127.0.0.1:5500/users", data)
+      .then(() => {
+        enqueueSnackbar("La demande a été enregistrée avec succès!", {
+          variant: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        enqueueSnackbar("Error", { variant: "error" });
+        console.log(error);
+      });
   };
 
   return (
@@ -59,14 +61,26 @@ const SignupForm = () => {
         <form onSubmit={handleSubmit}>
           <h1>Bienvenue à bord !</h1>
           <div className="input-box">
-            <label>Prénom & Nom</label>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              placeholder="Prénom  Nom"
-            />
+            <div className="input-half">
+              <label>Prénom</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                placeholder="Votre Prénom"
+              />
+            </div>
+            <div className="input-half">
+              <label>Nom</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                placeholder="Votre Nom"
+              />
+            </div>
           </div>
           <div className="input-box">
             <label>Adresse Email</label>
@@ -80,21 +94,23 @@ const SignupForm = () => {
           </div>
           <div className="input-box">
             <label>Numéro de téléphone</label>
-            <input 
-            type="tel" 
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required 
-            placeholder="Votre numéro" />
+            <input
+              type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+              placeholder="Votre numéro"
+            />
           </div>
           <div className="input-box">
             <label>Mot de passe</label>
-            <input 
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-            placeholder="Votre mot de passe" />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Votre mot de passe"
+            />
           </div>
 
           <div className="input-box dropdown">
