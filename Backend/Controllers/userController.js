@@ -35,12 +35,12 @@ export const addUser = async (req, res) => {
     }
 
     // Check if role is not "Président" but student-related fields are provided
-    if (role === "Président" && (!levelOfStudy || !StudentID || !clubs)) {
+    /*if (role === "Président" && (!levelOfStudy || !StudentID || !clubs)) {
       return res.status(400).json({
         message:
           "Veuillez fournir tous les champs requis pour le rôle de Président.",
       });
-    }
+    }*/
 
     // Check if role is not "Président" but student-related fields are provided
     if (role !== "Président" && (levelOfStudy || StudentID || clubs)) {
