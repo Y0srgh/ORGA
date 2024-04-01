@@ -171,6 +171,13 @@ export const updateUser = async (req, res) => {
       });
     }
 
+    if (role !== "Président" && (levelOfStudy || StudentID || clubs)) {
+      return res.status(400).json({
+        message:
+          "Vous ne pouvez pas mettre à jour des informations spécifiques aux étudiants pour un rôle autre que Président.",
+      });
+    }
+
     let updatedFields = {
       firstName,
       lastName,
