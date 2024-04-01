@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SignupFrom.css";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +58,7 @@ const SignupForm = () => {
           <button type="submit">S'inscrire</button>
           <div className="login-link">
             <p>
-              Avez-vous déjà un compte? <a href="#">se connecter</a>
+              Avez-vous déjà un compte? <Link href="#">se connecter</Link>
             </p>
           </div>
         </form>
