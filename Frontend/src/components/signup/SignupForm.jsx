@@ -19,6 +19,7 @@ const SignupForm = () => {
     <div>
       <div className="wrapper">
         <form action="">
+            <h1>Bienvenue à bord !</h1>
           <div className="input-box">
             <label>Prénom & Nom</label>
             <input type="text" required placeholder="Prénom  Nom" />
