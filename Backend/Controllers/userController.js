@@ -34,7 +34,7 @@ export const addUser = async (req, res) => {
         .json({ message: "Veuillez fournir tous les champs requis." });
     }
 
-    // Check if role is "Président" and required fields for students are missing
+    // Check if role is not "Président" but student-related fields are provided
     if (role !== "Président" && (!levelOfStudy || !StudentID || !clubs)) {
       return res.status(400).json({
         message:
