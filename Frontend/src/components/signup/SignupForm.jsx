@@ -55,7 +55,7 @@ const SignupForm = () => {
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar('Error', { variant: 'error' });
+        enqueueSnackbar('Error lors de l\'inscription', { variant: 'error' });
         console.log(error);
       });
   };
