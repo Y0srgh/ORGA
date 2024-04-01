@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 
 export const addUser = async (req, res) => {
   try {
-    // Destructure request body to extract user data
     const {
       firstName,
       lastName,
@@ -17,49 +16,11 @@ export const addUser = async (req, res) => {
     } = req.body;
 
     // Check if all required fields are provided
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      //
-      !phoneNumber ||
-      !role
-      //
-      //
-    ) {
-      return res
-        .status(400)
-        .json({ message: "Veuillez fournir tous les champs requis." });
+    if (!firstName || !lastName || !email || !password || !phoneNumber || !role) {
+      return res.status(400).json({ message: "Veuillez fournir tous les champs requis." });
     }
 
-    // Check if role is not "Président" but student-related fields are provided
-    /*if (role === "Président" && (!levelOfStudy || !StudentID || !clubs)) {
-      return res.status(400).json({
-        message:
-          "Veuillez fournir tous les champs requis pour le rôle de Président.",
-      });
-    }*/
-
-    // Check if role is not "Président" but student-related fields are provided
-    if (role !== "Président" && (levelOfStudy || StudentID || clubs)) {
-      return res.status(400).json({
-        message:
-          "Vous ne pouvez pas ajouter des informations spécifiques aux étudiants.",
-      });
-    }
-
-    // Check if user with the provided phone number already exists
-
-    const existingUser = await User.findOne({ phoneNumber });
-    if (existingUser) {
-      return res.status(409).json({
-        message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
-      });
-    }
     // Creating a new user in the database
-
     const newUser = await User.create({
       firstName,
       lastName,
@@ -67,9 +28,9 @@ export const addUser = async (req, res) => {
       password,
       phoneNumber,
       role,
-      levelOfStudy,
-      StudentID,
-      clubs,
+      levelOfStudy: role === "Président" ? levelOfStudy : null, // Provide levelOfStudy only if the role is "Président"
+      StudentID: role === "Président" ? StudentID : null, // Provide StudentID only if the role is "Président"
+      clubs: role === "Président" ? clubs : null, // Provide clubs only if the role is "Président"
     });
 
     return res.status(201).json(newUser);
