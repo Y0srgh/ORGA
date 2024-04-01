@@ -36,33 +36,27 @@ export const addUser = async (req, res) => {
 
     // Check if role is "Président" and required fields for students are missing
     if (role === "Président" && (!levelOfStudy || !StudentID || !clubs)) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Veuillez fournir tous les champs requis pour le rôle de Président.",
-        });
+      return res.status(400).json({
+        message:
+          "Veuillez fournir tous les champs requis pour le rôle de Président.",
+      });
     }
 
     // Check if role is not "Président" but student-related fields are provided
     if (role === "Dvure" && (levelOfStudy || StudentID || clubs)) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Vous ne pouvez pas ajouter des informations spécifiques aux étudiants.",
-        });
+      return res.status(400).json({
+        message:
+          "Vous ne pouvez pas ajouter des informations spécifiques aux étudiants.",
+      });
     }
 
     // Check if user with the provided phone number already exists
 
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
-      return res
-        .status(409)
-        .json({
-          message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
-        });
+      return res.status(409).json({
+        message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
+      });
     }
     // Creating a new user in the database
 
@@ -163,6 +157,7 @@ export const updateUser = async (req, res) => {
       clubs,
     } = req.body;
 
+    // Check if all required fields are provided
     if (
       !firstName ||
       !lastName ||
