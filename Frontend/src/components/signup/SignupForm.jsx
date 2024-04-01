@@ -33,7 +33,7 @@ const SignupForm = () => {
   return (
     <div>
       <div className="wrapper">
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <h1>Bienvenue à bord !</h1>
           <div className="input-box">
             <label>Prénom & Nom</label>
