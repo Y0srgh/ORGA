@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "./SignupFrom.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import "./SignupFrom.css";
 
 const SignupForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -31,25 +30,27 @@ const SignupForm = () => {
     setRole(type); // Update role state with the selected type
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const levelOfStudy = 1;
+    const StudentID = '2100'
     const data = {
       firstName,
       lastName,
       email,
       password,
       phoneNumber,
+      levelOfStudy,
+      StudentID,
       role,
     };
-    axios
-      .post("http://127.0.0.1:5500/users", data)
+    await axios
+      .post("http://localhost:5500/users", data)
       .then(() => {
-        enqueueSnackbar("La demande a été enregistrée avec succès!", {
-          variant: "success",
-        });
+        enqueueSnackbar("La demande a été enregistrée avec succès!", {variant: 'success'});
         navigate("/signup");
       })
       .catch((error) => {
-        setLoading(false);
         enqueueSnackbar("Error", { variant: "error" });
         console.log(error);
       });
