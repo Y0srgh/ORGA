@@ -31,6 +31,28 @@ const SignupForm = () => {
     setRole(type); // Update role state with the selected type
   };
 
+  const handleSubmit = () => {
+    const data = {
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNumber,
+        role,
+    };
+    axios
+        .post('http://127.0.0.1:5500/users', data)
+        .then(()=>{
+            enqueueSnackbar('La demande a été enregistrée avec succès!', {variant: 'success'});
+            navigate("/")
+        })
+        .catch((error) => {
+            setLoading(false);
+            enqueueSnackbar('Error', {variant: 'error'});
+            console.log(error);
+          });
+  };
+
   return (
     <div>
       <div className="wrapper">
