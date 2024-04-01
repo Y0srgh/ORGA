@@ -171,6 +171,7 @@ export const updateUser = async (req, res) => {
       });
     }
 
+    // Check if role is not "Président" but student-related fields are provided
     if (role !== "Président" && (levelOfStudy || StudentID || clubs)) {
       return res.status(400).json({
         message:
