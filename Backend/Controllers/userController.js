@@ -191,9 +191,9 @@ export const updateUser = async (req, res) => {
       lastName,
       email,
       password,
-      levelOfStudy,
       phoneNumber,
       role,
+      levelOfStudy,
       StudentID,
       clubs,
     };
