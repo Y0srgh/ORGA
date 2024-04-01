@@ -37,7 +37,12 @@ const SignupForm = () => {
           <h1>Bienvenue à bord !</h1>
           <div className="input-box">
             <label>Prénom & Nom</label>
-            <input type="text" required placeholder="Prénom  Nom" />
+            <input 
+            type="text" 
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required 
+            placeholder="Prénom  Nom" />
           </div>
           <div className="input-box">
             <label>Adresse Email</label>
