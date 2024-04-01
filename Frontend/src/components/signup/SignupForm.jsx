@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSnackbar } from "notistack";
+import { SnackbarProvider, useSnackbar } from "notistack";
 import "./SignupFrom.css";
 
 const SignupForm = () => {
@@ -12,7 +12,6 @@ const SignupForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(
@@ -30,9 +29,11 @@ const SignupForm = () => {
     setRole(type); // Update role state with the selected type
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const data = {
       firstName,
       lastName,
@@ -42,19 +43,19 @@ const SignupForm = () => {
       role,
     };
     if (role === "Président") {
-        data.levelOfStudy = 1;
-        data.StudentID = "2100";
+      data.levelOfStudy = 1;
+      data.StudentID = "2100";
     }
     await axios
       .post("http://localhost:5500/users", data)
       .then(() => {
-        enqueueSnackbar("La demande a été enregistrée avec succès!", {
-          variant: "success",
+        enqueueSnackbar('La demande a été enregistrée avec succès!', {
+          variant: 'success',
         });
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar("Error", { variant: "error" });
+        enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
   };

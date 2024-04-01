@@ -1,10 +1,13 @@
 import React from "react";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import SignupForm from "../../components/signup/SignupForm";
-import "./SignupPage.css"
+import "./SignupPage.css";
 const SignupPage = () => {
   return (
     <div>
-      <SignupForm />
+      <SnackbarProvider  autoHideDuration={3000}>
+        <SignupForm />
+      </SnackbarProvider>
     </div>
   );
 };
