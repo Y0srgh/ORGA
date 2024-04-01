@@ -59,12 +59,19 @@ const SignupForm = () => {
             <label>Numéro de téléphone</label>
             <input 
             type="tel" 
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             required 
             placeholder="Votre numéro" />
           </div>
           <div className="input-box">
             <label>Mot de passe</label>
-            <input type="password" required placeholder="Votre mot de passe" />
+            <input 
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+            placeholder="Votre mot de passe" />
           </div>
 
           <div className="input-box dropdown">
