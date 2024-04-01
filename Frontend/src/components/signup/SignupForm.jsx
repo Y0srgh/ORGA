@@ -12,6 +12,8 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("");
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(
