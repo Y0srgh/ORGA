@@ -43,6 +43,12 @@ export const addUser = async (req, res) => {
         .json({ message: "Veuillez fournir tous les champs requis pour le rôle de Président." });
     }
 
+    if (role === "Dvure" && (levelOfStudy || StudentID || clubs)) {
+      return res
+        .status(400)
+        .json({ message: "Vous ne pouvez pas ajouter des informations spécifiques aux étudiants." });
+    }
+
 
     // Check if user with the provided phone number already exists
 
