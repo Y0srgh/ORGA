@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema(
       required: function () {
         return this.role === "Président"; // Level of study required only if the role is "Président"
       },
+      default: null 
     },
     phoneNumber: {
       type: String,
@@ -41,12 +42,14 @@ const userSchema = mongoose.Schema(
       required: function () {
         return this.role === "Président"; // Student ID
       },
+      default: null 
     },
     clubs: {
       type: [String],
       required: function () {
         return this.role === "Président"; // Clubs information required only if the role is "Président"
       },
+      default: null 
     },
   },
   {
