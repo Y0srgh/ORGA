@@ -24,13 +24,19 @@ export const addUser = async (req, res) => {
             !lastName ||
             !email ||
             !password ||
-            !levelOfStudy ||
+            //
             !phoneNumber ||
-            !role ||
-            !StudentID ||
-            !clubs
+            !role 
+            //
+            //
           
-    ) {
+    ){
+      return res
+        .status(400)
+        .json({ message: "Veuillez fournir tous les champs requis." });
+    }
+
+    if(((role)&&(role==="Président"))&&(!levelOfStudy ||!StudentID ||!clubs)){
       return res
         .status(400)
         .json({ message: "Veuillez fournir tous les champs requis." });
