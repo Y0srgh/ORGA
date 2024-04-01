@@ -1,36 +1,34 @@
-import mongoose from "mongoose"; // Import Mongoose for MongoDB interaction
-// Importer l'URL de MongoDB et la configuration du port
-import { mongoDBURL, PORT } from "./Configurations/config.js"; 
-import  cors  from "cors";
+import mongoose from "mongoose";
+import express from "express";
+import cors from "cors";
+import { mongoDBURL, PORT } from "./Configurations/config.js";
 import userRoutes from "./Routes/userRoutes.js";
-// Import Express framework
-import express from "express"; 
-export const app = express(); 
 
-// Middleware pour l'analyse du corps de la requête (parsing request body)
+export const app = express();
+
+// Middleware for parsing request body
 app.use(express.json());
-// Mount userRoutes middleware at the '/users' path
-app.use('/users',userRoutes);
 
-// Middleware for handling CORS POLICY
-// option 1: Allow All Origins with Default of cors(*)
+// Enable CORS
 app.use(cors());
 
-// Option 2: Allow Custom Origins
-/*app.use(
-    cors({
-        origin: 'http://localhost:5173',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type'],
-    })
-)*/
+// Mount userRoutes middleware at the '/users' path
+app.use('/users', userRoutes);
 
-// Se connecter à la base de données MongoDB Atlas
+// Set up route to handle OPTIONS requests for CORS preflight
+app.options('*', cors());
+
+// Set up middleware to add CORS headers to all responses
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
+
 mongoose.connect(mongoDBURL)
     .then(() => {
         console.log("App connected to database");
-
-        // Start Express server to listen for incoming requests on specified port
         app.listen(PORT, () => console.log(`Server running on port ${PORT} 🔥`));
     })
     .catch((error) => {
