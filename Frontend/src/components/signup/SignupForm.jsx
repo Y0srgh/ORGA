@@ -32,22 +32,25 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const levelOfStudy = 1;
-    const StudentID = '2100'
+    
     const data = {
       firstName,
       lastName,
       email,
       password,
       phoneNumber,
-      levelOfStudy,
-      StudentID,
       role,
     };
+    if (role === "Président") {
+        data.levelOfStudy = 1;
+        data.StudentID = "2100";
+    }
     await axios
       .post("http://localhost:5500/users", data)
       .then(() => {
-        enqueueSnackbar("La demande a été enregistrée avec succès!", {variant: 'success'});
+        enqueueSnackbar("La demande a été enregistrée avec succès!", {
+          variant: "success",
+        });
         navigate("/signup");
       })
       .catch((error) => {
