@@ -15,7 +15,7 @@ const SignupForm = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(
-    "Veillez choisir votre type de profil"
+    "Choisissez votre type de profil"
   );
   const types = ["Dvure", "Président"];
 

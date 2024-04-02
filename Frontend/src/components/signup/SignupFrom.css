@@ -165,16 +165,6 @@
   opacity: 1;
 }
 
-/*
-.input-box .select:after {
-    content: "\25BC"; 
-     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-}
-*/
-
 .wrapper button {
   width: 60%;
   height: 45px;
