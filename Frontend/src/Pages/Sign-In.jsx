@@ -14,14 +14,17 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:5500/users/login`, {
-      email,
-      password,
-    }).then((response) => {
-     navigate('/home');
-    }).catch((error) => {
-      console.log(error);
-    });;
+    axios
+      .post(`http://localhost:5500/users/login`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
