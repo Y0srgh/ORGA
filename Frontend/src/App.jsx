@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import SignIn from './Pages/Sign-In';
 
 const App = () => {
   return (
-    <div>App</div>
-  )
+   
+      <Routes>
+        <Route exact path="/" element={<SignIn/>} />
+      </Routes>
+  );
 }
 
-export default App
+export default App;
