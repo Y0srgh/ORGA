@@ -230,6 +230,8 @@ export const loginUser = async (req, res) => {
       }
       const token=jwt.sign({id:user._id},JWT_SECRET,{expiresIn:'1h'});
       res.cookie('token',token,{maxAge:360000,httpOnly:true});
+
+
       return res.status(200).json({message:"Utilisateur connecté avec succès."});
     }
     catch (error) {
