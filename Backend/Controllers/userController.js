@@ -20,6 +20,12 @@ export const addUser = async (req, res) => {
       return res.status(400).json({ message: "Veuillez fournir tous les champs requis." });
     }
 
+    // Check if user with provided phone number already exists
+    const existingUser = await User.findOne({ phoneNumber });
+    if (existingUser) {
+      return res.status(400).json({ message: "Un utilisateur avec ce numéro de téléphone existe déjà." });
+    }
+
     // Creating a new user in the database
     const newUser = await User.create({
       firstName,
