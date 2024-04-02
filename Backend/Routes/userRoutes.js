@@ -22,8 +22,8 @@ router.get("/", findAllUsers);
 // Endpoint for retrieving a specific user by ID
 router.get("/:id", findOneUser);
 
-// Endpoint for updating a user's password by ID
-router.put("/update-password/:id", updatePassword);
+// Endpoint for updating a user's password 
+router.put("/update-password", updatePassword);
 
 // Endpoint for updating a user's details by ID
 router.put("/update-details/:id", updateUser);
