@@ -1,5 +1,7 @@
 import { User } from "../Models/userModel.js";
 import bcrypt from "bcrypt";
+import JWT_SECRET from "../Configurations/config.js";
+import jwt from "jsonwebtoken"; 
 
 export const addUser = async (req, res) => {
   try {
@@ -210,3 +212,29 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+
+export const loginUser = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+  
+      // Vérification si l'utilisateur existe
+      const user = await User.findOne({ email });
+      if(!user){
+        return res.status(404).json({ message: "Utilisateur non trouvé." });  
+      }
+      const validPassword = await bcrypt.compare(password, user.password);
+      if(!validPassword){
+        return res.status(400).json({ message: "Mot de passe incorrect." });
+      }
+      const token=jwt.sign({id:user._id},JWT_SECRET,{expiresIn:'1h'});
+      res.cookie('token',token,{maxAge:360000,httpOnly:true});
+      return res.status(200).json({message:"Utilisateur connecté avec succès."});
+    }
+    catch (error) {
+      console.error("Erreur lors de la connexion de l'utilisateur :", error);
+      return res.status(500).json({
+        message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
+      });
+    }
+  }
