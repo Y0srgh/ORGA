@@ -6,7 +6,8 @@ import {
   findOneUser,
   updatePassword,
   updateUser,
-  loginUser
+  loginUser,
+  forgotPassword,
 } from "../Controllers/userController.js";
 
 // Creating an Express router instance
@@ -31,5 +32,8 @@ router.put("/update-details/:id", updateUser);
 router.delete("/:id", deleteUser);
 // Endpoint for logging in a user
 router.post("/login", loginUser);
+
+router.post("/forgot-password", forgotPassword);
+
 // Exporting the router to make it available for other modules
 export default router;

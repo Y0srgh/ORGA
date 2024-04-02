@@ -2,7 +2,7 @@ import { User } from "../Models/userModel.js";
 import bcrypt from "bcrypt";
 import {JWT_SECRET} from "../Configurations/config.js";
 import jwt from "jsonwebtoken"; 
-
+import nodemailer from "nodemailer";
 export const addUser = async (req, res) => {
   try {
     // Destructure request body to extract user data
@@ -212,6 +212,52 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'zaynebfathalli1661@gmail.com',
+        pass: 'yzzq flkk iaka eckh'
+      }
+    });
+    
+    var mailOptions = {
+      from: 'zaynebfathalli1661@gmail.com',
+      to: email,
+      subject: 'Réinitialisation du mot de passe',
+      text: 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : http://localhost:5173/reset-password/${token}'	
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        return res.status(400).json({ message: "Une erreur est survenue lors de l'envoi de l'email." });
+      } else {
+        return res.status(200).json({ message: "Email envoyé avec succès." });
+      }
+    });
+
+}
+catch (error) {  
+  console.error("Erreur lors de la récupération de l'utilisateur :", error);
+  return res.status(500).json({
+    message: "Une erreur est survenue lors de la récupération de l'utilisateur.",
+  });
+  
+
+}};
+
+
+
+
+
+
 
 
 export const loginUser = async (req, res) => {

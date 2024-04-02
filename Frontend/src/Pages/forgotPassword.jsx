@@ -1,28 +1,48 @@
 import React, { useState } from 'react';
+import Input from '../Components/Input';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+//here
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post(`http://localhost:5500/users/forgot-password`, {
+      email,
+    }).then((response) => {
+     navigate('/login');
+    }).catch((error) => {
+      console.log(error);
+    });;
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Here you would typically send the email to your backend service
-        console.log(`Password reset link has been sent to ${email}`);
-    };
 
     return (
-        <div>
-            <h2>Forgot Password</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit">Send Password Reset Link</button>
+        <div className="forgot-password-container container">
+            <form className="forgot-password-form form-group" onSubmit={handleSubmit}>
+                <h2>Mot de passe oublié</h2>
+                <Input
+                    type="email"
+                    autoComplete="off"
+                    placeholder="prenom.nom@insat.ucar.tn"
+                    className="form-control"
+                    label="Adresse Email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <button type="submit" className=" reset-pwd mt-3">
+                    Réinitialiser le mot de passe
+                </button>
+                <p id="create-account">
+                    Vous n'avez pas un compte ?{" "}
+                    <Link id="create-account-link" to="/sign-up">
+                        Créer un compte
+                    </Link>
+                </p>
             </form>
         </div>
     );
