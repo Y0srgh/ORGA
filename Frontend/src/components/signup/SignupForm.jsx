@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "./SignupFrom.css";
 
@@ -55,7 +55,7 @@ const SignupForm = () => {
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar('Error lors de l\'inscription', { variant: 'error' });
+        enqueueSnackbar(error.response.data.message, { variant: 'error' });
         console.log(error);
       });
   };
