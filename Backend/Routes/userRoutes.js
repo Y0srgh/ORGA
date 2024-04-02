@@ -28,6 +28,7 @@ router.put("/update-details/:id", updateUser);
 
 // Endpoint for deleting a user by ID
 router.delete("/:id", deleteUser);
-
+// Endpoint for logging in a user
+router.post("/login", loginUser);
 // Exporting the router to make it available for other modules
 export default router;
