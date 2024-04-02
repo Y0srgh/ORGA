@@ -3,6 +3,7 @@ import mongoose from "mongoose"; // Import Mongoose for MongoDB interaction
 import { mongoDBURL, PORT } from "./Configurations/config.js"; 
 import  cors  from "cors";
 import userRoutes from "./Routes/userRoutes.js";
+import cookieParser from "cookie-parser";
 // Import Express framework
 import express from "express"; 
 export const app = express(); 
@@ -24,7 +25,8 @@ app.use(cors());
         allowedHeaders: ['Content-Type'],
     })
 )*/
-
+// Middleware for parsing cookies
+app.use(cookieParser());
 // Se connecter à la base de données MongoDB Atlas
 mongoose.connect(mongoDBURL)
     .then(() => {
