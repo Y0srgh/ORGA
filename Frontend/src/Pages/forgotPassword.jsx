@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../Components/Input';
 import { Link, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     axios.post(`http://localhost:5500/users/forgot-password`, {
       email,
     }).then((response) => {
-     navigate('/login');
+     navigate('/');
     }).catch((error) => {
       console.log(error);
     });;

@@ -227,15 +227,16 @@ export const forgotPassword = async (req, res) => {
         pass: 'yzzq flkk iaka eckh'
       }
     });
-    
+    const token=jwt.sign({id:user._id},JWT_SECRET,{expiresIn:'5m'});
+
     var mailOptions = {
       from: 'zaynebfathalli1661@gmail.com',
       to: email,
       subject: 'Réinitialisation du mot de passe',
-      text: 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : http://localhost:5173/reset-password/${token}'	
+      text: `Cliquez sur le lien suivant pour réinitialiser votre mot de passe : http://localhost:5173/reset-password/${token}`
     };
     
-    transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, function(error){
       if (error) {
         return res.status(400).json({ message: "Une erreur est survenue lors de l'envoi de l'email." });
       } else {
@@ -277,7 +278,7 @@ export const loginUser = async (req, res) => {
       const token=jwt.sign({id:user._id},JWT_SECRET,{expiresIn:'1h'});
       res.cookie('token',token,{maxAge:360000,httpOnly:true});
 
-
+      
       return res.status(200).json({message:"Utilisateur connecté avec succès."});
     }
     catch (error) {
