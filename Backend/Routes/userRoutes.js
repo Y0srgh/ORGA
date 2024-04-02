@@ -6,6 +6,7 @@ import {
   findOneUser,
   updatePassword,
   updateUser,
+  loginUser
 } from "../Controllers/userController.js";
 
 // Creating an Express router instance

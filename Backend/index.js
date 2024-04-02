@@ -10,12 +10,20 @@ export const app = express();
 
 // Middleware pour l'analyse du corps de la requête (parsing request body)
 app.use(express.json());
+app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        credentials:true,
+    })
+);
 // Mount userRoutes middleware at the '/users' path
 app.use('/users',userRoutes);
 
 // Middleware for handling CORS POLICY
 // option 1: Allow All Origins with Default of cors(*)
-app.use(cors());
+//app.use(cors());
+
+
 
 // Option 2: Allow Custom Origins
 /*app.use(

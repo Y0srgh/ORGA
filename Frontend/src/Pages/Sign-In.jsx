@@ -2,30 +2,40 @@ import React from "react";
 import "./design/signIn.css";
 import { Link } from "react-router-dom";
 import Input from "../Components/Input.jsx";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/auth/login", {
-      email: email,
-      password: password,
+    axios.post(`http://localhost:5500/users/login`, {
+      email,
+      password,
     }).then((response) => {
-      if (response.data.status)
-      navigate("/accueil");
-    });
+     navigate('/home');
+    }).catch((error) => {
+      console.log(error);
+    });;
   };
+
   return (
     <div className="sign-in-container container">
-      <form className="sign-in-form form-group" action="">
+      <form className="sign-in-form form-group" onSubmit={handleSubmit}>
         <Input
           type="email"
           autoComplete="off"
-          placeholder="John.doe@insat.ucar.tn"
+          placeholder="prenom.nom@insat.ucar.tn"
           className="form-control"
           label="Adresse Email"
           id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Input
           type="password"
@@ -33,6 +43,8 @@ const SignIn = () => {
           className="form-control"
           label="Mot de passe"
           id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Link
           id="forgot-password-link"

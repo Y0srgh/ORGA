@@ -1,6 +1,6 @@
 import { User } from "../Models/userModel.js";
 import bcrypt from "bcrypt";
-import JWT_SECRET from "../Configurations/config.js";
+import {JWT_SECRET} from "../Configurations/config.js";
 import jwt from "jsonwebtoken"; 
 
 export const addUser = async (req, res) => {
@@ -217,7 +217,8 @@ export const deleteUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-  
+        console.log(email,password);
+
       // Vérification si l'utilisateur existe
       const user = await User.findOne({ email });
       if(!user){
