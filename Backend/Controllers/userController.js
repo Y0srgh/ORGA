@@ -86,9 +86,10 @@ export const updatePassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-
+    const salt = await bcrypt.genSalt(10)
+    
     // Hachage du nouveau mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Mettre à jour le mot de passe de l'utilisateur avec le mot de passe haché
     user.password = hashedPassword;
