@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "intsall-backend-dependencies": "npm i cors@2.8.5 express@4.19.2 mongodb@6.5.0 mongoose@8.2.4 nodemon@3.1.0 bcrypt@5.1.1 chai@^5.1.0 mocha@^10.4.0 supertest@^6.3.4"
+    "intsall-backend-dependencies": "npm i cors@2.8.5 express@4.19.2 mongodb@6.5.0 mongoose@8.2.4 nodemon@3.1.0 bcrypt@5.1.1 chai@5.1.0 mocha@10.4.0 supertest@6.3.4 validator@13.11.0 "
   },
   "keywords": [],
   "author": "",
