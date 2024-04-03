@@ -25,17 +25,14 @@ export const addUser = async (req, res) => {
       !lastName ||
       !email ||
       !password ||
-      !levelOfStudy ||
       !phoneNumber ||
       !role ||
-      (role === "Président" && (!StudentID || !clubs))
+      (role === "Président" && (!StudentID || !clubs || !levelOfStudy))
     ) {
       return res
         .status(400)
         .json({ message: "Veuillez fournir tous les champs requis." });
     }
-
-    // Check if user with the provided phone number already exists
 
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
@@ -43,7 +40,6 @@ export const addUser = async (req, res) => {
         message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
       });
     }
-    // Creating a new user in the database
 
     const newUser = await User.create({
       firstName,
@@ -59,7 +55,6 @@ export const addUser = async (req, res) => {
 
     return res.status(201).json(newUser);
   } catch (error) {
-    console.error("Erreur lors de l'ajout de l'utilisateur :", error);
     return res.status(500).json({
       message: "Une erreur est survenue lors de l'ajout de l'utilisateur.",
     });
@@ -68,14 +63,12 @@ export const addUser = async (req, res) => {
 
 export const findAllUsers = async (req, res) => {
   try {
-    // Find all users in the database
     const users = await User.find({});
     return res.status(200).json({
       count: users.length,
       data: users,
     });
   } catch (error) {
-    console.error("Erreur lors de la récupération des utilisateurs :", error);
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la récupération des utilisateurs.",
@@ -89,42 +82,32 @@ export const findOneUser = async (req, res) => {
     const user = await User.findById(id);
     return res.status(200).json(user);
   } catch (error) {
-    console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 };
 
 export const updatePassword = async (req, res) => {
-  console.log("updatePassword");
   try {
+    // Destructure request body to extract password and token
     const { password } = req.body;
-    console.log(password);
     const { token } = req.params;
+    // Verify the token
     const decodedToken = jwt.verify(token, JWT_SECRET);
     const id = decodedToken.id;
-    console.log(decodedToken.id);
-    // Vérification si l'utilisateur existe
+
     const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-
-    // Hachage du nouveau mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("new password",password, hashedPassword);
-    // Mettre à jour le mot de passe de l'utilisateur avec le mot de passe haché
-    user.password = hashedPassword;
+    // modification du mot de passe
+    user.password = password;
     await user.save();
 
     return res
       .status(200)
       .json({ message: "Mot de passe mis à jour avec succès." });
   } catch (error) {
-    console.error(
-      "Erreur lors de la mise à jour du mot de passe de l'utilisateur :",
-      error
-    );
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la mise à jour du mot de passe.",
@@ -155,7 +138,7 @@ export const updateUser = async (req, res) => {
       !levelOfStudy ||
       !phoneNumber ||
       !role ||
-      (role === "Président" && (!StudentID || !clubs))
+      (role === "Président" && (!StudentID || !clubs || !levelOfStudy))
     ) {
       return res
         .status(400)
@@ -173,7 +156,7 @@ export const updateUser = async (req, res) => {
       StudentID,
       clubs,
     };
-    // If password is provided, hash it
+
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       updatedFields.password = hashedPassword;
@@ -191,7 +174,6 @@ export const updateUser = async (req, res) => {
       .status(200)
       .json({ message: "Utilisateur mis à jour avec succès." });
   } catch (error) {
-    console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la mise à jour de l'utilisateur.",
@@ -203,7 +185,6 @@ export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Vérification si l'utilisateur existe
     const user = await User.findByIdAndDelete(id);
 
     if (!user) {
@@ -214,7 +195,6 @@ export const deleteUser = async (req, res) => {
       .status(200)
       .json({ message: "Utilisateur supprimé avec succès." });
   } catch (error) {
-    console.error("Erreur lors de la suppression de l'utilisateur :", error);
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la suppression de l'utilisateur.",
@@ -229,6 +209,7 @@ export const forgotPassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
+    // envoi d'un email de réinitialisation du mot de passe
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -236,15 +217,17 @@ export const forgotPassword = async (req, res) => {
         pass: "yzzq flkk iaka eckh",
       },
     });
+    // Création du token avec une durée de validité de 5 minutes
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "5m" });
-
+    // le contenu de l'email et les informations du destinataire
     var mailOptions = {
       from: "zaynebfathalli1661@gmail.com",
       to: email,
       subject: "Réinitialisation du mot de passe",
+      // le lien qui redirige vers la page de réinitialisation
       text: `Cliquez sur le lien suivant pour réinitialiser votre mot de passe : http://localhost:5173/reset-password/${token}`,
     };
-
+    // envoi de l'email
     transporter.sendMail(mailOptions, function (error) {
       if (error) {
         return res.status(400).json({
@@ -255,7 +238,6 @@ export const forgotPassword = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("Erreur lors de la récupération de l'utilisateur :", error);
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la récupération de l'utilisateur.",
@@ -266,22 +248,18 @@ export const forgotPassword = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
-
-    // Vérification si l'utilisateur existe
+    // Vérification de l'existence de l'utilisateur
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    console.log(user);
     // Vérification du mot de passe
     const validPassword = await bcrypt.compare(password, user.password);
-    const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("login pwd ",hashedPassword);
-    console.log("db password",user.password);
+
     if (!validPassword) {
       return res.status(400).json({ message: "Mot de passe incorrect." });
     }
+    // Création du token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
     res.cookie("token", token, { maxAge: 360000, httpOnly: true });
 
@@ -289,7 +267,6 @@ export const loginUser = async (req, res) => {
       .status(200)
       .json({ message: "Utilisateur connecté avec succès." });
   } catch (error) {
-    console.error("Erreur lors de la connexion de l'utilisateur :", error);
     return res.status(500).json({
       message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
     });
