@@ -23,7 +23,7 @@ router.get("/", findAllUsers);
 router.get("/:id", findOneUser);
 
 // Endpoint for updating a user's password 
-router.put("/update-password", updatePassword);
+router.post("/update-password/:token", updatePassword);
 
 // Endpoint for updating a user's details by ID
 router.put("/update-details/:id", updateUser);

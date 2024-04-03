@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Input from "../Components/Input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { JWT_SECRET } from "../../../Backend/Configurations/config";
-import jwt from "jsonwebtoken";
+
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const { token } = useParams();
@@ -12,9 +11,10 @@ const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+console.log(token);
+console.log('before update password request');
     axios
-      .post("http://localhost:5500/users//update-password/"+token, {
+      .post("http://localhost:5500/users/update-password/"+token, {
         password,
       })
       .then((response) => {

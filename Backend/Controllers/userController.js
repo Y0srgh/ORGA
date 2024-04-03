@@ -39,11 +39,9 @@ export const addUser = async (req, res) => {
 
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({
-          message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
-        });
+      return res.status(400).json({
+        message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
+      });
     }
     // Creating a new user in the database
 
@@ -97,19 +95,24 @@ export const findOneUser = async (req, res) => {
 };
 
 export const updatePassword = async (req, res) => {
+  console.log("updatePassword");
   try {
-    const { id } = req.params;
     const { password } = req.body;
-
+    console.log(password);
+    const { token } = req.params;
+    const decodedToken = jwt.verify(token, JWT_SECRET);
+    const id = decodedToken.id;
+    console.log(decodedToken.id);
     // Vérification si l'utilisateur existe
     const user = await User.findById(id);
+
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
 
     // Hachage du nouveau mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    console.log("new password",password, hashedPassword);
     // Mettre à jour le mot de passe de l'utilisateur avec le mot de passe haché
     user.password = hashedPassword;
     await user.save();
@@ -244,11 +247,9 @@ export const forgotPassword = async (req, res) => {
 
     transporter.sendMail(mailOptions, function (error) {
       if (error) {
-        return res
-          .status(400)
-          .json({
-            message: "Une erreur est survenue lors de l'envoi de l'email.",
-          });
+        return res.status(400).json({
+          message: "Une erreur est survenue lors de l'envoi de l'email.",
+        });
       } else {
         return res.status(200).json({ message: "Email envoyé avec succès." });
       }
@@ -272,7 +273,12 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
+    console.log(user);
+    // Vérification du mot de passe
     const validPassword = await bcrypt.compare(password, user.password);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("login pwd ",hashedPassword);
+    console.log("db password",user.password);
     if (!validPassword) {
       return res.status(400).json({ message: "Mot de passe incorrect." });
     }
