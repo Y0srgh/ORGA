@@ -6,7 +6,6 @@ import "./SignupFrom.css";
 
 const RegestrationForm = () => {
   const [userName, setUserName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -106,15 +105,19 @@ const RegestrationForm = () => {
               placeholder="Votre mot de passe"
             />
           </div>
-          <div className="input-box">
-            <label>Confirmation du Mot de passe</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Votre mot de passe"
-            />
+
+          <div className="input-box dropdown">
+            <div className="select" onClick={toggleDropdown}>
+              <span className="selected">{selectedType}</span>
+              <div className={`caret ${isOpen ? "caret-rotate" : ""}`}></div>
+            </div>
+            <ul className={`menu ${isOpen ? "menu-open" : ""}`}>
+              {types.map((type, index) => (
+                <li key={index} onClick={() => selectType(type)}>
+                  {type}
+                </li>
+              ))}
+            </ul>
           </div>
           <button type="submit">S'inscrire</button>
           <div className="login-link">
