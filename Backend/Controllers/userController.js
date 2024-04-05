@@ -1,5 +1,6 @@
 import { User } from "../Models/userModel.js";
 import bcrypt from "bcrypt";
+import validator from "validator"
 
 export const addUser = async (req, res) => {
   try {
