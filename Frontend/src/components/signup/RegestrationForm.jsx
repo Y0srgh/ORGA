@@ -4,8 +4,8 @@ import axios, { AxiosError } from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "./SignupFrom.css";
 
-const SignupForm = () => {
-  const [firstName, setFirstName] = useState("");
+const RegestrationForm = () => {
+  const [userName, setUserName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,13 +49,13 @@ const SignupForm = () => {
     await axios
       .post("http://localhost:5500/users", data)
       .then(() => {
-        enqueueSnackbar('La demande a été enregistrée avec succès!', {
-          variant: 'success',
+        enqueueSnackbar("La demande a été enregistrée avec succès!", {
+          variant: "success",
         });
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar(error.response.data.message, { variant: 'error' });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
         console.log(error);
       });
   };
@@ -66,28 +66,6 @@ const SignupForm = () => {
         <form onSubmit={handleSubmit}>
           <h1>Bienvenue à bord !</h1>
           <div className="input-box">
-            <div className="input-half">
-              <label>Prénom</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                placeholder="Votre Prénom"
-              />
-            </div>
-            <div className="input-half">
-              <label>Nom</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                placeholder="Votre Nom"
-              />
-            </div>
-          </div>
-          <div className="input-box">
             <label>Adresse Email</label>
             <input
               type="email"
@@ -97,6 +75,17 @@ const SignupForm = () => {
               placeholder="prenom.nom@insat.ucar.tn"
             />
           </div>
+          <div className="input-box">
+            <label>Pseudo-identité</label>
+            <input
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              required
+              placeholder="Votre Pseudo-identité"
+            />
+          </div>
+
           <div className="input-box">
             <label>Numéro de téléphone</label>
             <input
@@ -117,19 +106,15 @@ const SignupForm = () => {
               placeholder="Votre mot de passe"
             />
           </div>
-
-          <div className="input-box dropdown">
-            <div className="select" onClick={toggleDropdown}>
-              <span className="selected">{selectedType}</span>
-              <div className={`caret ${isOpen ? "caret-rotate" : ""}`}></div>
-            </div>
-            <ul className={`menu ${isOpen ? "menu-open" : ""}`}>
-              {types.map((type, index) => (
-                <li key={index} onClick={() => selectType(type)}>
-                  {type}
-                </li>
-              ))}
-            </ul>
+          <div className="input-box">
+            <label>Confirmation du Mot de passe</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Votre mot de passe"
+            />
           </div>
           <button type="submit">S'inscrire</button>
           <div className="login-link">
@@ -143,4 +128,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default RegestrationForm;
