@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "./SignupFrom.css";
 
-const RegestrationForm = () => {
+const SignupForm = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("");
+  const [levelOfStudy, setLevelOfStudy] = useState("");
+  const [studentID, setStudentID] = useState("");
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,27 +36,25 @@ const RegestrationForm = () => {
     e.preventDefault();
 
     const data = {
-      firstName,
-      lastName,
+      userName,
       email,
       password,
       phoneNumber,
       role,
+      levelOfStudy: role === "Président" ? levelOfStudy : undefined,
+      studentID: role === "Président" ? studentID : undefined,
     };
-    if (role === "Président") {
-      data.levelOfStudy = 1;
-      data.StudentID = "2100";
-    }
+
     await axios
       .post("http://localhost:5500/users", data)
       .then(() => {
-        enqueueSnackbar("La demande a été enregistrée avec succès!", {
-          variant: "success",
+        enqueueSnackbar('La demande a été enregistrée avec succès!', {
+          variant: 'success',
         });
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar(error.response.data.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: 'error' });
         console.log(error);
       });
   };
@@ -64,6 +64,7 @@ const RegestrationForm = () => {
       <div className="wrapper">
         <form onSubmit={handleSubmit}>
           <h1>Bienvenue à bord !</h1>
+          {/* Reste du formulaire inchangé */}
           <div className="input-box">
             <label>Adresse Email</label>
             <input
@@ -84,7 +85,6 @@ const RegestrationForm = () => {
               placeholder="Votre Pseudo-identité"
             />
           </div>
-
           <div className="input-box">
             <label>Numéro de téléphone</label>
             <input
@@ -119,6 +119,32 @@ const RegestrationForm = () => {
               ))}
             </ul>
           </div>
+          {/* Ajout de nouveaux champs pour le président en bas */}
+          {role === "Président" && (
+            <>
+              <div className="input-box">
+                <label>Niveau d'étude</label>
+                <input
+                  type="text"
+                  value={levelOfStudy}
+                  onChange={(e) => setLevelOfStudy(e.target.value)}
+                  required
+                  placeholder="Niveau d'étude"
+                />
+              </div>
+              <div className="input-box">
+                <label>ID d'étudiant</label>
+                <input
+                  type="text"
+                  value={studentID}
+                  onChange={(e) => setStudentID(e.target.value)}
+                  required
+                  placeholder="ID d'étudiant"
+                />
+              </div>
+            </>
+          )}
+          {/* Fin des nouveaux champs */}
           <button type="submit">S'inscrire</button>
           <div className="login-link">
             <p>
@@ -131,4 +157,4 @@ const RegestrationForm = () => {
   );
 };
 
-export default RegestrationForm;
+export default SignupForm;
