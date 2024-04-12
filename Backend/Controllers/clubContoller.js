@@ -7,6 +7,16 @@ export const findAllClubs = async (req, res) => {
         count:clubs.length, 
         data: clubs});
   } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+}
+
+export const findClubById = async (req, res) => {
+    try {
+    const club = await Club.findById(req.params.id);
+    return res.status(200).json(club);
+  } catch (error) {
     res.status(404).json({ message: error.message });
   }
 }
+
