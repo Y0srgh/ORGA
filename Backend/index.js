@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { mongoDBURL, PORT } from "./Configurations/config.js";
 import userRoutes from "./Routes/userRoutes.js";
+import clubRoutes from "./Routes/clubRoutes.js";
 
 export const app = express();
 
@@ -14,6 +15,9 @@ app.use(cors());
 
 // Mount userRoutes middleware at the '/users' path
 app.use('/users', userRoutes);
+
+// Mount clubRoutes middleware at the '/clubs' path
+app.use('/clubs', clubRoutes);
 
 // Set up route to handle OPTIONS requests for CORS preflight
 app.options('*', cors());

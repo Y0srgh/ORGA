@@ -1,4 +1,4 @@
-import { Club } from "../Models/clubModel";
+import { Club } from "../Models/clubModel.js";
 
 export const findAllClubs = async (req, res) => {
   try {
