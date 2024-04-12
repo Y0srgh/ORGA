@@ -54,4 +54,11 @@ export const updateClub = async (req, res) => {
   }
 };
 
-
+export const deleteClub = async (req, res) => {
+    try {
+    const club = await Club.findByIdAndDelete(req.params.id);
+    return res.status(200).json(club);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+}
