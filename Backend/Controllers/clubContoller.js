@@ -38,3 +38,20 @@ export const createClub = async (req, res) => {
     return res.status(409).json({ message: error.message });
   }
 };
+
+export const updateClub = async (req, res) => {
+  try {
+    const { clubName } = req.body;
+    if (!clubName) {
+      return res.status(400).json({ message: "Club name is required" });
+    }
+    const club = await Club.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    return res.status(200).json(club);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+
+
