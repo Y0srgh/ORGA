@@ -213,3 +213,32 @@
 .login-link p a:hover {
   text-decoration: underline;
 }
+
+.input-box input[type="checkbox"] {
+  width: auto; 
+  height: auto; 
+  margin: 20px 0; 
+  
+}
+
+
+.input-box .checkbox-label {
+  position: static; 
+  margin-left: 10px; 
+}
+
+.checkbox-input {
+  display: flex;
+  align-items: center;
+  
+  margin-bottom: 10px; 
+}
+
+.checkbox-input input[type="checkbox"] {
+  margin-right: 10px; 
+}
+
+.checkbox-label {
+  color: #1f7794;
+}
+

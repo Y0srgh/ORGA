@@ -1,6 +1,8 @@
 import { User } from "../Models/userModel.js";
+import { Club } from "../Models/clubModel.js";
+
 import bcrypt from "bcrypt";
-import validator from "validator"
+import validator from "validator";
 
 export const addUser = async (req, res) => {
   try {
@@ -17,14 +19,25 @@ export const addUser = async (req, res) => {
     } = req.body;
 
     // Check if all required fields are provided
-    if (!firstName || !lastName || !email || !password || !phoneNumber || !role) {
-      return res.status(400).json({ message: "Veuillez fournir tous les champs requis." });
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !role
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Veuillez fournir tous les champs requis." });
     }
 
     // Check if user with provided phone number already exists
     const existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
-      return res.status(400).json({ message: "Un utilisateur avec ce numéro de téléphone existe déjà." });
+      return res.status(400).json({
+        message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
+      });
     }
 
     // Creating a new user in the database
@@ -87,8 +100,8 @@ export const updatePassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    const salt = await bcrypt.genSalt(10)
-    
+    const salt = await bcrypt.genSalt(10);
+
     // Hachage du nouveau mot de passe
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -211,6 +224,73 @@ export const deleteUser = async (req, res) => {
     return res.status(500).json({
       message:
         "Une erreur est survenue lors de la suppression de l'utilisateur.",
+    });
+  }
+};
+
+export const registerUser = async (req, res) => {
+  try {
+    const {
+      userName,
+      email,
+      password,
+      phoneNumber,
+      role,
+      levelOfStudy,
+      StudentID,
+      clubs,
+    } = req.body;
+
+    // Check if all required fields are provided
+    if (!userName || !email || !password || !phoneNumber || !role) {
+      return res
+        .status(400)
+        .json({ message: "Veuillez fournir tous les champs requis." });
+    }
+
+    // Check if user with provided phone number already exists
+    const existingUser = await User.findOne({ phoneNumber });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
+      });
+    }
+
+    // Creating a new user in the database
+    if (role === "Président") {
+      const newUser = await User.create({
+        userName,
+        email,
+        password,
+        phoneNumber,
+        role,
+        levelOfStudy,
+        StudentID,
+        clubs,
+      });
+
+      // Parcourir la liste des identifiants de clubs et mettre à jour leur état "selected"
+      for (const clubId of clubs) {
+        await Club.findByIdAndUpdate(clubId, { selected: true });
+      }
+      return res.status(201).json(newUser);
+    }
+
+    // Si le rôle de l'utilisateur est "Dvure", créez simplement l'utilisateur sans associer de clubs
+    if (role === "Dvure") {
+      const newUser = await User.create({
+        userName,
+        email,
+        password,
+        phoneNumber,
+        role,
+      });
+      return res.status(201).json(newUser);
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'ajout de l'utilisateur :", error);
+    return res.status(500).json({
+      message: "Une erreur est survenue lors de l'ajout de l'utilisateur.",
     });
   }
 };

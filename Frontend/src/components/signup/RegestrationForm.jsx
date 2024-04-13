@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
@@ -11,7 +11,10 @@ const SignupForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("");
   const [levelOfStudy, setLevelOfStudy] = useState("");
-  const [studentID, setStudentID] = useState("");
+  const [StudentID, setStudentID] = useState("");
+  const [clubs, setClubs] = useState([]);
+  const [selectedClubs, setSelectedClubs] = useState([]);
+
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -31,10 +34,25 @@ const SignupForm = () => {
   };
 
   const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    // Fetch unselected clubs from the backend
+    const fetchClubs = async () => {
+      try {
+        const response = await axios.get("http://localhost:5500/clubs/available");
+        console.log(response.data.data);
+        setClubs(response.data.data);
+      } catch (error) {
+        console.error("Error fetching clubs:", error);
+      }
+    };
+
+    fetchClubs();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const clubs =role === "Président" ? selectedClubs: undefined;
     const data = {
       userName,
       email,
@@ -42,19 +60,20 @@ const SignupForm = () => {
       phoneNumber,
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : undefined,
-      studentID: role === "Président" ? studentID : undefined,
+      StudentID: role === "Président" ? StudentID : undefined,
+      clubs,
     };
 
     await axios
-      .post("http://localhost:5500/users", data)
+      .post("http://localhost:5500/users/register", data)
       .then(() => {
-        enqueueSnackbar('La demande a été enregistrée avec succès!', {
-          variant: 'success',
+        enqueueSnackbar("La demande a été enregistrée avec succès!", {
+          variant: "success",
         });
         navigate("/signup");
       })
       .catch((error) => {
-        enqueueSnackbar(error.response.data.message, { variant: 'error' });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
         console.log(error);
       });
   };
@@ -125,7 +144,9 @@ const SignupForm = () => {
               <div className="input-box">
                 <label>Niveau d'étude</label>
                 <input
-                  type="text"
+                  type="number"
+                  min={1}
+                  max={5}
                   value={levelOfStudy}
                   onChange={(e) => setLevelOfStudy(e.target.value)}
                   required
@@ -136,12 +157,38 @@ const SignupForm = () => {
                 <label>ID d'étudiant</label>
                 <input
                   type="text"
-                  value={studentID}
+                  value={StudentID}
                   onChange={(e) => setStudentID(e.target.value)}
                   required
                   placeholder="ID d'étudiant"
                 />
               </div>
+
+              {clubs && clubs.length > 0 && (
+                <div className="input-box ">
+                  <label >Choisir un ou plusieurs clubs</label>
+                  {clubs.map((club) => (
+                    <div className="checkbox-input" key={club._id}>
+                      <input
+                        type="checkbox"
+                        id={club._id}
+                        value={club._id}
+                        checked={selectedClubs.includes(club._id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedClubs([...selectedClubs, club._id]);
+                          } else {
+                            setSelectedClubs(
+                              selectedClubs.filter((id) => id !== club._id)
+                            );
+                          }
+                        }}
+                      />
+                      <label className="checkbox-label" htmlFor={club._id}>{club.clubName}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
             </>
           )}
           {/* Fin des nouveaux champs */}

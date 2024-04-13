@@ -6,6 +6,7 @@ import {
   findOneUser,
   updatePassword,
   updateUser,
+  registerUser
 } from "../Controllers/userController.js";
 
 // Creating an Express router instance
@@ -13,6 +14,8 @@ const router = express.Router();
 
 // Endpoint for adding a new user
 router.post("/", addUser);
+
+router.post("/register", registerUser);
 
 // Endpoint for retrieving all users
 router.get("/", findAllUsers);

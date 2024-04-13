@@ -21,18 +21,34 @@ export const findClubById = async (req, res) => {
   }
 };
 
+export const findAvailableClubs = async (req, res) => {
+  try {
+    const clubs = await Club.find({ selected: "false" }).lean(); 
+    return res.status(200).json({
+      count: clubs.length,
+      data: clubs,
+    });
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+}
+
+
+
 export const createClub = async (req, res) => {
   try {
-    const { clubName } = req.body;
+    const { clubName, selected } = req.body;
 
     if (!clubName) {
       return res.status(400).json({ message: "Club name is required" });
     }
+
     const existingClub = await Club.findOne({ clubName });
     if (existingClub) {
       return res.status(400).json({ message: "Club already exists" });
     }
-    const club = await Club.create(req.body);
+
+    const club = await Club.create({ clubName, selected });
     return res.status(201).json(club);
   } catch (error) {
     return res.status(409).json({ message: error.message });
@@ -41,14 +57,12 @@ export const createClub = async (req, res) => {
 
 export const updateClub = async (req, res) => {
   try {
-    const { clubName } = req.body;
-    if (!clubName) {
-      return res.status(400).json({ message: "Club name is required" });
+    const { clubName, selected } = req.body;
+    if (!clubName && (selected===undefined||selected===null) ) {
+      return res.status(400).json({ message: "You must update at least one field" });
     }
-    const club = await Club.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    return res.status(200).json(club);
+    const updatedClub = await Club.findByIdAndUpdate(req.params.id, { clubName, selected }, { new: true });
+    return res.status(200).json(updatedClub);
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }

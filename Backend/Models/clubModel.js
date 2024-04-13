@@ -7,6 +7,10 @@ const clubSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    selected: {
+      type: Boolean,
+      default: false 
+    }
   },
   {
     timestamps: true,

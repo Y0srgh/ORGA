@@ -6,15 +6,15 @@ const userSchema = mongoose.Schema(
     userName: {
       type: String,
       required: true, // the user name of the user
-      unique: true
+      unique: true,
     },
     firstName: {
       type: String,
-      required: true, // First name of the user
+      required: false, // First name of the user
     },
     lastName: {
       type: String,
-      required: true, // Last name of the user
+      required: false, // Last name of the user
     },
     email: {
       type: String,
@@ -25,12 +25,12 @@ const userSchema = mongoose.Schema(
       required: true, // Password of the user
     },
     levelOfStudy: {
-      type:Number,
+      type: Number,
       enum: [1, 2, 3, 4, 5], // Enumerated levels of study (1-5)
       required: function () {
         return this.role === "Président"; // Level of study required only if the role is "Président"
       },
-      default: null 
+      default: null,
     },
     phoneNumber: {
       type: String,
@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     role: {
-      type:String,
+      type: String,
       enum: ["Président", "Admin", "Dvure"], // Enumerated roles for the user
       required: true,
     },
@@ -47,15 +47,16 @@ const userSchema = mongoose.Schema(
       required: function () {
         return this.role === "Président"; // Student ID
       },
-      default: null 
+      default: null,
     },
-    clubs: {
-      type: [String],
+    clubs: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Club",
       required: function () {
         return this.role === "Président"; // Clubs information required only if the role is "Président"
       },
-      default: null 
-    },
+      default: null,
+    }],
   },
   {
     timestamps: true,
@@ -67,7 +68,7 @@ const userSchema = mongoose.Schema(
 userSchema.pre("save", async function (next) {
   const user = this;
   if (user.isModified("password")) {
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(user.password, salt);
     user.password = hashedPassword;
   }
