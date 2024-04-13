@@ -6,7 +6,8 @@ import {
   findOneUser,
   updatePassword,
   updateUser,
-  registerUser
+  registerUser,
+  verifyEmail
 } from "../Controllers/userController.js";
 
 // Creating an Express router instance
@@ -31,6 +32,10 @@ router.put("/update-details/:id", updateUser);
 
 // Endpoint for deleting a user by ID
 router.delete("/:id", deleteUser);
+
+//verify email link with token
+router.get("/:id/verify/:token", verifyEmail);
+
 
 // Exporting the router to make it available for other modules
 export default router;
