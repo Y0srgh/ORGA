@@ -57,14 +57,16 @@ const userSchema = mongoose.Schema(
       },
       default: null,
     }],
+    verified: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,
   }
 );
-/*
-  Middleware to hash the password before saving the user to the database
-*/
+
 userSchema.pre("save", async function (next) {
   const user = this;
   if (user.isModified("password")) {
@@ -74,8 +76,5 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
-/*
- Definition of the User model using the schema
-*/
 
 export const User = mongoose.model("user", userSchema);
