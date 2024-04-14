@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# regestration form including the dvure role option
+src/components/signup/RegistrationFormBis.jsx
