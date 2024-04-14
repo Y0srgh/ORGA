@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-body {
+.signup-page {
   font-family: 'Poppins', sans-serif;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;

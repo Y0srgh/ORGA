@@ -3,8 +3,7 @@ import { Club } from "../Models/clubModel.js";
 import bcrypt from "bcrypt";
 import { Token } from "../Models/token.js";
 import { sendEmail } from "../utils/sendEmail.js";
-import crypto from crypto
-
+import crypto from "crypto";
 
 export const addUser = async (req, res) => {
   try {
@@ -287,15 +286,14 @@ export const registerUser = async (req, res) => {
         role,
       });
     }
-    
+
     const token = await Token.create({
       userId: newUser._id,
       token: crypto.randomBytes(32).toString("hex"),
     });
-    const url = `${process.env.BASE_URL}users/${newUser._id}/verify/${token.token}`;
+    const url = `http://localhost:5173/users/${newUser._id}/verify/${token.token}`;
     await sendEmail(newUser.email, "Verifier votre Email", url);
-    
-    
+
     return res.status(201).json(newUser);
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'utilisateur :", error);
@@ -304,7 +302,33 @@ export const registerUser = async (req, res) => {
     });
   }
 };
+/*
+export const verifyEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
 
+    const token = await Token.findOne({
+      userId: user._id,
+      token: req.params.token,
+    });
+    console.log(token);
+    if (!token) {
+      return res.status(404).json({ message: "Token invalide." });
+    }
+    await User.findByIdAndUpdate(user._id, {verified: true });
+    await token.findByIdAndDelete(token._id);
+
+    return res.status(200).json({ message: "Email vérifié avec succès." });
+  } catch (error) {
+    console.error("Erreur lors de la vérification de l'email :", error);
+    return res.status(500).json({
+      message: "Une erreur est survenue lors de la vérification de l'email.",
+    });
+  }
+}*/
 export const verifyEmail = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
@@ -319,11 +343,8 @@ export const verifyEmail = async (req, res) => {
     if (!token) {
       return res.status(404).json({ message: "Token invalide." });
     }
-
-    user.verified = true;
-    await user.save();
-    await token.delete();
-
+    await User.findByIdAndUpdate(user._id, { verified: true });
+    //await Token.deleteOne({ _id: token._id }); // Remove the token from the database
     return res.status(200).json({ message: "Email vérifié avec succès." });
   } catch (error) {
     console.error("Erreur lors de la vérification de l'email :", error);
@@ -331,4 +352,4 @@ export const verifyEmail = async (req, res) => {
       message: "Une erreur est survenue lors de la vérification de l'email.",
     });
   }
-}
+};

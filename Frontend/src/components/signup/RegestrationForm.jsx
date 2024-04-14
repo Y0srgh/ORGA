@@ -67,10 +67,10 @@ const SignupForm = () => {
     await axios
       .post("http://localhost:5500/users/register", data)
       .then(() => {
-        enqueueSnackbar("La demande a été enregistrée avec succès!", {
+        enqueueSnackbar("Un email vous a été envoyé !", {
           variant: "success",
         });
-        navigate("/signup");
+        //navigate("/login");
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: "error" });

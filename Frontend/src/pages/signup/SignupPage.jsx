@@ -6,7 +6,7 @@ import RegestrationForm from './../../components/signup/RegestrationForm';
 
 const SignupPage = () => {
   return (
-    <div>
+    <div className="signup-page">
       <SnackbarProvider  autoHideDuration={3000}>
         <RegestrationForm />
       </SnackbarProvider>
