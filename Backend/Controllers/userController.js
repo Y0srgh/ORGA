@@ -250,10 +250,17 @@ export const registerUser = async (req, res) => {
     }
 
     // Check if user with provided phone number already exists
-    const existingUser = await User.findOne({ phoneNumber });
+    let existingUser = await User.findOne({ phoneNumber });
     if (existingUser) {
       return res.status(400).json({
         message: "Un utilisateur avec ce numéro de téléphone existe déjà.",
+      });
+    }
+
+    existingUser = await User.findOne({ userName });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Un utilisateur avec ce nom d'utilisateur existe déjà.",
       });
     }
 
