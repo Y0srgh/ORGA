@@ -46,7 +46,7 @@ mongoose
     );
 
     // Schedule the cron job to run every 2 hours
-    cron.schedule("15 * * * *", () => {
+    cron.schedule("*/2 * * * *", () => {
       tokenCleanup(); // Execute the cron job logic
       usersCleanup(); // Execute the cron job logic
     });

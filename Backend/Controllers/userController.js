@@ -273,6 +273,12 @@ export const registerUser = async (req, res) => {
         });
       }
 
+      if (!clubs || !clubs.length  || !StudentID || !levelOfStudy) {
+        return res
+          .status(400)
+          .json({ message: "Veuillez fournir tous les champs requis." });
+      }
+
       var newUser = await User.create({
         userName,
         email,
