@@ -9,15 +9,15 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 console.log(token);
 console.log('before update password request');
-    axios
+    await axios
       .post("http://localhost:5500/users/update-password/"+token, {
         password,
       })
-      .then((response) => {
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {

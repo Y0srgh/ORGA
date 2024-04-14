@@ -12,9 +12,9 @@ const SignIn = () => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .post(`http://localhost:5500/users/login`, {
         email,
         password,

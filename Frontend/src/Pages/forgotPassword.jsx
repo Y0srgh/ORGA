@@ -7,11 +7,11 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 //here
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:5500/users/forgot-password`, {
+    await axios.post(`http://localhost:5500/users/forgot-password`, {
       email,
-    }).then((response) => {
+    }).then(() => {
      navigate('/');
     }).catch((error) => {
       console.log(error);
