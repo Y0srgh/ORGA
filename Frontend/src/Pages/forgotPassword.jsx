@@ -9,6 +9,8 @@ const ForgotPassword = () => {
 //here
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
+
     await axios.post(`http://localhost:5500/users/forgot-password`, {
       email,
     }).then(() => {

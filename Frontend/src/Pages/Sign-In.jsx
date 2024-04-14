@@ -5,7 +5,6 @@ import Input from "../Components/Input.jsx";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +13,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
     await axios
       .post(`http://localhost:5500/users/login`, {
         email,

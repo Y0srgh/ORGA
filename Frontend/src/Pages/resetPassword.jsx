@@ -11,6 +11,10 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validatePassword(password)) {
+      alert("Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre majuscule, un chiffre, un caractère spécial (!@#$%^&*) et aucun espace. ");
+      return;
+    }
 console.log(token);
 console.log('before update password request');
     await axios
