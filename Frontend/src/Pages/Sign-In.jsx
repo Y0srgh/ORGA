@@ -19,7 +19,7 @@ const SignIn = () => {
         email,
         password,
       })
-      .then((response) => {
+      .then(() => {
         navigate("/home");
       })
       .catch((error) => {
@@ -28,6 +28,7 @@ const SignIn = () => {
   };
 
   return (
+    <div>
     <div className="sign-in-container container">
       <form className="sign-in-form form-group" onSubmit={handleSubmit}>
         <Input
@@ -66,7 +67,7 @@ const SignIn = () => {
           </Link>
         </p>
       </form>
-    </div>
+    </div></div>
   );
 };
 

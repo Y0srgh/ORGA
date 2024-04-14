@@ -1,9 +1,13 @@
+
 .sign-in-container,
 .forgot-password-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url('../../assets/audito.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .sign-in-form,
