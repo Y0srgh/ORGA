@@ -23,7 +23,7 @@ export const findClubById = async (req, res) => {
 
 export const findAvailableClubs = async (req, res) => {
   try {
-    const clubs = await Club.find({ selected: "false" }).lean(); 
+    const clubs = await Club.find({ selected: "false" }).lean();
     return res.status(200).json({
       count: clubs.length,
       data: clubs,
@@ -31,9 +31,7 @@ export const findAvailableClubs = async (req, res) => {
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
-}
-
-
+};
 
 export const createClub = async (req, res) => {
   try {
@@ -58,10 +56,16 @@ export const createClub = async (req, res) => {
 export const updateClub = async (req, res) => {
   try {
     const { clubName, selected } = req.body;
-    if (!clubName && (selected===undefined||selected===null) ) {
-      return res.status(400).json({ message: "You must update at least one field" });
+    if (!clubName && (selected === undefined || selected === null)) {
+      return res
+        .status(400)
+        .json({ message: "You must update at least one field" });
     }
-    const updatedClub = await Club.findByIdAndUpdate(req.params.id, { clubName, selected }, { new: true });
+    const updatedClub = await Club.findByIdAndUpdate(
+      req.params.id,
+      { clubName, selected },
+      { new: true }
+    );
     return res.status(200).json(updatedClub);
   } catch (error) {
     return res.status(404).json({ message: error.message });
@@ -69,10 +73,25 @@ export const updateClub = async (req, res) => {
 };
 
 export const deleteClub = async (req, res) => {
-    try {
+  try {
     const club = await Club.findByIdAndDelete(req.params.id);
     return res.status(200).json(club);
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
-}
+};
+
+//update the selected field of the clubs when we delete a president
+export const updateSelected = (user) => {
+  if (user.role !== "President") {
+    const userClubs = user.clubs;
+    userClubs.forEach(async (club) => {
+      const updatedClub = await Club.findByIdAndUpdate(
+        club._id,
+        { selected: "false" },
+        { new: true }
+      );
+      console.log("updated ---------", updateClub);
+    });
+  }
+};

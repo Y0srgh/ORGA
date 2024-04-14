@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { Token } from "../Models/token.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
-
+import { updateSelected } from "./clubContoller.js";
 export const addUser = async (req, res) => {
   try {
     const {
@@ -216,7 +216,7 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-
+    updateSelected(user)
     return res
       .status(200)
       .json({ message: "Utilisateur supprimé avec succès." });
@@ -266,6 +266,13 @@ export const registerUser = async (req, res) => {
 
     // Creating a new user in the database
     if (role === "Président") {
+      existingUser = await User.findOne({ StudentID });
+      if (existingUser) {
+        return res.status(400).json({
+          message: "Un étudiant avec ce numéro d'inscription existe déjà.",
+        });
+      }
+
       var newUser = await User.create({
         userName,
         email,
@@ -277,10 +284,15 @@ export const registerUser = async (req, res) => {
         clubs,
       });
 
+      let CLubs = [];
       // Parcourir la liste des identifiants de clubs et mettre à jour leur état "selected"
       for (const clubId of clubs) {
-        await Club.findByIdAndUpdate(clubId, { selected: true });
+        let club = await Club.findByIdAndUpdate(clubId, { selected: true });
+        CLubs.push(club.clubName);
       }
+      console.log("CLubs : ", CLubs);
+
+      console.log("clubs : ", clubs);
     }
 
     // Si le rôle de l'utilisateur est "Dvure"

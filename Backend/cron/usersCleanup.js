@@ -1,5 +1,6 @@
 import cron from "node-cron";
 import { User } from './../Models/userModel.js';
+import { updateSelected } from './../Controllers/clubContoller.js';
 
 // Schedule the cron job to run every hour
 cron.schedule("15 * * * *", async () => {
@@ -12,7 +13,7 @@ cron.schedule("15 * * * *", async () => {
 
     // Delete expired users
     await User.deleteMany({ _id: { $in: expiredUsers.map(user => user._id) } });
-
+    updateSelected(expiredUsers)
     console.log("Expired users cleaned up successfully");
   } catch (error) {
     console.error("Error cleaning up expired users:", error);
