@@ -89,6 +89,68 @@ const SignupForm = () => {
       });
   };
 
+  const validateEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[a-z]+(\.[a-z]+)?@insat\.ucar\.tn$/;
+    return emailRegex.test(email);
+  };
+
+  const validateUsername = (username) => {
+    // Regular expression for alphabetical username validation
+    const usernameRegex = /^[a-zA-Z]+$/;
+    return usernameRegex.test(username);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    // Regular expression for phone number validation
+    const phoneNumberRegex = /^[5279]\d{7}$/;
+    return phoneNumberRegex.test(phoneNumber);
+  };
+
+  const validateStudentID = (studentID) => {
+    // Regular expression for student ID validation
+    const studentIDRegex = /^\d{7}$/;
+    return studentIDRegex.test(studentID);
+  };
+
+  const validateForm = () => {
+    // Perform validation for all fields
+    console.log(selectedType);
+    if (!validateEmail(email)) {
+      // Handle invalid email
+      return false;
+    }
+    if (!validateUsername(userName)) {
+      // Handle invalid username
+      return false;
+    }
+    if (!validatePhoneNumber(phoneNumber)) {
+      // Handle invalid phone number
+      return false;
+    }
+    if (password.length < 5) {
+      return false;
+    }
+    if(selectedType === "Choisissez votre type de profil"){
+      return false;
+    }
+    if (
+      role === "Président" &&
+      (!levelOfStudy || levelOfStudy < 1 || levelOfStudy > 5)
+    ) {
+      // Handle invalid level of study
+      return false;
+    }
+    if (role === "Président" && !validateStudentID(StudentID)) {
+      // Handle invalid student ID
+      return false;
+    }
+    if (role === "Président" && selectedClubs.length === 0) {
+      // Handle no club selected for president
+      return false;
+    }
+    return true; // Form is valid
+  };
   return (
     <div>
       <div className="wrapper">
@@ -205,7 +267,7 @@ const SignupForm = () => {
             </>
           )}
           {/* Fin des nouveaux champs */}
-          <button type="submit">S'inscrire</button>
+          <button type="submit" disabled={!validateForm()}>S'inscrire</button>
           <div className="login-link">
             <p>
               Avez-vous déjà un compte? <Link href="#">se connecter</Link>
