@@ -9,29 +9,13 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("Président");
   const [levelOfStudy, setLevelOfStudy] = useState("");
   const [StudentID, setStudentID] = useState("");
   const [clubs, setClubs] = useState([]);
   const [selectedClubs, setSelectedClubs] = useState([]);
 
   const navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState(
-    "Choisissez votre type de profil"
-  );
-  const types = ["Dvure", "Président"];
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const selectType = (type) => {
-    setSelectedType(type);
-    setIsOpen(false);
-    setRole(type); // Update role state with the selected type
-  };
 
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
@@ -115,7 +99,6 @@ const SignupForm = () => {
 
   const validateForm = () => {
     // Perform validation for all fields
-    console.log(selectedType);
     if (!validateEmail(email)) {
       // Handle invalid email
       return false;
@@ -198,19 +181,6 @@ const SignupForm = () => {
             />
           </div>
 
-          <div className="input-box dropdown">
-            <div className="select" onClick={toggleDropdown}>
-              <span className="selected">{selectedType}</span>
-              <div className={`caret ${isOpen ? "caret-rotate" : ""}`}></div>
-            </div>
-            <ul className={`menu ${isOpen ? "menu-open" : ""}`}>
-              {types.map((type, index) => (
-                <li key={index} onClick={() => selectType(type)}>
-                  {type}
-                </li>
-              ))}
-            </ul>
-          </div>
           {/* Ajout de nouveaux champs pour le président en bas */}
           {role === "Président" && (
             <>
