@@ -38,7 +38,9 @@ const SignupForm = () => {
     // Fetch unselected clubs from the backend
     const fetchClubs = async () => {
       try {
-        const response = await axios.get("http://localhost:5500/clubs/available");
+        const response = await axios.get(
+          "http://localhost:5500/clubs/available"
+        );
         console.log(response.data.data);
         setClubs(response.data.data);
       } catch (error) {
@@ -52,7 +54,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const clubs =role === "Président" ? selectedClubs: undefined;
+    const clubs = role === "Président" ? selectedClubs : undefined;
     const data = {
       userName,
       email,
@@ -71,6 +73,15 @@ const SignupForm = () => {
           variant: "success",
         });
         //navigate("/login");
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setPhoneNumber("");
+        setRole("");
+        setLevelOfStudy("");
+        setStudentID("");
+        setSelectedClubs([]);
+        setSelectedType("Choisissez votre type de profil");
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: "error" });
@@ -166,7 +177,7 @@ const SignupForm = () => {
 
               {clubs && clubs.length > 0 && (
                 <div className="input-box ">
-                  <label >Choisir un ou plusieurs clubs</label>
+                  <label>Choisir un ou plusieurs clubs</label>
                   {clubs.map((club) => (
                     <div className="checkbox-input" key={club._id}>
                       <input
@@ -184,7 +195,9 @@ const SignupForm = () => {
                           }
                         }}
                       />
-                      <label className="checkbox-label" htmlFor={club._id}>{club.clubName}</label>
+                      <label className="checkbox-label" htmlFor={club._id}>
+                        {club.clubName}
+                      </label>
                     </div>
                   ))}
                 </div>
