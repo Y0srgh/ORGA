@@ -216,7 +216,7 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    updateSelected(user)
+    updateSelected(user);
     return res
       .status(200)
       .json({ message: "Utilisateur supprimé avec succès." });
@@ -273,7 +273,7 @@ export const registerUser = async (req, res) => {
         });
       }
 
-      if (!clubs || !clubs.length  || !StudentID || !levelOfStudy) {
+      if (!clubs || !clubs.length || !StudentID || !levelOfStudy) {
         return res
           .status(400)
           .json({ message: "Veuillez fournir tous les champs requis." });
@@ -299,8 +299,25 @@ export const registerUser = async (req, res) => {
       console.log("CLubs : ", CLubs);
 
       console.log("clubs : ", clubs);
-    }
+    
 
+
+
+    const token = await Token.create({
+      userId: newUser._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    });
+    const url = `http://localhost:5173/users/${newUser._id}/verify/${token.token}`;
+    //await sendEmail(newUser.email, "Verifier votre Email", url);
+    await sendEmail(
+      newUser.email,
+      "Verifier votre Email",
+      url,
+      newUser.StudentID,
+      newUser.levelOfStudy,
+      CLubs
+    );
+  }
     // Si le rôle de l'utilisateur est "Dvure"
     if (role === "Dvure") {
       var newUser = await User.create({
@@ -311,14 +328,6 @@ export const registerUser = async (req, res) => {
         role,
       });
     }
-
-    const token = await Token.create({
-      userId: newUser._id,
-      token: crypto.randomBytes(32).toString("hex"),
-    });
-    const url = `http://localhost:5173/users/${newUser._id}/verify/${token.token}`;
-    await sendEmail(newUser.email, "Verifier votre Email", url);
-
     return res.status(201).json(newUser);
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'utilisateur :", error);

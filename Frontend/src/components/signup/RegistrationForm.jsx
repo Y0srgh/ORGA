@@ -65,7 +65,6 @@ const SignupForm = () => {
         setLevelOfStudy("");
         setStudentID("");
         setSelectedClubs([]);
-        setSelectedType("Choisissez votre type de profil");
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: "error" });
@@ -114,9 +113,7 @@ const SignupForm = () => {
     if (password.length < 5) {
       return false;
     }
-    if(selectedType === "Choisissez votre type de profil"){
-      return false;
-    }
+    
     if (
       role === "Président" &&
       (!levelOfStudy || levelOfStudy < 1 || levelOfStudy > 5)
