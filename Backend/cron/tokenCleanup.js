@@ -2,11 +2,11 @@ import cron from "node-cron";
 import { Token } from "../Models/token.js";
 
 // Schedule the cron job to run every 2 minutes
-cron.schedule("*/2 * * * *", async () => {
+cron.schedule("15 * * * *", async () => {
   try {
     // Find expired tokens (created more than 3 minutes ago)
     const expiredTokens = await Token.find({
-      createdAt: { $lt: new Date(Date.now() - 3 * 60 * 1000) }
+      createdAt: { $lt: new Date(Date.now() - 60 * 60 * 1000) }
     });
 
     // Delete expired tokens
