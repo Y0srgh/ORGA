@@ -99,13 +99,14 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="forgot-password">
           <Link
             id="forgot-password-link"
             to="/forgot-password"
             className="forgot-password-link"
           >
             Mot de passe oublié?
-          </Link>
+          </Link></div>
 
           <button type="submit">
             Se connecter
