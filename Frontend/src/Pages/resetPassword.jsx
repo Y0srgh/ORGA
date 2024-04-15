@@ -3,8 +3,7 @@ import Input from "../Components/Input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 /* import { validatePassword } from "./../formValidation.js";
- */
-  const ResetPassword = () => {
+ */const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
@@ -31,28 +30,35 @@ console.log('before update password request');
   };
 
   return (
-    <div className="forgot-password-container container">
-      <form className="forgot-password-form form-group" onSubmit={handleSubmit}>
-        <h2>Réinitialisation de mot de passe</h2>
+    <div>
+    <div className="wrapper">
+      <form onSubmit={handleSubmit}>
+        <h1>Réinitialiser le mot de passe</h1>
 
-        <Input
-          type="password"
-          placeholder="*************"
-          className="form-control"
-          label="Mot de passe"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className=" reset-pwd mt-3">
+        <div className="input-box reset-pwd">
+          <Input
+            type="password"
+            placeholder="*************"
+            className="form-control"
+            label="Mot de passe"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button type="submit">
           Confirmer
         </button>
-
-        <Link id="sign-in-link" to="/">
-          Se Connecter
-        </Link>
+        <div className="login-link reset-pwd">
+            <Link id="create-account-link" to="/sign-up">
+              Se connecter
+            </Link>
+       
+        </div>
       </form>
     </div>
+  </div>
   );
 };
 
