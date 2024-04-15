@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Input from "../Components/Input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
-const ResetPassword = () => {
+/* import { validatePassword } from "./../formValidation.js";
+ */const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
@@ -11,10 +11,10 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validatePassword(password)) {
+   /*  if (!validatePassword(password)) {
       alert("Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre majuscule, un chiffre, un caractère spécial (!@#$%^&*) et aucun espace. ");
       return;
-    }
+    } */
 console.log(token);
 console.log('before update password request');
     await axios
