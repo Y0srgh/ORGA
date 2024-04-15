@@ -107,7 +107,7 @@ const SignIn = () => {
             Mot de passe oublié?
           </Link>
 
-          <button type="submit" className=" mt-3">
+          <button type="submit">
             Se connecter
           </button>
           <div className="login-link">
