@@ -13,7 +13,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     await axios
       .post(`http://localhost:5500/users/login`, {
         email,
@@ -28,6 +28,7 @@ const SignIn = () => {
   };
 
   return (
+    /* 
     <div>
     <div className="sign-in-container container">
       <form className="sign-in-form form-group" onSubmit={handleSubmit}>
@@ -67,7 +68,59 @@ const SignIn = () => {
           </Link>
         </p>
       </form>
-    </div></div>
+    </div></div> */
+
+    <div>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h1>Bienvenue à bord !</h1>
+
+          <div className="input-box">
+            <Input
+              type="email"
+              autoComplete="off"
+              placeholder="prenom.nom@insat.ucar.tn"
+              className="form-control"
+              label="Adresse Email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="input-box">
+            <Input
+              type="password"
+              placeholder="*************"
+              className="form-control"
+              label="Mot de passe"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <Link
+            id="forgot-password-link"
+            to="/forgot-password"
+            className="forgot-password-link"
+          >
+            Mot de passe oublié?
+          </Link>
+
+          <button type="submit" className=" mt-3">
+            Se connecter
+          </button>
+          <div className="login-link">
+            <p id="create-account">
+              Vous n'avez pas un compte ?{" "}
+              <Link id="create-account-link" to="/sign-up">
+                Créer un compte
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
