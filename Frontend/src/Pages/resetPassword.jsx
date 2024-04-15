@@ -3,7 +3,8 @@ import Input from "../Components/Input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 /* import { validatePassword } from "./../formValidation.js";
- */const ResetPassword = () => {
+ */
+  const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
