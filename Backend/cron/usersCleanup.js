@@ -3,7 +3,7 @@ import { User } from './../Models/userModel.js';
 import { updateSelected } from './../Controllers/clubContoller.js';
 
 // Schedule the cron job to run every hour
-cron.schedule("*/2 * * * *", async () => {
+cron.schedule("15 * * * *", async () => {
   try {
     // Find expired users (created more than 1 hour ago and still not verified)
     const expiredUsers = await User.find({
