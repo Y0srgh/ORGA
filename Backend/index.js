@@ -3,10 +3,16 @@ import mongoose from "mongoose"; // Import Mongoose for MongoDB interaction
 import { mongoDBURL, PORT } from "./Configurations/config.js"; 
 // Import Express framework
 import express from "express"; 
+import salleRouter from "./Routes/salleRoutes.js";
+
+
 const app = express(); 
 
 // Middleware pour l'analyse du corps de la requête (parsing request body)
 app.use(express.json());
+
+
+app.use('/salles' ,salleRouter);
 
 // Se connecter à la base de données MongoDB Atlas
 mongoose.connect(mongoDBURL)
