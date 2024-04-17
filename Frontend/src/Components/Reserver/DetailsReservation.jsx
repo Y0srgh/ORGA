@@ -39,7 +39,7 @@ function ReservationDetails({ date, time, salle, motif }) {
         <label htmlFor="temps" className="label">Temps</label>
         <input type="text" id="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} />
       </div>
-      <button type="submit" className="button" onClick={handleSubmit}>Ok</button>
+      <button type="submit" className="button" onClick={handleSubmit}>Confirmer</button>
     </div>
   );
 }
