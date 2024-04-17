@@ -123,23 +123,42 @@ textarea {
 
 }
 
-  .quit-button {
-    position: relative;
-    width:25px;
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .quit-button,
+  .back-button {
+    width: 25px;
     height: 25px;
-    left: 370px;
     background-color: #B4B4B8;
-
     border: none;
     font-size: 10px;
     cursor: pointer;
     outline: none;
     border-radius: 50%;
-    padding: 5px; 
- 
-
+    padding: 5px;
   }
   
-  .quit-button:hover {
-    color: red; 
+  .quit-button:hover,
+  .quit-button1:hover,
+  .back-button:hover {
+    color: red;
+  }
+  
+  .quit-button1
+  {
+    float: right;
+    
+    width: 25px;
+    height: 25px;
+    background-color: #B4B4B8;
+    border: none;
+    font-size: 10px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50%;
+    padding: 5px;
   }

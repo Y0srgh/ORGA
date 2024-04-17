@@ -25,7 +25,9 @@ function ReserverTimeDate({ onSubmit, onDateChange, onTimeChange }) {
     <>
       {formVisible && (
         <div className="container">
-          <button className="quit-button" onClick={handleQuitClick}>X</button>
+          <div className="button-group">
+            <div> </div>
+          <button className="quit-button" onClick={handleQuitClick}>X</button></div>
           <h4 className="form-title">Réservation</h4>
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
