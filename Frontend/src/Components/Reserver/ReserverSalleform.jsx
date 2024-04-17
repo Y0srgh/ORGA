@@ -34,6 +34,8 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange }) {
                   onSalleChange(e.target.value);
                 }}>
                   <option value="">Sélectionner une salle</option>
+                  <option value="A8">Amphi A8</option>
+                  <option value="audito">Auditorium</option>
                   {/* Option elements for clubs */}
                 </select>
               </div>
