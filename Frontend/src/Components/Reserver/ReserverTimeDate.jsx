@@ -30,7 +30,7 @@ function ReserverTimeDate({ onSubmit, onDateChange, onTimeChange }) {
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
               <label htmlFor="date" className="required-label">Date</label>
-              <input type="date" id="date" value={date.toISOString().substring(0, 10)} onChange={(e) => {
+              <input type="date" id="date" value={date.toISOString().substring(0, 10)} min={new Date().toISOString().split('T')[0]} onChange={(e) => {
                 const newDate = new Date(e.target.value);
                 setDate(newDate);
                 onDateChange(newDate);
