@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ReserverTimeDate.css';
+import './Reserver.css';
 
 function ReserverTimeDate({ onSubmit, onDateChange, onTimeChange }) {
   const [date, setDate] = useState(new Date());

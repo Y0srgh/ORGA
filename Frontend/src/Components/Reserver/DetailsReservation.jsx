@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ReserverTimeDate.css';
+import './Reserver.css';
 
 function ReservationDetails({ date, time, salle, motif }) {
   const [formVisible, setFormVisible] = useState(true);

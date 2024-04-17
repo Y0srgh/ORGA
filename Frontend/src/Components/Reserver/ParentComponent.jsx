@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReserverTimeDate from './ReserverTimeDate';
 import ReserverSalleform from './ReserverSalleform';
-import ReservationDetails from './DetailsReservation'; // Import ReservationDetails component
+import ReservationDetails from './DetailsReservation'; 
 
 function ParentComponent() {
   const [reserverTimeDateSubmitted, setReserverTimeDateSubmitted] = useState(false);
@@ -10,13 +10,11 @@ function ParentComponent() {
 
   const handleReservationTimeDateSubmit = () => {
     // Handle logic when ReservationTimeDate form is submitted
-    // For example, you can set the reservationTimeDateSubmitted state to true
     setReserverTimeDateSubmitted(true);
   };
 
   const handleReservationSalleformSubmit = (date, time, salle, motif) => {
     // Handle logic when ReservationSalleform form is submitted
-    // For example, you can perform any necessary action
     setShowReservationDetails(true); // Set state to show reservation details after salle form submission
     setReservationDetails({ salle, motif ,date, time}); // Save the submitted date, time, salle, and motif
   };

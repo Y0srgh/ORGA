@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ReserverTimeDate.css';
+import './Reserver.css';
 
 function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange }) {
   // Define state variables
