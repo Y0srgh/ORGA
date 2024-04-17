@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Reserver.css';
 
-function ReservationDetails({ date, time, salle, motif }) {
+function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
   const [formVisible, setFormVisible] = useState(true);
   const [formData, setFormData] = useState({ salle: '', motif: '', date: '', time: '' });
 
@@ -31,7 +31,14 @@ function ReservationDetails({ date, time, salle, motif }) {
 
   return (
     <div className="container">
+      <div className="button-group">
+        <button type="button" className="back-button" onClick={onBack}>
+          <span>&#8592;</span>
+        </button>
+        <button className="quit-button" onClick={onQuit}>X</button>
+      </div>
       <h4 className="form-title">Détails de la Réservation</h4>
+      
       <div className="form-group">
         <label htmlFor="salle" className="label">Salle n°</label>
         <input type="text" id="salle" value={formData.salle} readOnly={true} />
