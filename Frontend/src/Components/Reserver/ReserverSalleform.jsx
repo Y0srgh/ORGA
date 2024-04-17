@@ -10,6 +10,7 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // Submit form data
+    console.log("hello");
     console.log('salle:', salle);
     console.log('motif:', motif);
     onSubmit(salle, motif);
