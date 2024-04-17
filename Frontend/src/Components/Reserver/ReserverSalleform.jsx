@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Reserver.css';
 
-function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange }) {
+function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
   // Define state variables
   const [salle, setSalle] = useState('');
   const [motif, setMotif] = useState('');
@@ -23,7 +23,13 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange }) {
     <div className="container">
       {formVisible && (
         <>
-          <button className="quit-button" onClick={handleQuitClick}>X</button>
+          <div className="button-group">
+            
+            <button type="button" className="back-button" onClick={onBack}>
+              <span>&#8592;</span>
+            </button>
+            <button className="quit-button" onClick={handleQuitClick}>X</button>
+          </div>
           <div>
             <h4 className="form-title">Réservation</h4>
             <form onSubmit={handleFormSubmit}>
