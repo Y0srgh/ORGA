@@ -16,6 +16,15 @@ function ReservationDetails({ date, time, salle, motif }) {
     setFormVisible(false);
   };
 
+  // Function to format date in "DD/MM/YYYY" format
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   if (!formVisible) {
     return null; // If form is not visible, don't render anything
   }
@@ -25,19 +34,19 @@ function ReservationDetails({ date, time, salle, motif }) {
       <h4 className="form-title">Détails de la Réservation</h4>
       <div className="form-group">
         <label htmlFor="salle" className="label">Salle n°</label>
-        <input type="text" id="salle" value={formData.salle} onChange={(e) => setFormData({...formData, salle: e.target.value})} />
+        <input type="text" id="salle" value={formData.salle} readOnly={true} />
       </div>
       <div className="form-group">
         <label htmlFor="motif" className="label">Motifs de réservation</label>
-        <textarea id="motif" rows="5" cols="20" value={formData.motif} onChange={(e) => setFormData({...formData, motif: e.target.value})}></textarea>
+        <textarea id="motif" rows="5" cols="20" value={formData.motif} readOnly={true}></textarea>
       </div>
       <div className="form-group">
         <label htmlFor="date" className="label">Date</label>
-        <input type="text" id="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} />
+        <input type="text" id="date" value={formatDate(formData.date)} readOnly={true} />
       </div>
       <div className="form-group">
         <label htmlFor="temps" className="label">Temps</label>
-        <input type="text" id="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} />
+        <input type="text" id="time" value={formData.time} readOnly={true} />
       </div>
       <button type="submit" className="button" onClick={handleSubmit}>Confirmer</button>
     </div>
