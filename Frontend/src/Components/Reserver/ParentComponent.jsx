@@ -20,13 +20,24 @@ function ParentComponent() {
     setReservationDetails(prevState => ({ ...prevState, salle, motif }));
   };
 
+  const handleBackToTimeDate = () => {
+    // Handle navigating back to ReserverTimeDate form
+    setReserverTimeDateSubmitted(false);
+    setShowReservationDetails(false);
+  };
+
+  const handleBackToSalleForm = () => {
+    // Handle navigating back to ReserverSalleform from ReservationDetails
+    setShowReservationDetails(false);
+  };
+
   return (
     <div>
       {!reserverTimeDateSubmitted && (
         <ReserverTimeDate onSubmit={handleReservationTimeDateSubmit} />
       )}
       {reserverTimeDateSubmitted && !showReservationDetails && (
-        <ReserverSalleform onSubmit={handleReservationSalleformSubmit} />
+        <ReserverSalleform onSubmit={handleReservationSalleformSubmit} onBack={handleBackToTimeDate} />
       )}
       {showReservationDetails && (
         <ReservationDetails
@@ -34,6 +45,7 @@ function ParentComponent() {
           time={reservationDetails.time}
           salle={reservationDetails.salle}
           motif={reservationDetails.motif}
+          onBack={handleBackToSalleForm} // Pass the back function to ReservationDetails
         />
       )}
     </div>
