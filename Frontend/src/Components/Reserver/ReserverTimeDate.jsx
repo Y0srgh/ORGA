@@ -46,7 +46,9 @@ function ReserverTimeDate({ onSubmit, onDateChange, onTimeChange }) {
             <div className="form-group">
               <label htmlFor="club" className="required-label">Choisissez le club</label>
               <select id="club" value={club} onChange={(e) => setClub(e.target.value)}>
-                <option value="">Select a club</option>
+                <option value="">Choisissez le club</option>
+                <option value="aero">Aerobotix</option>
+                <option value="IEEE">IEEE</option>
                 {/* Option elements for clubs */}
               </select>
             </div>
