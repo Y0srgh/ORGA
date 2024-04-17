@@ -1,9 +1,25 @@
 import React from 'react'
 
-const App = () => {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ParentComponent from './Components/Reserver/ParentComponent';
+import ReserverTimeDate from './Components/Reserver/ReserverTimeDate';
+import ReserverSalleform from './Components/Reserver/ReserverSalleform';
+
+function App() {
+
+
   return (
-    <div>App</div>
-  )
+    <Router>
+      <div className="App">
+      <Routes>
+        
+        <Route exact path="/reserver" element={<ParentComponent/>} />
+        <Route exact path="./components/Reserver/ReserverTimeDate" element={<ReserverTimeDate/>} />
+        <Route exact path="./components/Reserver/ReserverSalleform" element={<ReserverSalleform/>} />
+       </Routes>
+       </div>
+    </Router>
+  );
 }
 
 export default App
