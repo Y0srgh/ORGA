@@ -31,10 +31,26 @@ function ParentComponent() {
     setShowReservationDetails(false);
   };
 
+  // Define functions for handling input changes
+  const handleDateChange = (date) => {
+    console.log('Date changed to:', date);
+    // Implement your logic here
+  };
+
+  const handleTimeChange = (time) => {
+    console.log('Time changed to:', time);
+    // Implement your logic here
+  };
+
+  const handleClubChange = (club) => {
+    console.log('Club changed to:', club);
+    // Implement your logic here
+  };
+
   return (
     <div>
       {!reserverTimeDateSubmitted && (
-        <ReserverTimeDate onSubmit={handleReservationTimeDateSubmit} />
+        <ReserverTimeDate onSubmit={handleReservationTimeDateSubmit} onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
       )}
       {reserverTimeDateSubmitted && !showReservationDetails && (
         <ReserverSalleform onSubmit={handleReservationSalleformSubmit} onBack={handleBackToTimeDate} />
@@ -45,7 +61,7 @@ function ParentComponent() {
           time={reservationDetails.time}
           salle={reservationDetails.salle}
           motif={reservationDetails.motif}
-          onBack={handleBackToSalleForm} // Pass the back function to ReservationDetails
+          onBack={handleBackToSalleForm}
         />
       )}
     </div>
