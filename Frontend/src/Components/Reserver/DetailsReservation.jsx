@@ -33,7 +33,7 @@ function ReservationDetails({ date, time, salle, motif }) {
       </div>
       <div className="form-group">
         <label htmlFor="date" className="label">Date</label>
-        <input type="date" id="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} />
+        <input type="text" id="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} />
       </div>
       <div className="form-group">
         <label htmlFor="temps" className="label">Temps</label>
