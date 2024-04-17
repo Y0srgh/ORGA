@@ -1,0 +1,141 @@
+
+
+.required-label::after {
+    content: "*";
+    color: red;
+}
+.form-group {
+    margin-bottom: 50px;
+}
+
+.required-label {
+    display: inline-block;
+    width: 200px; 
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px; 
+    font-family: 'Lato', sans-serif; 
+}
+
+.label {
+    display: inline-block;
+    width: 200px; 
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px; 
+    font-family: 'Lato', sans-serif; 
+}
+
+input[type="date"],
+input[type="text"],
+select {
+    display: inline-block;
+    width: calc(100% - 200px); 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color: #B4B4B8;
+    color: black;
+    font-family: 'Montserrat', sans-serif; 
+    
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 400px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-title {
+    
+    color: black;
+    text-align: left;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #630000 ; 
+    margin-bottom: 60px;
+    
+    
+}
+
+
+.button {
+    width: 60%;
+    height:auto;
+    padding: 10px;
+    background-color: #630000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin-top: 50px;
+    margin: 0 auto; 
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif; 
+    margin-top: 70px;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+    color: black;
+    
+}
+
+.form-group {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 20px; 
+}
+
+.required-label {
+    width: 200px; 
+    margin-right: 10px;
+}
+
+textarea {
+    flex: 1; /* Allow textarea to grow and fill remaining space */
+    width: calc(100% - 200px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #B4B4B8; 
+    color: black; 
+    font-family: 'Montserrat', sans-serif;
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px;
+    max-height: 200px; 
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+    border-radius: 15px;
+
+}
+
+  .quit-button {
+    position: relative;
+    width:8%;
+    left: 370px;
+    background-color: #B4B4B8;
+    border: none;
+    font-size: 10px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 150%;
+    padding: 5px; 
+  }
+  
+  .quit-button:hover {
+    color: red; 
+  }
