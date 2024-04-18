@@ -2,16 +2,17 @@ import mongoose from "mongoose";
 
 const salleSchema = mongoose.Schema(
   {
-    numero: {
-      type: Number,
+    id: {
+      type: String,
       required: false, 
     },
-    libelle : {
-      type: String,
-      required: true, 
-    },
+   
     capacity: {
         type: Number,
+        required: true,
+      },
+    availiblity: {
+        type: Boolean,
         required: true,
       },
 

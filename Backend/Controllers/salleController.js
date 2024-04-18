@@ -6,16 +6,17 @@ export const addSalle = async (req, res) => {
   try {
     // Destructure request body to extract salle data
     const {
-       numero,
-       libelle,
+       id, //contains the name and the number of the room in the same string
        capacity,
+       availibilty ,
     } = req.body;
 
     // Check if all required fields are provided
 
     if (
-      !libelle ||
-      !capacity 
+      !id ||
+      !capacity ||
+      ! availibilty
      )
      {
       return res
@@ -23,17 +24,17 @@ export const addSalle = async (req, res) => {
         .json({ message: "Veuillez fournir tous les champs requis." });
     }
 
-    const existingSalle = await Salle.findOne({ numero , libelle });
+    const existingSalle = await Salle.findOne({ id });
     if (existingSalle) {
       return res.status(400).json({
-        message: "Une salle avec ce numéro et ce libellé  existe déjà.",
+        message: "Une salle avec ce libellé existe déjà.",
       });
     }
 
     const newSalle = await Salle.create({
-        numero,
-        libelle,
+        id,
         capacity,
+        availibilty,
     });
 
     return res.status(201).json(newSalle);
