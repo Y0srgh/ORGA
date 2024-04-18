@@ -41,6 +41,7 @@ function ParentComponent() {
       )}
       {showReservationDetails && (
         <ReservationDetails
+          salle={reservationDetails.salle}
           date={reservationDetails.date}
           time={reservationDetails.time}
           club={reservationDetails.club}
