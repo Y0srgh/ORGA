@@ -163,3 +163,19 @@ textarea {
     border-radius: 50%;
     padding: 5px;
   }
+  /* Style error messages */
+/* Style error messages */
+.error-message {
+    color: red;
+    font-size: 12px;
+    font : Source Sans Pro;
+    margin-top: 5px; /* Adjust margin-top as needed */
+    display: block; /* Ensure error message is displayed as a block-level element */
+  }
+  
+  
+  /* Apply styles to error messages within form groups */
+  .form-group .error-message {
+    margin-top: 0; /* Reset margin-top for error messages within form groups */
+  }
+  

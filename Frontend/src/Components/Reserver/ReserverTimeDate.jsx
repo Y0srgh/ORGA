@@ -1,65 +1,111 @@
-import React, { useState } from 'react';
-import './Reserver.css';
+import React, { useState } from "react";
+import * as yup from "yup";
+import "./Reserver.css";
 
-function ReserverTimeDate({ onSubmit, onDateChange, onTimeChange }) {
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState('10:00-10:30 AM');
-  const [club, setClub] = useState('');
-  const [formVisible, setFormVisible] = useState(true);
+// Define the validation schema using yup
+const schema = yup.object().shape({
+  date: yup.date().required("La date est requise"),
+  time: yup
+    .string()
+    .matches(
+      /^(0?[1-9]|1[0-2]):([0-5]\d)-(0?[1-9]|1[0-2]):([0-5]\d)\s?(?:AM|PM)$/i,
+      "Veuillez saisir l'heure dans ce format 'HH:MM-HH:MM AM/PM'"
+    )
+    .required("Le temps est requis"),
+  club: yup.string().required("Le choix d'un club est obligatoire"),
+});
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    // Submit form data
-    console.log('Date:', date);
-    console.log('Time:', time);
-    console.log('Club:', club);
-    // Call the onSubmit function passed as a prop
-    onSubmit(date, time, club);
+function ReserverTimeDate({ onSubmit }) {
+  const [formData, setFormData] = useState({
+    date: new Date().toISOString().split('T')[0],
+    time: "09:00-10:30 AM",
+    club: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleQuitClick = () => {
-    setFormVisible(false);
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    schema
+      .validate(formData, { abortEarly: false })
+      .then(() => {
+        onSubmit(formData.date, formData.time, formData.club);
+      })
+      .catch((error) => {
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          if (err.path === 'date' && formData.date === 'mm/dd/yyyy') {
+            newErrors[err.path] = 'Veuillez sélectionner une date.'; 
+          } else {
+            newErrors[err.path] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      });
   };
+  
+  
 
   return (
-    <>
-      {formVisible && (
+    <div className="container">
+      <h4 className="form-title">Réservation</h4>
+      <form onSubmit={handleFormSubmit}>
+        <div className="form-group">
+          <label htmlFor="date" className="required-label">
+            Date
+          </label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            value={formData.date}
+            min={new Date().toISOString().split("T")[0]} // Set min date to today
+            onChange={handleInputChange}
+          /></div>
+          {errors.date && <p className="error-message">{errors.date}</p>}
         
-        <div className="container">
-          <div className="button-group">
-            <div> </div>
-          <button className="quit-button" onClick={handleQuitClick}>X</button></div>
-          <h4 className="form-title">Réservation</h4>
-          <form onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <label htmlFor="date" className="required-label">Date</label>
-              <input type="date" id="date" value={date.toISOString().substring(0, 10)} min={new Date().toISOString().split('T')[0]} onChange={(e) => {
-                const newDate = new Date(e.target.value);
-                setDate(newDate);
-                onDateChange(newDate);
-              }} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="temps" className="required-label">Temps</label>
-              <input type="text" id="time" value={time} onChange={(e) => {
-                setTime(e.target.value);
-                onTimeChange(e.target.value);
-              }} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="club" className="required-label">Choisissez le club</label>
-              <select id="club" value={club} onChange={(e) => setClub(e.target.value)}>
-                <option value="">Select a club</option>
-                <option value="Aerobotix">Aerobotix</option>
-                <option value="IEEE">IEEE</option>
-                {/* Option elements for clubs */}
-              </select>
-            </div>
-            <button type="submit" className="button">Suivant</button>
-          </form>
-        </div>
-      )}
-    </>
+        <div className="form-group">
+          <label htmlFor="time" className="required-label">
+            Temps
+          </label>
+          <input
+            type="text"
+            id="time"
+            name="time"
+            value={formData.time}
+            onChange={handleInputChange}
+          /></div>
+          {errors.time && <p className="error-message">{errors.time}</p>}
+        
+        <div className="form-group">
+          <label htmlFor="club" className="required-label">
+            Choisissez le club
+          </label>
+          <select
+            id="club"
+            name="club"
+            value={formData.club}
+            onChange={handleInputChange}
+          >
+            <option value="">Select a club</option>
+            <option value="Aerobotix">Aerobotix</option>
+            <option value="IEEE">IEEE</option>
+            {/* Option elements for clubs */}
+          </select></div>
+          {errors.club && <p className="error-message">{errors.club}</p>}
+       
+        <button type="submit" className="button">
+          Suivant
+        </button>
+      </form>
+    </div>
   );
 }
 
