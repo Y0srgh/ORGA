@@ -32,7 +32,7 @@ input[type="date"],
 input[type="text"],
 select {
     display: inline-block;
-    width: calc(100% - 200px); 
+    width: 300px; /* Set a fixed width value */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -40,23 +40,24 @@ select {
     background-color: #B4B4B8;
     color: black;
     font-family: 'Montserrat', sans-serif; 
-    
 }
+
 
 
 
 .container {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    /* width: fit-content; */ /* Remove this line */
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 500px; /* Adjust max-width as needed */
     font-family: 'Roboto', sans-serif;
 }
+
 
 .form-title {
     
