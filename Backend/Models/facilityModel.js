@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 
 const salleSchema = mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: false, 
-    },
    
+    label : {
+      type: String,
+      required: true, 
+    },
     capacity: {
         type: Number,
         required: true,
       },
-    availiblity: {
+      state: {
         type: Boolean,
-        required: true,
+        required: true, 
       },
 
     },

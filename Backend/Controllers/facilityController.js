@@ -1,4 +1,4 @@
-import { Salle } from "../Models/salleModel.js";
+import { Salle } from "../Models/facilityModel.js";
 
 
 
@@ -6,17 +6,17 @@ export const addSalle = async (req, res) => {
   try {
     // Destructure request body to extract salle data
     const {
-       id, //contains the name and the number of the room in the same string
+       label,
        capacity,
-       availibilty ,
+       state,
     } = req.body;
 
     // Check if all required fields are provided
 
     if (
-      !id ||
+      !label ||
       !capacity ||
-      ! availibilty
+      !state
      )
      {
       return res
@@ -24,17 +24,17 @@ export const addSalle = async (req, res) => {
         .json({ message: "Veuillez fournir tous les champs requis." });
     }
 
-    const existingSalle = await Salle.findOne({ id });
+    const existingSalle = await Salle.findOne({ label });
     if (existingSalle) {
       return res.status(400).json({
-        message: "Une salle avec ce libellé existe déjà.",
+        message: "Une salle avec ce numéro et ce libellé  existe déjà.",
       });
     }
 
     const newSalle = await Salle.create({
-        id,
+        label,
         capacity,
-        availibilty,
+        state,
     });
 
     return res.status(201).json(newSalle);
@@ -62,8 +62,8 @@ export const findAllSalles = async (req, res) => {
 
 export const findOneSalle = async (req, res) => {
   try {
-    const { id } = req.params;
-    const salle = await Salle.findById(id);
+    const { label } = req.params;
+    const salle = await Salle.findById(label);
     return res.status(200).json(salle);
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -76,15 +76,16 @@ export const updateSalle = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-        numero,
-        libelle,
-        capacity,
+      label,
+      capacity,
+      state,
      
     } = req.body;
 
     if (
-        !libelle ||
-        !capacity 
+        !label ||
+        !capacity ||
+        !state
     ) {
       return res
         .status(400)
@@ -92,9 +93,9 @@ export const updateSalle = async (req, res) => {
     }
 
     let updatedFields = {
-        numero,
-        libelle,
-        capacity,
+      label,
+      capacity,
+      state,
     };
 
 
