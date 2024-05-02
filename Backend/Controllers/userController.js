@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 export const addUser = async (req, res) => {
   try {
     // Destructure request body to extract user data
-    const {
+    const {      
       firstName,
       lastName,
       email,
