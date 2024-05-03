@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ReserverTimeDate from './ReserverTimeDate';
-import ReserverSalleform from './ReserverSalleform';
-import ReservationDetails from './DetailsReservation'; 
+import ReserverTimeDate from "./ReserverTimeDate";
+import ReserverSalleform from "./ReserverSalleform";
+import ReservationDetails from "./DetailsReservation";
 
 function ParentComponent() {
   const [reserverTimeDateSubmitted, setReserverTimeDateSubmitted] = useState(false);
