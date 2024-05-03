@@ -20,7 +20,7 @@ const SignIn = () => {
         password,
       })
       .then(() => {
-        navigate("/home");
+        navigate("/reserver");
       })
       .catch((error) => {
         console.log(error);
