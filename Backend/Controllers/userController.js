@@ -245,7 +245,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-/*export const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Vérification de l'existence de l'utilisateur
@@ -271,8 +271,8 @@ export const forgotPassword = async (req, res) => {
       message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
     });
   }
-};*/
-export const loginUser = async (req, res) => {
+};
+/* export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Vérification de l'existence de l'utilisateur
@@ -288,6 +288,7 @@ export const loginUser = async (req, res) => {
     }
     // Création du token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+    localStorage.setItem('token', token);
 
     return res
       .status(200)
@@ -297,5 +298,5 @@ export const loginUser = async (req, res) => {
       message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
     });
   }
-};
+}; */
 

@@ -25,4 +25,4 @@ const salleSchema = mongoose.Schema(
 
 
 
-export const Salle = mongoose.model("salle", salleSchema);
+export const Salle = mongoose.model("facilities", salleSchema);

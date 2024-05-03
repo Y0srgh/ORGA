@@ -5,7 +5,7 @@ import {
   findAllSalles,
   findOneSalle,
   updateSalle,
-} from "../Controllers/salleController.js";
+} from "../Controllers/facilityController.js";
 
 // Creating an Express router instance
 const salleRouter = express.Router();

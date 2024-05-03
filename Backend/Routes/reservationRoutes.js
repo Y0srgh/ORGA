@@ -6,7 +6,7 @@ import {
   findOneReservation,
   updateReservation,
   updateState
-} from "../Controllers/reservationController.js";
+} from "../Controllers/ReservationController.js"; 
 
 // Creating an Express router instance
 const router = express.Router();

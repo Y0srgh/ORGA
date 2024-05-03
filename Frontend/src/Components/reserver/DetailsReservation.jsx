@@ -2,30 +2,33 @@ import React, { useState } from 'react';
 import './Reserver.css';
 import axios from 'axios'; // Import Axios for making HTTP requests
 
-function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
+function ReservationDetails({ date, time, facility, motive, onBack, onQuit }) {
   const [formVisible, setFormVisible] = useState(true);
-  const [formData, setFormData] = useState({ salle: '', motif: '', date: '', time: '' });
+  const [formData, setFormData] = useState({ facility: '', motive: '', date: '', time: '' });
   const [submissionStatus, setSubmissionStatus] = useState(null);
 
   // Set the initial form data when the component mounts
   useState(() => {
-    setFormData({ salle, motif, date, time });
-  }, [date, time, salle, motif]);
+    setFormData({ facility, motive, date, time });
+  }, [date, time, facility, motive]);
 
   const handleSubmit = async () => {
     try {
-     
-      const token = localStorage.getItem('token'); // Get token from local storage
-      const response = await axios.post('/api/reservations', { ...formData, token }); // Pass token along with form data
+      console.log('Data to be sent:', formData);
+      const response = await axios.post('http://localhost:5500/reservations', { ...formData }, {
+        //withCredentials: true // Send cookies along with the request
+      });
+  
       console.log('Data sent to MongoDB:', response.data);
       setSubmissionStatus('success');
-      setFormVisible(false); // If submission is successful, hide the form
+      setFormVisible(false);
     } catch (error) {
       console.error('Error sending data:', error);
       setSubmissionStatus('failed');
-      // Handle error, show error message, etc.
     }
   };
+  
+  
 
   // Function to format date in "DD/MM/YYYY" format
   const formatDate = (date) => {
@@ -68,11 +71,11 @@ function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
       
       <div className="form-group">
         <label htmlFor="salle" className="label">Salle n°</label>
-        <input type="text" id="salle" value={formData.salle} readOnly={true} />
+        <input type="text" id="salle" value={formData.facility} readOnly={true} />
       </div>
       <div className="form-group">
         <label htmlFor="motif" className="label">Motifs de réservation</label>
-        <textarea id="motif" rows="5" cols="20" value={formData.motif} readOnly={true}></textarea>
+        <textarea id="motif" rows="5" cols="20" value={formData.motive} readOnly={true}></textarea>
       </div>
       <div className="form-group">
         <label htmlFor="date" className="label">Date</label>

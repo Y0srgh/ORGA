@@ -6,19 +6,20 @@ export const addReservation = async (req, res) => {
   try {
     // Extract user ID from token
     const token = req.headers.authorization.split(" ")[1];
+    console.log("token",token);
     const decodedToken = jwt.verify(token, JWT_SECRET);
     const userId = decodedToken.id;
-
+    console.log("hey",userId);
     // Destructure request body to extract reservation data
-    const { salle, motif, date, time } = req.body;
+    const { facility, motive, date, time } = req.body;
 
     // Create a new reservation with the user ID
     const newReservation = await Reservation.create({
-      salle,
-      motif,
+      facility,
+      motive,
       date,
       time,
-      user: userId,
+      userId,
     });
 
     return res.status(201).json(newReservation);
@@ -78,11 +79,11 @@ export const findOneReservation = async (req, res) => {
 export const updateReservation = async (req, res) => {
   try {
     const { id } = req.params;
-    const { salle, motif, date, time } = req.body;
+    const { facility, motive, date, time } = req.body;
 
     const updatedReservation = await Reservation.findByIdAndUpdate(
       id,
-      { salle, motif, date, time },
+      { facility, motive, date, time },
       { new: true }
     );
 

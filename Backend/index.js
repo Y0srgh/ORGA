@@ -3,6 +3,8 @@ import mongoose from "mongoose"; // Import Mongoose for MongoDB interaction
 import { mongoDBURL, PORT } from "./Configurations/config.js"; 
 import  cors  from "cors";
 import userRoutes from "./Routes/userRoutes.js";
+import reservationRoutes from "./Routes/reservationRoutes.js";
+import facilityRoutes from "./Routes/facilityRoutes.js";
 import cookieParser from "cookie-parser";
 // Import Express framework
 import express from "express"; 
@@ -17,7 +19,10 @@ app.use(
     })
 );
 // Mount userRoutes middleware at the '/users' path
+app.use('/reservations',reservationRoutes);
 app.use('/users',userRoutes);
+app.use('/facilities',facilityRoutes);
+
 
 // Middleware for handling CORS POLICY
 // option 1: Allow All Origins with Default of cors(*)

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Reserver.css';
 
-function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
+function ReserverSalleform({ onSubmit,onBack }) {
   // Define state variables
-  const [salle, setSalle] = useState('');
+  const [facility, setSalle] = useState('');
   const [motif, setMotif] = useState('');
   const [formVisible, setFormVisible] = useState(true);
   const [errors, setErrors] = useState({}); // Add state for errors
@@ -12,8 +12,8 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
     event.preventDefault();
     const newErrors = {}; // Create new errors object
 
-    if (!salle) {
-      newErrors.salle = 'Veuillez choisir une salle.';
+    if (!facility) {
+      newErrors.facility = 'Veuillez choisir une salle.';
     }
     if (!motif) {
       newErrors.motif = 'Veuillez saisir le motif de réservation.';
@@ -24,7 +24,7 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
 
     // Submit only if no errors
     if (Object.keys(newErrors).length === 0) {
-      onSubmit(salle, motif);
+      onSubmit(facility, motif);
     }
   };
 
@@ -51,10 +51,10 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
                 </label>
                 <select
                   id="salle"
-                  value={salle}
+                  value={facility}
                   onChange={(e) => {
                     setSalle(e.target.value);
-                    onSalleChange(e.target.value);
+                    
                   }}
                 >
                   <option value="">Sélectionner une salle</option>
@@ -62,7 +62,7 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
                   <option value="audito">Auditorium</option>
                   {/* Option elements for clubs */}
                 </select></div>
-                {errors.salle && <p className="error-message">{errors.salle}</p>}
+                {errors.facility && <p className="error-message">{errors.facility}</p>}
               
               <div className="form-group">
                 <label htmlFor="motif" className="required-label">
@@ -73,7 +73,7 @@ function ReserverSalleform({ onSubmit, onSalleChange, onMotifChange, onBack }) {
                   value={motif}
                   onChange={(e) => {
                     setMotif(e.target.value);
-                    onMotifChange(e.target.value);
+                    
                   }}
                   rows="6"
                   cols="30"
