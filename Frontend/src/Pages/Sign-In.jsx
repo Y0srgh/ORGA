@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const SignIn = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");  
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
@@ -28,47 +28,7 @@ const SignIn = () => {
   };
 
   return (
-    /* 
-    <div>
-    <div className="sign-in-container container">
-      <form className="sign-in-form form-group" onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          autoComplete="off"
-          placeholder="prenom.nom@insat.ucar.tn"
-          className="form-control"
-          label="Adresse Email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="*************"
-          className="form-control"
-          label="Mot de passe"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Link
-          id="forgot-password-link"
-          to="/forgot-password"
-          className="forgot-password-link"
-        >
-          Mot de passe oublié?
-        </Link>
-        <button type="submit" className=" mt-3">
-          Se connecter
-        </button>
-        <p id="create-account">
-          Vous n'avez pas un compte ?{" "}
-          <Link id="create-account-link" to="/sign-up">
-            Créer un compte
-          </Link>
-        </p>
-      </form>
-    </div></div> */
+
 
     <div>
       <div className="wrapper">
@@ -83,9 +43,9 @@ const SignIn = () => {
               className="form-control"
               label="Adresse Email"
               id="email"
-              value={email}
+              value={email}  
               onChange={(e) => setEmail(e.target.value)}
-            />
+            /> 
           </div>
 
           <div className="input-box">
