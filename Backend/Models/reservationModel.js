@@ -1,43 +1,43 @@
 import mongoose from "mongoose";
 
-// Définition du schéma de réservation
-const reservationSchema = mongoose.Schema({
+const reservationSchema = mongoose.Schema(
+  {
     date: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: true, // Date of the reservation
     },
-    temps: {
-        type: String,
-        required: true,
+    time: {
+      type: String,
+      required: true, // Time of the reservation
     },
-    motif: {
-        type: String,
-        required: true,
+    motive: {
+      type: String,
+      required: true, // Motive for the reservation
     },
-    salle: {
+    state: {
+      type: String,
+      enum: ["En attente", "Approuvée", "Refusée" ,"Annulée"], // State of the reservation
+      default: "En attente", // Default state is pending
+    },
+    facility: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Facility", // Reference to the facility collection
+      required: true, // Reference to the facility for which the reservation is made
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true, // Reference to the user who made the reservation
+    },
+    adminId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'salles', 
-        required: true,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users', 
-        required: true,
-    },
-    club: {
-        type: String,
-        required: true,
-    }
-});
+        ref: "User",
+        default: null, 
+      },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-// Définition du modèle de réservation
-const Reservation = mongoose.model("Reservation", reservationSchema);
-
-// Export du modèle de réservation
-export default Reservation;
-
-
-
-
-
-
+export const Reservation = mongoose.model("Reservation", reservationSchema);
