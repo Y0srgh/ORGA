@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import './Reserver.css';
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
   const [formVisible, setFormVisible] = useState(true);
   const [formData, setFormData] = useState({ salle: '', motif: '', date: '', time: '' });
+  const [submissionStatus, setSubmissionStatus] = useState(null);
 
   // Set the initial form data when the component mounts
   useState(() => {
     setFormData({ salle, motif, date, time });
   }, [date, time, salle, motif]);
 
-  const handleSubmit = () => {
-    // Add any submission logic here
-    // For now, just close the form
-    setFormVisible(false);
+  const handleSubmit = async () => {
+    try {
+     
+      const token = localStorage.getItem('token'); // Get token from local storage
+      const response = await axios.post('/api/reservations', { ...formData, token }); // Pass token along with form data
+      console.log('Data sent to MongoDB:', response.data);
+      setSubmissionStatus('success');
+      setFormVisible(false); // If submission is successful, hide the form
+    } catch (error) {
+      console.error('Error sending data:', error);
+      setSubmissionStatus('failed');
+      // Handle error, show error message, etc.
+    }
   };
 
   // Function to format date in "DD/MM/YYYY" format
@@ -25,10 +36,26 @@ function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
     return `${day}/${month}/${year}`;
   };
 
-  if (!formVisible) {
-    return null; // If form is not visible, don't render anything
-  }
-
+  const renderPopup = () => {
+    if (submissionStatus === 'success') {
+      return (
+        <div className="popup success">
+          <p>La réservation a été envoyée avec succès!</p>
+          {/* You can add additional content or styles here */}
+        </div>
+      );
+    } else if (submissionStatus === 'failed') {
+      return (
+        <div className="popup failed">
+          <p>Échec de la réservation. Veuillez réessayer.</p>
+          {/* You can add additional content or styles here */}
+        </div>
+      );
+    } else {
+      return null; // If submissionStatus is null, don't render anything
+    }
+  };
+  
   return (
     <div className="container">
       <div className="button-group">
@@ -55,7 +82,8 @@ function ReservationDetails({ date, time, salle, motif, onBack, onQuit }) {
         <label htmlFor="temps" className="label">Temps</label>
         <input type="text" id="time" value={formData.time} readOnly={true} />
       </div>
-      <button type="submit" className="button" onClick={handleSubmit}>Confirmer</button>
+      {renderPopup()}
+      <button type="button" className="button" onClick={handleSubmit}>Confirmer</button>
     </div>
   );
 }
