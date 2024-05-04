@@ -7,12 +7,12 @@ import { HiOutlineIdentification } from "react-icons/hi2";
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { MultiSelect } from 'primereact/multiselect';
 import { Password } from 'primereact/password';
+import { useNavigate } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from "notistack";
 import axios from "axios";
 
 
 import './styles.css'; // Import custom CSS for styling
-import { useNavigate } from 'react-router-dom';
 
 const AddPresident = () => {
 
@@ -163,9 +163,9 @@ const AddPresident = () => {
               type="text"
               placeholder="Pseudo-Identité"
               className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none"
-              value={email}
+              value={userName}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
             <MdPermIdentity className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
           </div>
