@@ -39,10 +39,10 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["Président", "Admin", "Dvure"], // Enumerated roles for the user
+      enum: ["Président", "Admin", "Dvure", "DEF"], // Enumerated roles for the user
       required: true,
     },
-    StudentID: {
+    studentId: {
       type: String,
       required: function () {
         return this.role === "Président"; // Student ID

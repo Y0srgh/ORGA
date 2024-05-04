@@ -10,7 +10,7 @@ const DeleteUser = () => {
 
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:5500/users/${id}`)
+      .delete(`http://localhost:5500/clubs/${id}`)
       .then(() => {
         enqueueSnackbar('La suppression a été réalisée avec succès', { variant: 'success' });
       })

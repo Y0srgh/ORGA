@@ -1,4 +1,5 @@
 import { Club } from "../Models/clubModel.js";
+import { User } from "../Models/userModel.js";
 
 export const findAllClubs = async (req, res) => {
   try {
@@ -35,7 +36,7 @@ export const findAvailableClubs = async (req, res) => {
 
 export const createClub = async (req, res) => {
   try {
-    const { clubName, selected } = req.body;
+    const { clubName, selected, selectedPresident } = req.body;
 
     if (!clubName) {
       return res.status(400).json({ message: "Club name is required" });
@@ -46,8 +47,31 @@ export const createClub = async (req, res) => {
       return res.status(400).json({ message: "Club already exists" });
     }
 
-    const club = await Club.create({ clubName, selected });
-    return res.status(201).json(club);
+    if (selected && !selectedPresident) {
+      return res.status(400).json({ message: "Veuillez affecter le club à un président" });
+    }
+
+    const president = await User.findOne({_id : selectedPresident.code})
+    if(!president) {
+      return res.status(400).json({ message: "Cet utilisateur n'existe pas" });
+    }
+
+    let select = false;
+    if(selectedPresident){
+      select = true;
+    }    
+
+    const club = await Club.create({ clubName, selected: select  });
+    let clubs = president.clubs;
+    clubs.push(club._id);
+    const stringifiedList = clubs.map(id => id.toString());
+
+    president.clubs = clubs ;
+    console.log("pres", stringifiedList);
+    const pres = await president.save();
+
+    //User.findByIdAndUpdate(selectedPresident.code, {clubs : president.clubs})
+    return res.status(201).json(pres);
   } catch (error) {
     return res.status(409).json({ message: error.message });
   }

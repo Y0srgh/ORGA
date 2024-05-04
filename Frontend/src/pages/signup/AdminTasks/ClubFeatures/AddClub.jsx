@@ -51,14 +51,16 @@ const AddClub = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      clubName
+      clubName,
+      selectedPresident,
+      selected
     };
 
     
     await axios
-      .post("http://localhost:5500/users", data)
+      .post("http://localhost:5500/clubs", data)
       .then(() => {
-        enqueueSnackbar("Un email a été envoyé !", {
+        enqueueSnackbar("Le club a été enregistré avec succès!", {
           variant: "success",
         });
         setClubName("");
@@ -90,7 +92,7 @@ const AddClub = () => {
             <LiaUniversitySolid className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
           </div>
           <div className="card flex flex-column align-items-center gap-3">
-            <Checkbox checked={selected} onChange={(e) => setSelected(e.target.checked)} />
+            <Checkbox checked={selected} onChange={(e) => setSelected(e.checked)} />
             <label>{selected&&" "||"Affecter un à un président"}</label>
         </div>
 
