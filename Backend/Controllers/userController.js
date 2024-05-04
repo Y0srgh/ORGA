@@ -50,7 +50,7 @@ export const addUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : null, // Provide levelOfStudy only if the role is "Président"
-      StudentID: role === "Président" ? StudentID : null, // Provide StudentID only if the role is "Président"
+      studentID: role === "Président" ? StudentID : null, // Provide StudentID only if the role is "Président"
       clubs: role === "Président" ? clubs : null, // Provide clubs only if the role is "Président"
     });
 
@@ -177,7 +177,7 @@ export const updateUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy,
-      StudentID,
+      studentId: StudentID,
       clubs,
     };
     // If password is provided, hash it
@@ -237,16 +237,17 @@ export const registerUser = async (req, res) => {
     const {
       userName,
       email,
-      password,
+      mot_de_passe,
       phoneNumber,
       role,
       levelOfStudy,
       StudentID,
       clubs,
     } = req.body;
+    console.log(req.body);
 
     // Check if all required fields are provided
-    if (!userName || !email || !password || !phoneNumber || !role) {
+    if (!userName || !email || !mot_de_passe || !phoneNumber || !role) {
       return res
         .status(400)
         .json({ message: "Veuillez fournir tous les champs requis." });
@@ -282,20 +283,23 @@ export const registerUser = async (req, res) => {
           .json({ message: "Veuillez fournir tous les champs requis." });
       }
 
+      const newClubs = clubs.map(club => club.code)
+      console.log(newClubs);
+
       var newUser = await User.create({
         userName,
         email,
-        password,
+        password : mot_de_passe,
         phoneNumber,
         role,
         levelOfStudy,
-        StudentID,
-        clubs,
+        studentId: StudentID,
+        clubs : newClubs,
       });
 
       let CLubs = [];
       // Parcourir la liste des identifiants de clubs et mettre à jour leur état "selected"
-      for (const clubId of clubs) {
+      for (const clubId of newClubs) {
         let club = await Club.findByIdAndUpdate(clubId, { selected: true });
         CLubs.push(club.clubName);
       }
@@ -329,6 +333,7 @@ export const registerUser = async (req, res) => {
         password,
         phoneNumber,
         role,
+        
       });
     }
     return res.status(201).json(newUser);
