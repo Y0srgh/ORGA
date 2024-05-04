@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import withMT from "@material-tailwind/react/utils/withMT"
-
 export default {
+  darkMode: 'class',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+      './index.html',
+      './src/**/*.{vue,js,ts,jsx,tsx}',
+      './node_modules/primereact/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+      extend: {},
   },
   plugins: [],
-}
-
+};
