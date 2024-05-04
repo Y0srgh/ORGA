@@ -12,6 +12,7 @@ import EditUser from './pages/signup/AdminTasks/UserFeatures/EditUser';
 import ShowUser from './pages/signup/AdminTasks/UserFeatures/ShowUser';
 import DeleteUser from './pages/signup/AdminTasks/UserFeatures/DeleteUser';
 import HomeUsers from './pages/signup/AdminTasks/UserFeatures/HomeUsers';
+import AddClub from './pages/signup/AdminTasks/ClubFeatures/AddClub';
 
 const App = () => {
   return (
@@ -23,9 +24,10 @@ const App = () => {
       <Route path='/user/edit-user/:id' className="app-container" element={<EditUser />}/>
       <Route path='/user/show-user/:id' className="app-container" element={<ShowUser />}/>
       <Route path='/user/delete-user/:id' className="app-container" element={<DeleteUser />}/>
-      <Route path='/user/add-dvure' className="app-container" element={<AddDvure />}/>
+      <Route path='/user/add-dvure' classNam   e="app-container" element={<AddDvure />}/>
       <Route path='/user/add-def' className="app-container" element={<AddDef />}/>
 
+      <Route path='/club/add-club' className="app-container " element={<AddClub />}/>
       <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
     </Routes>
     </SnackbarProvider>

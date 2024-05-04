@@ -1,0 +1,46 @@
+.form-wrapper{
+  top: 50px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.blur-frame {
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+  backdrop-filter: blur(5px); /* Apply a blur effect */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid #8000001a; /* Thin border */
+  padding: 20px; /* Add padding */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+
+.form-wrapper label {
+  color: #800000;
+}
+
+.form-wrapper button {
+  background-color: #4b1010;
+}
+
+.form-wrapper button:hover {
+  background-color: #631616;
+}
+.form-wrapper button:active {
+  background-color: #801c1c;
+}
+
+button[type="submit"]:disabled {
+  background-color: #602d2d;;
+  cursor: not-allowed;
+}
+
+.icon-maroon {
+  color: #800000;
+}
+
+

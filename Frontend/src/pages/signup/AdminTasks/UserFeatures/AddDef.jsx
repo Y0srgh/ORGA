@@ -114,9 +114,9 @@ const AddDef = () => {
               type="text"
               placeholder="Pseudo-Identité"
               className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none"
-              value={email}
+              value={userName}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
             <MdPermIdentity className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
           </div>
