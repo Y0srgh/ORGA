@@ -4,12 +4,14 @@ import SignupPage from './pages/signup/SignupPage';
 import EmailVerify from './components/EmailVerify/EmailVerify';
 import AddPresident from './pages/signup/AdminTasks/UserFeatures/AddPresident';
 import AddDvure from './pages/signup/AdminTasks/UserFeatures/AddDvure';
+import AddDef from './pages/signup/AdminTasks/UserFeatures/AddDef';
 
 const App = () => {
   return (
     <Routes>
       <Route path='/add-president' className="app-container" element={<AddPresident />}/>
       <Route path='/add-dvure' className="app-container" element={<AddDvure />}/>
+      <Route path='/add-def' className="app-container" element={<AddDef />}/>
       <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
     </Routes>
   )
