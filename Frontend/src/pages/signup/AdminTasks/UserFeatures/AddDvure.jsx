@@ -8,6 +8,7 @@ import { IoPhonePortraitOutline } from "react-icons/io5";
 import { MultiSelect } from 'primereact/multiselect';
 import { Password } from 'primereact/password';
 import { SnackbarProvider, useSnackbar } from "notistack";
+import { Calendar } from 'primereact/calendar';
 import axios from "axios";
 
 
@@ -22,6 +23,8 @@ const AddDvure = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("Dvure");
   const [selectedClubs, setSelectedClubs] = useState([]);
+  const [dates, setDates] = useState(null);
+
 
   const navigate = useNavigate();
 
@@ -29,6 +32,13 @@ const AddDvure = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {
+      userName,
+      email,
+      mot_de_passe,
+      phoneNumber,
+      role
+    };
 
     
     await axios
@@ -40,12 +50,9 @@ const AddDvure = () => {
         //navigate("/login");
         setUserName("");
         setEmail("");
-        setPassword("");
+        setMot_de_passe("");
         setPhoneNumber("");
         setRole("");
-        setLevelOfStudy("");
-        setStudentID("");
-        setSelectedClubs([]);
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: "error" });
@@ -71,11 +78,6 @@ const AddDvure = () => {
     return phoneNumberRegex.test(phoneNumber);
   };
 
-  const validateStudentID = (studentID) => {
-    // Regular expression for student ID validation
-    const studentIDRegex = /^\d{7}$/;
-    return studentIDRegex.test(studentID);
-  };
 
   const validateForm = () => {
     // Perform validation for all fields
@@ -91,31 +93,16 @@ const AddDvure = () => {
       // Handle invalid phone number
       return false;
     }
-    if (password.length < 5) {
+    if (mot_de_passe.length < 5) {
       return false;
     }
 
-    if (
-      role === "Président" &&
-      (!levelOfStudy || levelOfStudy < 1 || levelOfStudy > 5)
-    ) {
-      // Handle invalid level of study
-      return false;
-    }
-    if (role === "Président" && !validateStudentID(StudentID)) {
-      // Handle invalid student ID
-      return false;
-    }
-    if (role === "Président" && selectedClubs.length === 0) {
-      // Handle no club selected for president
-      return false;
-    }
     return true; // Form is valid
   };
 
   return (
     <div className='mt-20 form-wrapper'>
-    <h1 className="text-3xl font-bold mb-8 text-center text-[#800020]">Ajouter un nouveau président</h1>
+    <h1 className="text-3xl font-bold mb-8 text-center text-[#800020]">Inscrire un nouveau compte Dvure</h1>
       <div className="blur-frame max-w-4xl mx-auto px-6 py-8 my-6">
 
       <form className="font-[sans-serif] text-[#333] max-w-4xl mx-auto px-6 my-6" onSubmit={handleSubmit}>
@@ -135,18 +122,6 @@ const AddDvure = () => {
           </div>
 
           <div className="relative flex items-center">
-            <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">ID d'étudiant</label>
-            <input
-              type="text"
-              placeholder="ID d'étudint"
-              value={StudentID}
-              onChange={(e) => setStudentID(e.target.value)}
-              required
-              className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-            <HiOutlineIdentification className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
-          </div>
-
-          <div className="relative flex items-center">
             <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Numéro de téléphone</label>
             <input type="number" placeholder="Numéro de téléphone."
               value={phoneNumber}
@@ -155,17 +130,7 @@ const AddDvure = () => {
               className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
             <IoPhonePortraitOutline className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
           </div>
-          <div className="relative flex items-center">
-            <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Niveau d'étude</label>
-            <input type="number"
-              min={1}
-              max={5} placeholder="Niveau d'étude"
-              value={levelOfStudy}
-              onChange={(e) => setLevelOfStudy(e.target.value)}
-              required
-              className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-            <PiStudentBold className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
-          </div>
+          
           <div className="relative flex items-center">
             <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Email</label>
             <input type="email" value={email}
@@ -177,16 +142,13 @@ const AddDvure = () => {
           </div>
          
           <div className="relative flex items-center">
-            <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Affecter les clubs</label>
-            <MultiSelect value={selectedClubs} onChange={(e) => setSelectedClubs(e.value)} options={clubs} optionLabel="name" display="chip"
-              placeholder="Affectation des clubs" maxSelectedLabels={3} className="w-full md:w-20rem mt-6" />
-          </div>
-          <div className="relative flex items-center">
             <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Mot de passe</label>
             <Password value={mot_de_passe} className='px-0 pt-0 mt-4 pb-0 w-[200px] bg-white text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none' onChange={(e) => setMot_de_passe(e.target.value)} toggleMask />
           </div>
 
+
           </div>
+         
           <button type="submit" disabled={!validateForm()} className="mt-10 mb-5 px-2 py-2.5 rounded text-sm font-semibold bg-[#333] text-white hover:bg-[#222] mx-auto block w-80">Submit</button>
 
       </form>
