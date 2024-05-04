@@ -216,7 +216,10 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    updateSelected(user);
+
+    if (user.clubs) {
+      updateSelected(user);
+    }
     return res
       .status(200)
       .json({ message: "Utilisateur supprimé avec succès." });
