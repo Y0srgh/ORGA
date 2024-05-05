@@ -113,7 +113,7 @@ const EditUser = () => {
     };
 
     await axios
-      .post("http://localhost:5500/users/register", data)
+      .put(`http://localhost:5500/users/update-details/${id}`, data)
       .then(() => {
         enqueueSnackbar("Un email a été envoyé !", {
           variant: "success",
@@ -162,17 +162,23 @@ const EditUser = () => {
     // Perform validation for all fields
     if (!validateEmail(email)) {
       // Handle invalid email
+      console.log("email");
       return false;
     }
     if (!validateUsername(userName)) {
       // Handle invalid username
+      console.log("username");
+
       return false;
     }
     if (!validatePhoneNumber(phoneNumber)) {
       // Handle invalid phone number
+      console.log("phone");
+
       return false;
     }
-    if (mot_de_passe.length < 5) {
+    if ((mot_de_passe)&&(mot_de_passe.length < 5)) {
+      console.log("password");
       return false;
     } 
 
@@ -180,15 +186,18 @@ const EditUser = () => {
       role === "Président" &&
       (!levelOfStudy || levelOfStudy < 1 || levelOfStudy > 5)
     ) {
+      console.log("cond 1 ");
       // Handle invalid level of study
       return false;
     }
     if (role === "Président" && !validateStudentID(StudentID)) {
       // Handle invalid student ID
+      console.log("cond 2");
       return false;
     }
     if (role === "Président" && selectedClubs.length === 0) {
       // Handle no club selected for president
+      console.log("cond 3");
       return false;
     }
     return true; // Form is valid

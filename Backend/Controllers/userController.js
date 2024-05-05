@@ -129,28 +129,38 @@ export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      firstName,
-      lastName,
+      userName,
       email,
-      password,
+      mot_de_passe,
       phoneNumber,
-      role,
       levelOfStudy,
       StudentID,
+      role,
       clubs,
     } = req.body;
 
+
+    console.log("bodyyy",req.body);
+
     // Check if all required fields are provided
     if (
-      !firstName ||
-      !lastName ||
+      !userName ||
       !email ||
-      !password ||
-      !phoneNumber ||
-      !role
+      !phoneNumber
     ) {
       return res.status(400).json({
-        message: "Veuillez fournir tous les champs requis",
+        message: "Veuillez fournir tous les champs requiseee",
+      });
+    }
+
+   
+
+
+    const existingUser = await User.findById(id);
+    if (!existingUser) {
+      return res.status(400).json({
+        message:
+          "Cet utilisateur n'existe pas",
       });
     }
 
@@ -170,10 +180,9 @@ export const updateUser = async (req, res) => {
     }
 
     let updatedFields = {
-      firstName,
-      lastName,
+      userName,
       email,
-      password,
+      password : mot_de_passe,
       phoneNumber,
       role,
       levelOfStudy,
@@ -181,8 +190,8 @@ export const updateUser = async (req, res) => {
       clubs,
     };
     // If password is provided, hash it
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
+    if (mot_de_passe) {
+      const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
       updatedFields.password = hashedPassword;
     }
 
@@ -307,24 +316,21 @@ export const registerUser = async (req, res) => {
 
       console.log("clubs : ", clubs);
     
-
-
-
-    const token = await Token.create({
-      userId: newUser._id,
-      token: crypto.randomBytes(32).toString("hex"),
-    });
-    const url = `http://localhost:5173/users/${newUser._id}/verify/${token.token}`;
-    //await sendEmail(newUser.email, "Verifier votre Email", url);
-    await sendEmail(
-      newUser.email,
-      "Verifier votre Email",
-      url,
-      newUser.StudentID,
-      newUser.levelOfStudy,
-      CLubs
-    );
-  }
+      const token = await Token.create({
+        userId: newUser._id,
+        token: crypto.randomBytes(32).toString("hex"),
+      });
+      const url = `http://localhost:5173/users/${newUser._id}/verify/${token.token}`;
+      //await sendEmail(newUser.email, "Verifier votre Email", url);
+      await sendEmail(
+        newUser.email,
+        "Verifier votre Email",
+        url,
+        newUser.StudentID,
+        newUser.levelOfStudy,
+        CLubs
+      );
+    }
     // Si le rôle de l'utilisateur est "Dvure"
     if (role === "Dvure") {
       var newUser = await User.create({
