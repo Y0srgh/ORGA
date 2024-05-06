@@ -205,7 +205,7 @@ const EditUser = () => {
 
   return (
     <div className='mt-20 form-wrapper'>
-    <h1 className="text-3xl font-bold mb-8 text-center text-[#800020]">Ajouter un nouveau président</h1>
+    <h1 className="text-3xl font-bold mb-8 text-center text-[#800020]">Mise à jour du compte</h1>
       <div className="blur-frame max-w-4xl mx-auto px-6 py-8 my-6">
 
       <form className="font-[sans-serif] text-[#333] max-w-4xl mx-auto px-6 my-6" onSubmit={handleSubmit}>

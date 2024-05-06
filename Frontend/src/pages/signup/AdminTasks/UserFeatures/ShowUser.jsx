@@ -53,7 +53,7 @@ const ShowUser = () => {
             <DetailRow label="Role" value={user.role} />
             {user.role === "Président" && (
               <>
-                <DetailRow label="Carte étudiant" value={user.StudentID} />
+                <DetailRow label="Carte étudiant" value={user.studentId} />
                 <DetailRow label="Année d'étude" value={user.levelOfStudy} />
                 {user.clubs?.length > 0 && (
                   <DetailRow label="Liste des clubs" value={clubs.map((club) => club.name).join(', ')} />
