@@ -13,6 +13,7 @@ const DeleteUser = () => {
       .delete(`http://localhost:5500/users/${id}`)
       .then(() => {
         enqueueSnackbar('La suppression a été réalisée avec succès', { variant: 'success' });
+        navigate('/user')
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: 'error' });

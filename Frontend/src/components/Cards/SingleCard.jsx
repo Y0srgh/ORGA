@@ -19,7 +19,7 @@ const SingleCard = ({ model, route }) => {
         <h4 className='my-7 text-gray-500'>{model._id}</h4>
         <div className='flex justify-start items-center gap-x-2'>
           <BiUserCircle className='text-red-700 text-2xl' />
-          <h2 className='my-1'>{model.userName}</h2>
+          <h2 className='my-1'>{model.userName || model.clubName}</h2>
         </div>
         {
           (model.email) && (

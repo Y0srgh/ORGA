@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const DeleteUser = () => {
+const DeleteClub = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
@@ -13,6 +13,7 @@ const DeleteUser = () => {
       .delete(`http://localhost:5500/clubs/${id}`)
       .then(() => {
         enqueueSnackbar('La suppression a été réalisée avec succès', { variant: 'success' });
+        navigate('/club')
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: 'error' });
@@ -37,4 +38,4 @@ const DeleteUser = () => {
   );
 };
 
-export default DeleteUser;
+export default DeleteClub;

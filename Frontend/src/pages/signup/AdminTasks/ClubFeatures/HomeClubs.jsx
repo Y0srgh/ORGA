@@ -6,15 +6,15 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import ModelCard from '../../../../components/Cards/ModelCard';
 
-const HomeUsers = () => {
-    const [users, setUsers] = useState([]);
+const HomeClubs = () => {
+    const [clubs, setClubs] = useState([]);
 
     useEffect(() => {
         axios
-          .get('http://localhost:5500/users')
+          .get('http://localhost:5500/clubs')
           .then((response) => {
             console.log("reponse home emp: ",response.data);
-            setUsers(response.data.data);
+            setClubs(response.data.data);
           })
           .catch((error) => {
             console.log(error);
@@ -26,13 +26,13 @@ const HomeUsers = () => {
     <div className='p-4'>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl my-8 mx-4 text-[#730202]'>Liste des membres</h1>
-        <Link to='/user/add-user'>
+        <Link to='/club/add-club'>
           <MdOutlineAddBox className='text-sky-800 text-4xl mr-6' />
         </Link>
       </div>
-      <ModelCard model={users} route={"user"} />
+      <ModelCard model={clubs} route={"club"} />
     </div>
   )
 }
 
-export default HomeUsers
+export default HomeClubs
