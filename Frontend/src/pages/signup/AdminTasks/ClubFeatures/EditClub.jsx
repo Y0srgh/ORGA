@@ -22,7 +22,7 @@ const EditUser = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("");
   const [levelOfStudy, setLevelOfStudy] = useState("");
-  const [StudentID, setStudentID] = useState("");
+  const [studentId, setStudentId] = useState("");
   const [clubs, setClubs] = useState([]);
   const [allClubs, setAllClubs] = useState([]);
   const [selectedClubs, setSelectedClubs] = useState([]);
@@ -75,7 +75,7 @@ const EditUser = () => {
         setEmail(response.data.email);
         setRole(response.data.role);
         if(response.data.role === "Président"){
-        setStudentID(response.data.StudentID)
+        setStudentId(response.data.studentId)
         setLevelOfStudy(response.data.levelOfStudy)
         console.log("response",response.data);
         const new_clubs = response.data.clubs.map((selectedId) => {
@@ -108,7 +108,7 @@ const EditUser = () => {
       phoneNumber,
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : undefined,
-      StudentID: role === "Président" ? StudentID : undefined,
+      studentId: role === "Président" ? studentId : undefined,
       clubs,
     };
 
@@ -125,7 +125,7 @@ const EditUser = () => {
         setPhoneNumber("");
         setRole("");
         setLevelOfStudy("");
-        setStudentID("");
+        setStudentId("");
         setSelectedClubs([]);
       })
       .catch((error) => {
@@ -152,10 +152,10 @@ const EditUser = () => {
     return phoneNumberRegex.test(phoneNumber);
   };
 
-  const validateStudentID = (studentID) => {
+  const validatestudentId = (studentId) => {
     // Regular expression for student ID validation
-    const studentIDRegex = /^\d{7}$/;
-    return studentIDRegex.test(studentID);
+    const studentIdRegex = /^\d{7}$/;
+    return studentIdRegex.test(studentId);
   };
 
   const validateForm = () => {
@@ -183,7 +183,7 @@ const EditUser = () => {
       // Handle invalid level of study
       return false;
     }
-    if (role === "Président" && !validateStudentID(StudentID)) {
+    if (role === "Président" && !validatestudentId(studentId)) {
       // Handle invalid student ID
       return false;
     }
@@ -242,8 +242,8 @@ const EditUser = () => {
             <input
               type="text"
               placeholder="ID d'étudint"
-              value={StudentID}
-              onChange={(e) => setStudentID(e.target.value)}
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
               required
               className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
             <HiOutlineIdentification className="w-[18px] h-[18px] absolute right-4 icon-maroon" />

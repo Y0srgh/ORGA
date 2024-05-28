@@ -15,7 +15,7 @@ export const addUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy,
-      StudentID,
+      studentId,
       clubs,
     } = req.body;
 
@@ -50,7 +50,7 @@ export const addUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : null, // Provide levelOfStudy only if the role is "Président"
-      studentID: role === "Président" ? StudentID : null, // Provide StudentID only if the role is "Président"
+      studentId: role === "Président" ? studentId : null, // Provide studentId only if the role is "Président"
       clubs: role === "Président" ? clubs : null, // Provide clubs only if the role is "Président"
     });
 
@@ -134,7 +134,7 @@ export const updateUser = async (req, res) => {
       mot_de_passe,
       phoneNumber,
       levelOfStudy,
-      StudentID,
+      studentId,
       role,
       clubs,
     } = req.body;
@@ -165,14 +165,14 @@ export const updateUser = async (req, res) => {
     }
 
     // Check if role is "Président" and required fields for students are missing
-    /*if (role === "Président" && (!levelOfStudy || !StudentID || !clubs)) {
+    /*if (role === "Président" && (!levelOfStudy || !studentId || !clubs)) {
       return res
         .status(400)
         .json({ message: "Veuillez fournir tous les champs requis pour le rôle de Président." });
     }*/
 
     // Check if role is not "Président" but student-related fields are provided
-    if (role !== "Président" && (levelOfStudy || StudentID || clubs)) {
+    if (role !== "Président" && (levelOfStudy || studentId || clubs)) {
       return res.status(400).json({
         message:
           "Vous ne pouvez pas mettre à jour des informations spécifiques aux étudiants pour un rôle autre que Président.",
@@ -186,7 +186,7 @@ export const updateUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy,
-      studentId: StudentID,
+      studentId: studentId,
       clubs,
     };
     // If password is provided, hash it
@@ -250,7 +250,7 @@ export const registerUser = async (req, res) => {
       phoneNumber,
       role,
       levelOfStudy,
-      StudentID,
+      studentId,
       clubs,
     } = req.body;
     console.log(req.body);
@@ -279,14 +279,14 @@ export const registerUser = async (req, res) => {
 
     // Creating a new user in the database
     if (role === "Président") {
-      existingUser = await User.findOne({ StudentID });
+      existingUser = await User.findOne({ studentId });
       if (existingUser) {
         return res.status(400).json({
           message: "Un étudiant avec ce numéro d'inscription existe déjà.",
         });
       }
 
-      if (!clubs || !clubs.length || !StudentID || !levelOfStudy) {
+      if (!clubs || !clubs.length || !studentId || !levelOfStudy) {
         return res
           .status(400)
           .json({ message: "Veuillez fournir tous les champs requis." });
@@ -302,7 +302,7 @@ export const registerUser = async (req, res) => {
         phoneNumber,
         role,
         levelOfStudy,
-        studentId: StudentID,
+        studentId: studentId,
         clubs : newClubs,
       });
 
@@ -326,7 +326,7 @@ export const registerUser = async (req, res) => {
         newUser.email,
         "Verifier votre Email",
         url,
-        newUser.StudentID,
+        newUser.studentId,
         newUser.levelOfStudy,
         CLubs
       );

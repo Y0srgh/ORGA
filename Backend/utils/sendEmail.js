@@ -16,7 +16,7 @@ dotenv.config();
     });
 
     await transporter.sendMail({
-      from: process.env.USER,
+      from: process.env.USER, yosr.ghozzi@insat.ucar.tn
       to: email,
       subject: subject,
       text: text,
@@ -33,22 +33,22 @@ dotenv.config();
 export const sendEmail = async (
   email,
   subject,
-  url,
-  studentID,
+  url, 
+  studentId,
   levelOfStudy,
   clubs
 ) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: process.env.SERVICE,
+      service: "gmail",
       auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
+        user: "zaynebfathalli1661@gmail.com",
+        pass: "yzzq flkk iaka eckh",
       },
     });
 
     const text = `Veuillez confirmer les informations suivantes :
-- Votre numéro d'étudiant est : ${studentID}
+- Votre numéro d'étudiant est : ${studentId}
 - Votre niveau d'étude est : ${levelOfStudy}
 - Les clubs que vous gérez sont : ${clubs.join(", ")}
 
@@ -57,7 +57,7 @@ Veuillez vérifier que toutes les informations sont correctes. Des sanctions peu
 Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant : ${url}`;
 
     await transporter.sendMail({
-      from: process.env.USER,
+      from: "ghozzi.yosr.02@gmail.com",
       to: email,
       subject: subject,
       text: text,

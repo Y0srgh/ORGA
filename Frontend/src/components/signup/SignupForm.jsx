@@ -44,7 +44,7 @@ const SignupForm = () => {
     };
     if (role === "Président") {
       data.levelOfStudy = 1;
-      data.StudentID = "2100";
+      data.studentId = "2100";
     }
     await axios
       .post("http://localhost:5500/users", data)

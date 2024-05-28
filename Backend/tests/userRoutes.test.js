@@ -13,7 +13,7 @@ describe('User Routes', ()=> {
       levelOfStudy:3,
       phoneNumber:'28771588',
       role:'Président',
-      StudentID:"2133433",
+      studentId:"2133433",
       clubs:["a club"],
 
     };
@@ -70,7 +70,7 @@ describe('User Routes', ()=> {
       levelOfStudy:3,
       phoneNumber:'27082088',
       role:'Président',
-      StudentID:"2133433",
+      studentId:"2133433",
       clubs:["a club"],
       
     };

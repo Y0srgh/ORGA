@@ -35,7 +35,7 @@ const EmailVerify = () => {
         </>
       ) : (
         <>
-          <h1 className="email-verify-text">Erreur de vérification :(</h1>
+          <h1 className="email-verify-text">Erreur de vérification :(   </h1>
           <p className="email-verify-text">
             Le lien de vérification est invalide.
           </p>

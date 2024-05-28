@@ -11,7 +11,7 @@ const SignupForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("Président");
   const [levelOfStudy, setLevelOfStudy] = useState("");
-  const [StudentID, setStudentID] = useState("");
+  const [studentId, setStudentId] = useState("");
   const [clubs, setClubs] = useState([]);
   const [selectedClubs, setSelectedClubs] = useState([]);
 
@@ -46,7 +46,7 @@ const SignupForm = () => {
       phoneNumber,
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : undefined,
-      StudentID: role === "Président" ? StudentID : undefined,
+      studentId: role === "Président" ? studentId : undefined,
       clubs,
     };
 
@@ -63,7 +63,7 @@ const SignupForm = () => {
         setPhoneNumber("");
         setRole("");
         setLevelOfStudy("");
-        setStudentID("");
+        setStudentId("");
         setSelectedClubs([]);
       })
       .catch((error) => {
@@ -90,10 +90,10 @@ const SignupForm = () => {
     return phoneNumberRegex.test(phoneNumber);
   };
 
-  const validateStudentID = (studentID) => {
+  const validatestudentId = (studentId) => {
     // Regular expression for student ID validation
-    const studentIDRegex = /^\d{7}$/;
-    return studentIDRegex.test(studentID);
+    const studentIdRegex = /^\d{7}$/;
+    return studentIdRegex.test(studentId);
   };
 
   const validateForm = () => {
@@ -121,7 +121,7 @@ const SignupForm = () => {
       // Handle invalid level of study
       return false;
     }
-    if (role === "Président" && !validateStudentID(StudentID)) {
+    if (role === "Président" && !validatestudentId(studentId)) {
       // Handle invalid student ID
       return false;
     }
@@ -197,8 +197,8 @@ const SignupForm = () => {
                 <label>ID d'étudiant</label>
                 <input
                   type="text"
-                  value={StudentID}
-                  onChange={(e) => setStudentID(e.target.value)}
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
                   required
                   placeholder="ID d'étudiant"
                 />
