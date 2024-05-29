@@ -147,6 +147,15 @@ export const updateClub = async (req, res) => {
 
 export const deleteClub = async (req, res) => {
   try {
+    const oldPresidents = await User.find({ clubs: req.params.id });
+
+    for (const oldPresident of oldPresidents) {
+      const clubs = oldPresident.clubs.filter(club => club.toString() !== req.params.id.toString());
+      oldPresident.clubs = clubs;
+      const updatedPresident = await oldPresident.save();
+      console.log("Updated president:", updatedPresident);
+    }
+
     const club = await Club.findByIdAndDelete(req.params.id);
     return res.status(200).json(club);
   } catch (error) {
