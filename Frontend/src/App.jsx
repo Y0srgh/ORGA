@@ -16,6 +16,7 @@ import HomeClubs from './pages/signup/AdminTasks/ClubFeatures/HomeClubs';
 import AddClub from './pages/signup/AdminTasks/ClubFeatures/AddClub';
 import DeleteClub from './pages/signup/AdminTasks/ClubFeatures/DeleteClub';
 import EditClub from './pages/signup/AdminTasks/ClubFeatures/EditClub';
+import ShowClub from './pages/signup/AdminTasks/ClubFeatures/ShowClub';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
       <Route path='/club/add-club' className="app-container " element={<AddClub />}/>
       <Route path='/club/delete-club/:id' className="app-container " element={<DeleteClub />}/>
       <Route path='/club/edit-club/:id' className="app-container " element={<EditClub />}/>
+      <Route path='/club/show-club/:id' className="app-container " element={<ShowClub />}/>
       <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
     </Routes>
     </SnackbarProvider>
