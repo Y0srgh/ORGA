@@ -1,0 +1,138 @@
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+}
+
+
+.userprf {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    margin: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.prf {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; 
+    margin-right: 100px; 
+    margin-left: 50px;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    color: #525252; 
+    margin-right: 50px;
+}
+
+.editButton {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #762918;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.required-label {
+    width: 200px;
+    margin-right: 10px;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+.label {
+    display: inline-block;
+    width: 200px;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+.input-field {
+    display: inline-block;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color: #B4B4B8;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+
+    margin: 20px auto; 
+    
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    margin-left: 40px;
+}
+
+.form-title {
+    color: black;
+    text-align: left;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #dbdbdb;
+    width: 20%;
+    margin-bottom: 60px;
+}
+
+.button {
+    width: 25%;
+    height: auto;
+    padding: 10px;
+    background-color: #630000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin-top: 30px;
+    margin: 30px 0;
+    margin-left: 60px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+button:hover {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    font-family: 'Source Sans Pro';
+    margin-top: 5px;
+    display: block;
+}
