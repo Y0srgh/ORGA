@@ -8,12 +8,14 @@ import ParentComponent from "./Components/reserver/ParentComponent";
 import ReserverTimeDate from "./Components/reserver/ReserverTimeDate";
 import ReserverSalleform from "./Components/reserver/ReserverSalleform";
 import ReservationDetails from "./Components/reserver/DetailsReservation";
+import MyCalendar from "./Pages/CalendarPage/MyCalendar.jsx";
 
 const App = () => {
   return (
     <Routes>
       <Route exact path="/" element={<SignIn />} />
       <Route exact path="/home" element={<Home />} />
+      <Route exact path="/calendar" element={<MyCalendar />} />
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route exact path="/reserver" element={<ParentComponent/>} />

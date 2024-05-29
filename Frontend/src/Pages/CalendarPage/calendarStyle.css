@@ -1,0 +1,58 @@
+.calendar-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+    background-color: #f5f5f5 !important;
+  }
+.rbc-calendar {
+    width: 100vw !important;
+    padding: 50px !important;
+    
+}
+.rbc-time-view{
+    position: relative !important;
+    flex: 1 0 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.reservation-btn {
+
+    background-color: #2966b4;
+    /* medium blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 25px 0 0 60px;
+    align-self: flex-start;
+
+
+
+}
+
+.reservation-btn:hover {
+    background-color: #337ab7;
+    /* slightly darker blue on hover */
+}
+.rbc-events-container,.rbc-event-label,.rbc-event-content{
+    width:100%;
+}
+
+
+/* 
+.rbc-event-label,.rbc-event-content{
+    display: flex !important;
+    flex-direction: row !important;
+    
+
+}
+.rbc-event-content{
+    line-height: none;
+    padding-left: 5px;
+    margin-left: 5px;
+} */
