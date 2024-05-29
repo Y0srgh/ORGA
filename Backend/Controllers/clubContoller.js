@@ -39,7 +39,7 @@ export const createClub = async (req, res) => {
     const { clubName, selected, selectedPresident } = req.body;
 
     if (!clubName) {
-      return res.status(400).json({ message: "Club name is required" });
+      return res.status(400).json({ message: "Club's name is required" });
     }
 
     const existingClub = await Club.findOne({ clubName });
@@ -51,22 +51,26 @@ export const createClub = async (req, res) => {
       return res.status(400).json({ message: "Veuillez affecter le club à un président" });
     }
 
-    const president = await User.findOne({_id : selectedPresident.code})
-    if(!president) {
+    const president = await User.findOne({ _id: selectedPresident.code })
+    if (!president) {
       return res.status(400).json({ message: "Cet utilisateur n'existe pas" });
     }
 
     let select = false;
-    if(selectedPresident){
+    if (selectedPresident) {
       select = true;
-    }    
+    }
 
-    const club = await Club.create({ clubName, selected: select  });
+    const club = await Club.create({
+      clubName,
+      selected: select,
+      president: select ? president._id : null
+    });
     let clubs = president.clubs;
     clubs.push(club._id);
     const stringifiedList = clubs.map(id => id.toString());
 
-    president.clubs = clubs ;
+    president.clubs = clubs;
     console.log("pres", stringifiedList);
     const pres = await president.save();
 
@@ -79,22 +83,67 @@ export const createClub = async (req, res) => {
 
 export const updateClub = async (req, res) => {
   try {
-    const { clubName, selected } = req.body;
-    if (!clubName && (selected === undefined || selected === null)) {
-      return res
-        .status(400)
-        .json({ message: "You must update at least one field" });
+    const { clubName, selected, selectedPresident } = req.body;
+
+    if (!clubName) {
+      return res.status(400).json({ message: "Check all the fields" });
     }
+
+    if (selected && !selectedPresident) {
+      return res.status(400).json({ message: "Veuillez affecter le club à un président" });
+    }
+
+    const existingClub = await Club.findOne({ clubName });
+    if (!existingClub) {
+      return res.status(400).json({ message: "Ce club n'existe pas" });
+    }
+
+    // Find all presidents whose clubs list includes the club ID
+    const oldPresidents = await User.find({ clubs: existingClub._id });
+
+    // Iterate through each president and update their clubs list
+    for (const oldPresident of oldPresidents) {
+      // Filter out the club ID from the president's clubs list
+      const clubs = oldPresident.clubs.filter(club => club.toString() !== existingClub._id.toString());
+      // Update the president's clubs list
+      oldPresident.clubs = clubs;
+      // Save the updated president
+      const updatedPresident = await oldPresident.save();
+      console.log("Updated president:", updatedPresident);
+    }
+
+    if (selected) {
+      const newPresident = await User.findById(selectedPresident.code);
+      if (!newPresident) {
+        return res.status(400).json({ message: "Le président sélectionné n'existe pas" });
+      }
+      console.log("new pres", newPresident);
+      let clubs = newPresident.clubs;
+      clubs && clubs.push(existingClub._id) ||(clubs = [existingClub._id]);
+      const stringifiedList = clubs?.map(id => id.toString());
+  
+      newPresident.clubs = clubs;
+      console.log("pres", stringifiedList);
+      const pres = await newPresident.save();
+
+    }
+
     const updatedClub = await Club.findByIdAndUpdate(
       req.params.id,
-      { clubName, selected },
+      {
+        clubName,
+        selected,
+        president: selected ? selectedPresident.code : null
+      },
       { new: true }
     );
+
     return res.status(200).json(updatedClub);
   } catch (error) {
-    return res.status(404).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
+
 
 export const deleteClub = async (req, res) => {
   try {

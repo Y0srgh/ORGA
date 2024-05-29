@@ -64,6 +64,8 @@ const AddClub = () => {
           variant: "success",
         });
         setClubName("");
+        setSelectedPresident(null)
+        navigate("/club")
       })
       .catch((error) => {
         enqueueSnackbar(error.response.data.message, { variant: "error" });

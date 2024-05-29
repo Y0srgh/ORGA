@@ -10,6 +10,11 @@ const clubSchema = mongoose.Schema(
     selected: {
       type: Boolean,
       default: false 
+    },
+    president: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
     }
   },
   {
