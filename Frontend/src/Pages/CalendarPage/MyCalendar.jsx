@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import Calendar from "../Calendar";
 import "./calendarStyle.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const events = [
   {
     start: moment("2024-05-01T09:00:00").toDate(),
@@ -103,6 +105,7 @@ const events = [
     state: "Approuvée",
   },
 ];
+
 const colorsEvent = {
   "En attente": "#fcb96b",
   Annulée: "#fff493",
@@ -112,6 +115,7 @@ const colorsEvent = {
 
 export default function MyCalendar() {
   const navigate = useNavigate();
+  const [EVENTS, setEVENTS] = useState([]);
   const eventStyleGetter = (event, start, end, isSelected) => {
     let style = {};
     style.backgroundColor = colorsEvent[event.state];
@@ -126,19 +130,60 @@ export default function MyCalendar() {
 
     return { style };
   };
+  useEffect(() => {
+    const userId = "logged-in-user-id";
+    axios
+      .get(`http://localhost:5500/reservations`)
+      .then((response) => {
+        console.log(response.data.data);
+        const fetchedEvents = response.data.data.map((event) => {
+          const { date, time } = event;
+
+          // Ensure the time is in the correct format and split it
+          if (time && time.includes("-")) {
+            const [startTime, endTime] = time.split("-").map((t) => t.trim());
+
+            // Convert to 24-hour format and combine with date
+            const start = moment(
+              `${date.split("T")[0]} ${startTime}`,
+              "YYYY-MM-DD hh:mm A"
+            ).format("YYYY-MM-DDTHH:mm:ss");
+            const end = moment(
+              `${date.split("T")[0]} ${endTime}`,
+              "YYYY-MM-DD hh:mm A"
+            ).format("YYYY-MM-DDTHH:mm:ss");
+
+            return {
+              start: moment(start).toDate(),
+              end: moment(end).toDate(),
+              title: event.motive,
+              facility: event.facility,
+              state: event.state,
+              id: event._id,
+            };
+          }
+        });
+        console.log(fetchedEvents);
+        console.log(events);
+
+        setEVENTS(fetchedEvents);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
   return (
     <div className="calendar-container">
       <button
         className="reservation-btn"
         onClick={() => {
-          console.log("Réserver");
           navigate("/reserver");
         }}
       >
         <FontAwesomeIcon icon={faPlus} /> Réserver
       </button>
       <Calendar
-        events={events}
+        events={EVENTS}
         defaultView={"month"}
         views={["month", "week", "day"]}
         eventPropGetter={eventStyleGetter}
