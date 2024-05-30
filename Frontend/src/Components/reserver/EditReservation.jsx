@@ -59,11 +59,25 @@ const EditReservation = () => {
     }));
   };
 
+  const handleReservationState = async (reservationId) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5500/reservations/${reservationId}/update-state`,
+        { state: "En attente" }
+      );
+      console.log(response.data.message);
+      
+    } catch (error) {
+      console.error("Error cancelling reservation:", error);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
-      console.log('Data to be updated:', formData);
-
-      const response = await axios.put(`http://localhost:5500/reservations/${reservationId}`, formData);
+     
+        handleReservationState(reservationId);
+        
+     const response = await axios.put(`http://localhost:5500/reservations/${reservationId}`, formData);
 
       console.log('Reservation updated successfully:', response.data);
       setSubmissionStatus('success');
