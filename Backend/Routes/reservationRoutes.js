@@ -5,7 +5,8 @@ import {
   findAllReservations,
   findOneReservation,
   updateReservation,
-  updateState
+  updateState,
+  findReservationsByUserId
 } from "../Controllers/ReservationController.js"; 
 
 // Creating an Express router instance
@@ -28,5 +29,7 @@ router.put("/:id", updateReservation);
 
 // Endpoint for deleting a reservation by ID
 router.delete("/:id", deleteReservation);
+router.get('/reservations/user/:userId', findReservationsByUserId); 
+
 
 export default router; 
