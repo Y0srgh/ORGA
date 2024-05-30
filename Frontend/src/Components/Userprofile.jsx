@@ -7,18 +7,6 @@ function Userprofile({ profileImg, username }) {
     const [error, setError] = useState('');
 
     const handleChange = () => {
-       
-        if (oldPassword !== 'motdepasseactuel') {
-            setError('Mot de passe incorrect');
-            return;
-        }
-
-        // Vérification de la correspondance entre le nouveau mot de passe et la confirmation
-        if (newPassword !== confirmPassword) {
-            setError('Les mots de passe ne correspondent pas');
-            return;
-        }
-
         // Logique de mise à jour du mot de passe
         console.log("Mot de passe mis à jour:", newPassword);
 

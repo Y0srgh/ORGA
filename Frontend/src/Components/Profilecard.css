@@ -9,6 +9,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   width: 100%;
   max-width: 200px;
+  position: absolute;
+    top: 70px; /* Déplace le popup plus bas */
+    right: 20px; /* Déplace le popup un peu vers la gauche */
 }
 
 .user-profile-info {
