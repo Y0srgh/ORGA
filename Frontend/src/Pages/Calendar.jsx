@@ -35,6 +35,7 @@ export default function Calendar(props) {
         month: "Mois",
         week: "Semaine",
         day: "Jour",
+        more: "Plus",
       }}
     />
   );

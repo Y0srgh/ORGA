@@ -37,7 +37,7 @@ function ReserverTimeDate({ onSubmit }) {
         const user = response.data;
         setFormData((prevState) => ({
           ...prevState,
-          club: user.club || "",
+          club: user.clubName || "",
         }));
       } catch (error) {
         console.error("Error fetching user data:", error);

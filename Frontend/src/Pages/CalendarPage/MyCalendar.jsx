@@ -210,8 +210,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const colorsEvent = {
   "En attente": "#fcb96b",
@@ -239,39 +238,40 @@ export default function MyCalendar() {
     return { style };
   };
 
-
   useEffect(() => {
-    const userIdLogIn = localStorage.getItem('userId');
+    const userIdLogIn = localStorage.getItem("userId");
     console.log(userIdLogIn);
     setUserIdLogIn(userIdLogIn);
     axios
       .get(`http://localhost:5500/reservations`)
       .then((response) => {
-        const fetchedEvents = response.data.data.map((event) => {
-          const { date, time } = event;
-          if (time && time.includes("-")) {
-            const [startTime, endTime] = time.split("-").map((t) => t.trim());
-            const start = moment(
-              `${date.split("T")[0]} ${startTime}`,
-              "YYYY-MM-DD hh:mm A"
-            ).format("YYYY-MM-DDTHH:mm:ss");
-            const end = moment(
-              `${date.split("T")[0]} ${endTime}`,
-              "YYYY-MM-DD hh:mm A"
-            ).format("YYYY-MM-DDTHH:mm:ss");
-            return {
-              start: moment(start).toDate(),
-              end: moment(end).toDate(),
-              title: event.facility,
-              facility: event.facility,
-              state: event.state,
-              club: event.club,
-              id: event._id,
-              userId: event.userId,
-            };
-          }
-          return null;
-        }).filter(event => event !== null);
+        const fetchedEvents = response.data.data
+          .map((event) => {
+            const { date, time } = event;
+            if (time && time.includes("-")) {
+              const [startTime, endTime] = time.split("-").map((t) => t.trim());
+              const start = moment(
+                `${date.split("T")[0]} ${startTime}`,
+                "YYYY-MM-DD hh:mm A"
+              ).format("YYYY-MM-DDTHH:mm:ss");
+              const end = moment(
+                `${date.split("T")[0]} ${endTime}`,
+                "YYYY-MM-DD hh:mm A"
+              ).format("YYYY-MM-DDTHH:mm:ss");
+              return {
+                start: moment(start).toDate(),
+                end: moment(end).toDate(),
+                title: event.facility,
+                facility: event.facility,
+                state: event.state,
+                club: event.club,
+                id: event._id,
+                userId: event.userId,
+              };
+            }
+            return null;
+          })
+          .filter((event) => event !== null);
         setEVENTS(fetchedEvents);
       })
       .catch((error) => {
@@ -285,8 +285,9 @@ export default function MyCalendar() {
     setShowModal(true);
   };
   const handleEditReservation = (event) => {
-    console.log(event);
-    
+    const reservationId = event.id;
+    console.log(reservationId);
+    navigate(`/reserver/edit-reservation/${reservationId}`);
   };
 
   const handleCloseModal = () => {
@@ -311,25 +312,90 @@ export default function MyCalendar() {
         eventPropGetter={eventStyleGetter}
         onSelectEvent={handleSelectEvent}
       />
-       {selectedEvent && (
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedEvent.title}</Modal.Title>
+      {selectedEvent && (
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          className="custom-modal"
+        >
+          <Modal.Header closeButton className="modal-header">
+            <Modal.Title className="modal-title">
+              {selectedEvent.title}
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <p><strong>Salle:</strong> {selectedEvent.facility}</p>
-            <p><strong>État:</strong> {selectedEvent.state}</p>
-            <p><strong>Club:</strong> {selectedEvent.club}</p>
-            <p><strong>Date de début:</strong> {moment(selectedEvent.start).format('LLLL')}</p>
-            <p><strong>Date de fin:</strong> {moment(selectedEvent.end).format('LLLL')}</p>
+          <Modal.Body className="modal-body">
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Salle</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.facility}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>État</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.state}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Club</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.club}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Date de début</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={moment(selectedEvent.start).format("LLLL")}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Date de fin</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={moment(selectedEvent.end).format("LLLL")}
+                readOnly
+              />
+            </div>
           </Modal.Body>
-          <Modal.Footer>
-          {selectedEvent.userId === userIdLogIn && (
-              <Button variant="primary" onClick={()=>handleEditReservation(selectedEvent)}>
-                Modifier
-              </Button>
-            )}
-            <Button variant="secondary" onClick={handleCloseModal}>
+          <Modal.Footer className="modal-footer">
+            {selectedEvent.userId === userIdLogIn &&
+              selectedEvent.state !== "Approuvée" && (
+                <Button
+                  variant="secondary"
+                  onClick={() => handleEditReservation(selectedEvent)}
+                  className="button"
+                >
+                  Modifier
+                </Button>
+              )}
+            <Button
+              variant="secondary"
+              onClick={handleCloseModal}
+              className="button"
+            >
               Fermer
             </Button>
           </Modal.Footer>

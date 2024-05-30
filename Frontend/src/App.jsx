@@ -9,6 +9,7 @@ import ReserverTimeDate from "./Components/reserver/ReserverTimeDate";
 import ReserverSalleform from "./Components/reserver/ReserverSalleform";
 import ReservationDetails from "./Components/reserver/DetailsReservation";
 import MyCalendar from "./Pages/CalendarPage/MyCalendar.jsx";
+import EditReservation from "./Components/reserver/EditReservation.jsx";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route exact path="/reserver" element={<ParentComponent/>} />
+      <Route exact path="/reserver/edit-reservation/:reservationId" element={<EditReservation/>} />
       <Route exact path="/reserver/ReserverTimeDate" element={<ReserverTimeDate/>} />
         <Route exact path="/reserver/ReserverSalleform" element={<ReserverSalleform/>} />
         <Route exact path="/reserver/DetailsReservation" element={<ReservationDetails/>} />
