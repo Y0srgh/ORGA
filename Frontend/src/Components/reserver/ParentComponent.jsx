@@ -6,28 +6,24 @@ import ReservationDetails from "./DetailsReservation";
 function ParentComponent() {
   const [reserverTimeDateSubmitted, setReserverTimeDateSubmitted] = useState(false);
   const [showReservationDetails, setShowReservationDetails] = useState(false);
-  const [reservationDetails, setReservationDetails] = useState({ date: null, time: null, club: null });
+  const [reservationDetails, setReservationDetails] = useState({ date: null, time: null,club : null, facility: null, motif: null });
 
-  const handleReservationTimeDateSubmit = (date, time, club) => {
-    // Handle logic when ReservationTimeDate form is submitted
+  const handleReservationTimeDateSubmit = (date, time,club) => {
     setReserverTimeDateSubmitted(true);
-    setReservationDetails(prevState => ({ ...prevState, date, time, club }));
+    setReservationDetails(prevState => ({ ...prevState, date, time,club }));
   };
-
-  const handleReservationSalleformSubmit = (facility, motive) => {
-    // Handle logic when ReservationSalleform form is submitted
-    setShowReservationDetails(true); // Set state to show reservation details after salle form submission
-    setReservationDetails(prevState => ({ ...prevState, facility, motive }));
+  const handleReservationSalleformSubmit = (facility, motif) => {
+    setShowReservationDetails(true);
+    setReservationDetails(prevState => ({ ...prevState, facility, motif}));
   };
+  
 
   const handleBackToTimeDate = () => {
-    // Handle navigating back to ReserverTimeDate form
     setReserverTimeDateSubmitted(false);
     setShowReservationDetails(false);
   };
 
   const handleBackToSalleForm = () => {
-    // Handle navigating back to ReserverSalleform from ReservationDetails
     setShowReservationDetails(false);
   };
 
@@ -40,14 +36,17 @@ function ParentComponent() {
         <ReserverSalleform onSubmit={handleReservationSalleformSubmit} onBack={handleBackToTimeDate} />
       )}
       {showReservationDetails && (
-        <ReservationDetails
-          facility={reservationDetails.facility}
-          date={reservationDetails.date}
-          time={reservationDetails.time}
-          club={reservationDetails.club}
-          motive={reservationDetails.motive}
-          onBack={handleBackToSalleForm}
-        />
+    <ReservationDetails
+    date={reservationDetails.date}
+    time={reservationDetails.time}
+    facility={reservationDetails.facility}
+    club={reservationDetails.club}
+
+    motif={reservationDetails.motif}
+    onBack={handleBackToSalleForm}
+    onQuit={() => setShowReservationDetails(false)}
+  />
+  
       )}
     </div>
   );
