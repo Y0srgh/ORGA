@@ -40,7 +40,7 @@ const App = () => {
         <Route path='/club/show-club/:id' className="app-container " element={<ShowClub />} />
         <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
 
-        <Route path='/admin' className="app-container" element={<AdminDashboard />} />
+        <Route path='/admin-dashboard' className="app-container" element={<AdminDashboard />} />
         <Route path='/reservation-details' className="app-container" element={<ReservationDetails />} />
 
       </Routes>

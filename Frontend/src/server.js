@@ -50,6 +50,17 @@ createServer({
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         });
+        server.create("reservation", {
+            id: nanoid(),
+            date: "2024-06-08",
+            time: "14:00",
+            motive: "Workshop",
+            club: "Securinets",
+            facilityId: "3",
+            state: "pending",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        });
 
         // Creating users
         server.create("user", { id: "123", email: "admin@uni.com", password: "admin123", role: "admin" });
