@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Reserver.css";
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,6 +15,7 @@ const EditReservation = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [facilities, setFacilities] = useState([]);
   const { reservationId } = useParams(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -71,11 +72,14 @@ const EditReservation = () => {
       setSubmissionStatus('failed');
     }
   };
+  const handleCloseForm = () => {
+    navigate('/calendar');
+  };
 
   return (
     <div className="container">
       <div className="button-group">
-        <button className="quit-button" >X</button>
+        <button className="quit-button"  onClick={handleCloseForm}>X</button>
       </div>
       <h4 className="form-title">Modifier la Réservation</h4>
       <div className="form-group">
