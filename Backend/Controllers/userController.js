@@ -15,7 +15,7 @@ export const addUser = async (req, res) => {
       phoneNumber,
       role,
       StudentID,
-      clubs,
+      club,
     } = req.body;
 
     // Check if all required fields are provided
@@ -27,7 +27,7 @@ export const addUser = async (req, res) => {
       !password ||
       !phoneNumber ||
       !role ||
-      (role === "Président" && (!StudentID || !clubs || !levelOfStudy))
+      (role === "Président" && (!StudentID || !club || !levelOfStudy))
     ) {
       return res
         .status(400)
@@ -50,7 +50,7 @@ export const addUser = async (req, res) => {
       phoneNumber,
       role,
       StudentID,
-      clubs,
+      club,
     });
 
     return res.status(201).json(newUser);
@@ -127,7 +127,7 @@ export const updateUser = async (req, res) => {
       phoneNumber,
       role,
       StudentID,
-      clubs,
+      club,
     } = req.body;
 
     if (
@@ -138,7 +138,7 @@ export const updateUser = async (req, res) => {
       !levelOfStudy ||
       !phoneNumber ||
       !role ||
-      (role === "Président" && (!StudentID || !clubs || !levelOfStudy))
+      (role === "Président" && (!StudentID || !club || !levelOfStudy))
     ) {
       return res
         .status(400)
@@ -154,7 +154,7 @@ export const updateUser = async (req, res) => {
       phoneNumber,
       role,
       StudentID,
-      clubs,
+      club,
     };
 
     if (password) {
@@ -245,7 +245,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+/*export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Vérification de l'existence de l'utilisateur
@@ -271,7 +271,7 @@ export const loginUser = async (req, res) => {
       message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
     });
   }
-};
+};*/
 /* export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -299,4 +299,59 @@ export const loginUser = async (req, res) => {
     });
   }
 }; */
+
+/*export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    // Vérification de l'existence de l'utilisateur
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    // Vérification du mot de passe
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({ message: "Mot de passe incorrect." });
+    }
+    // Création du token
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+    res.cookie("token", token, { maxAge: 360000, httpOnly: true });
+
+    // Return the UserID along with the success message
+    return res
+      .status(200)
+      .json({ message: "Utilisateur connecté avec succès.", userID: user._id });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Une erreur est survenue lors de la connexion de l'utilisateur.",
+    });
+  }
+};*/
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: "Mot de passe incorrect." });
+    }
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+    res.cookie("token", token, { maxAge: 360000, httpOnly: true });
+
+    // Return the UserID along with the success message
+    return res.status(200).json({
+      message: "Utilisateur connecté avec succès.",
+      userID: user._id,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:
+        "Une erreur est survenue lors de la connexion de l'utilisateur.",
+    });
+  }
+};
 
