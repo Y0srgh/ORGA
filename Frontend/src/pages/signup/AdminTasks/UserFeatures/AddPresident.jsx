@@ -51,7 +51,7 @@ const AddPresident = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const club = role === "Président" ? selectedClub : undefined;
+    const clubs = role === "Président" ? selectedClub : undefined;
     const data = {
       userName,
       email,
@@ -60,7 +60,7 @@ const AddPresident = () => {
       role,
       levelOfStudy: role === "Président" ? levelOfStudy : undefined,
       studentId: role === "Président" ? studentId : undefined,
-      club,
+      clubs : [clubs],
     };
 
     await axios

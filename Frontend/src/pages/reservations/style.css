@@ -1,0 +1,40 @@
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    width: 400px;
+    height: 420px;
+}
+
+.p-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.p-field p {
+    margin: 0;
+    color: #666;
+}
+
+.p-text-right {
+    text-align: right;
+}
+
+.p-shadow-6 {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.p-mt-2 {
+    margin-top: 1rem;
+}
+
+.p-mt-3 {
+    margin-top: 1.5rem;
+}
+
+.p-mr-2 {
+    margin-right: 0.5rem;
+}

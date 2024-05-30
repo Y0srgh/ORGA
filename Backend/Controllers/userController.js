@@ -286,10 +286,11 @@ export const registerUser = async (req, res) => {
         });
       }
 
-      if (!clubs || !clubs.length || !studentId || !levelOfStudy) {
+      if (!clubs || !studentId || !levelOfStudy) {
+        console.log("clubs", clubs.length, "student", studentId, "level", levelOfStudy);
         return res
           .status(400)
-          .json({ message: "Veuillez fournir tous les champs requis." });
+          .json({ message: "Veuillez fournir tous les champs requiss." });
       }
 
       const newClubs = clubs.map(club => club.code)
