@@ -1,5 +1,6 @@
 import React from "react";
 import "./design/signIn.css";
+
 import { Link } from "react-router-dom";
 import Input from "../Components/Input.jsx";
 import { useState } from "react";
@@ -14,17 +15,27 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(`http://localhost:5500/users/login`, {
+    try {
+      
+      const response = await axios.post(`http://localhost:5500/users/login`, {
         email,
         password,
-      })
-      .then(() => {
-        navigate("/reserver");
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      console.log(response)
+
+      // Extract the user ID from the response data
+      const { userID } = response.data;
+      console.log(userID)
+
+      // Store the user ID in the local storage
+      localStorage.setItem('userId', userID);
+
+      // Navigate to the reservation page
+      
+      navigate("/reserver");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -33,7 +44,7 @@ const SignIn = () => {
     <div>
       <div className="wrapper">
         <form onSubmit={handleSubmit}>
-          <h1>Bienvenue à bord !</h1>
+          <h1>Login to ORGA </h1>
 
           <div className="input-box">
             <Input
