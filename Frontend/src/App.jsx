@@ -28,7 +28,7 @@ import DeleteClub from './pages/signup/AdminTasks/ClubFeatures/DeleteClub';
 import EditClub from './pages/signup/AdminTasks/ClubFeatures/EditClub';
 import ShowClub from './pages/signup/AdminTasks/ClubFeatures/ShowClub';
 import AdminDashboard from './pages/reservations/AdminDashboard';
-//import "./server"
+import "./server"
 import ReservationsDetails from './pages/reservations/ReservationDetails';
 const App = () => {
   return (

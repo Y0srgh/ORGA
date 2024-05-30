@@ -93,7 +93,7 @@ const AddClub = () => {
             />
             <LiaUniversitySolid className="w-[18px] h-[18px] absolute right-4 icon-maroon" />
           </div>
-          <div className="card flex flex-column align-items-center gap-3">
+          <div className="flex flex-column align-items-center gap-3">
             <Checkbox checked={selected} onChange={(e) => setSelected(e.checked)} />
             <label>{selected&&" "||"Affecter un à un président"}</label>
         </div>

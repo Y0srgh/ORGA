@@ -19,20 +19,16 @@ const SingleCardRes = ({ model }) => {
     const header = (
         <img alt="Card" src="https://insat.rnu.tn/assets/images/insat-header.jpg" />
     );
-    const footer = (
-        <>
-            <Button label="Voir les details" severity="secondary" icon="pi pi-list-check" text raised onClick={toggleDetails} />
-
-            {/*<Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />*/}
-        </>
-    );
+    const footer = (<Button className='m-0' label="Voir les detailles" severity="secondary" icon="pi pi-list-check" text raised onClick={toggleDetails} />);
 
     return (
-        <div className="card flex justify-content-center">
-            <Card title={model[0].club} subTitle={model[0].motive} footer={footer} header={header} className="md:w-10rem">
-                <p className="m-0">
+        <div className="card2 flex justify-content-center">
+            <Card title={model[0].club} subTitle={model[0].motive} footer={footer} header={header} className="md:w-10rem m-0">
+                    <div className='py-0'>
+                    <p className="m-0">
                     date : {model[0].date}
-                </p>
+                    </p>
+                </div>
             </Card>
         </div>
     )
