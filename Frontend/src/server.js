@@ -16,7 +16,7 @@ createServer({
 
         // Creating some initial reservations
         server.create("reservation", {
-            id: nanoid(),
+            id: "3mFBDqlGGpWTKjodhWGSJ",
             date: "2024-06-01",
             time: "10:00",
             motive: "Tech Talk",
@@ -28,7 +28,7 @@ createServer({
         });
 
         server.create("reservation", {
-            id: nanoid(),
+            id: "E8eKXvVCXUKct77lgnsml",
             date: "2024-06-01",
             time: "10:00",
             motive: "Tech Talk",
@@ -77,11 +77,24 @@ createServer({
             const id = request.params.id;
             const newAttrs = JSON.parse(request.requestBody);
             const reservation = schema.reservations.find(id);
-            newAttrs.updatedAt = new Date().toISOString();
 
-            return reservation.update(newAttrs);
+            console.log(newAttrs); // Vérifiez que les nouvelles attributs sont correctement reçues
+            
+            if (!reservation) {
+                // If reservation with the given ID is not found, return a 404 response
+                return new Response(404, {}, { message: "Reservation not found" });
+            }
+        
+            // Update the reservation attributes
+            reservation.update({
+                ...newAttrs,
+                updatedAt: new Date().toISOString()
+            });
+        
+            // Return the updated reservation
+            return reservation;
         });
-
+        
         // Login route
         /*this.post("/login", (schema, request) => {
             const { email, password } = JSON.parse(request.requestBody);

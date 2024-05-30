@@ -6,21 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const SingleCardRes = ({ model }) => {
 
     console.log("model sing", model);
-    /*
-    club
-    createdAt
-    date
-    facilityId
-    id
-    motive
-    state
-    time
-    updatedAt
-    https://insat-server.rnu.tn/cms/images/1683574827738-0147.jpg
-    */
-
+    
     const navigate = useNavigate();
-
 
     const toggleDetails = () => {
         //setShowDetails(!showDetails);

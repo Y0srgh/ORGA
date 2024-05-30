@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios
 import { useLocation } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
 import { Divider } from 'primereact/divider';
 import { Button } from 'primereact/button';
-import './style.css'; // Assurez-vous d'importer le fichier CSS
+import { InputSwitch } from 'primereact/inputswitch'; // Import InputSwitch
+import './style.css'; // Make sure to import the CSS file
 
 const ReservationDetails = () => {
     const location = useLocation();
     const { detail } = location.state;
+    const [changes, setChanges] = useState([]);
+    console.log(detail);
 
     const handleApprove = (id) => {
-        // Logique d'approbation
-        console.log(`Approved reservation with ID: ${id}`);
+        setChanges([...changes.filter(change => change.id !== id), { id, newState: 'approved' }]);
     };
 
     const handleReject = (id) => {
-        // Logique de rejet
-        console.log(`Rejected reservation with ID: ${id}`);
+        setChanges([...changes.filter(change => change.id !== id), { id, newState: 'rejected' }]);
     };
 
     const handleSubmit = () => {
-        // Logique de soumission du formulaire
-        console.log('Form submitted');
+        changes.forEach(async (change) => {
+            try {
+                await axios.put(`/api/reservations/${change.id}`, { state: change.newState });
+                console.log(`Reservation ${change.id} state updated successfully`);
+            } catch (error) {
+                console.error(`Failed to update reservation ${change.id} state:`, error);
+            }
+        });
+
+        setChanges([]);
     };
 
     return (
@@ -92,24 +102,16 @@ const ReservationDetails = () => {
                                             })}</p>
                                         </div>
                                     </div>
-                                    <div className="p-col-12 p-mt-2 p-text-right">
-                                        <Button
-                                            label="Approve"
-                                            icon="pi pi-check"
-                                            rounded
-                                            text raised
-                                            className="tailwind-button bg-green-900 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full mr-2"
-                                            onClick={() => handleApprove(item.id)}
-                                        />
-                                        <Button
-                                            label="Reject"
-                                            icon="pi pi-times"
-                                            rounded
-                                            text raised
-                                            className="tailwind-button bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-                                            onClick={() => handleReject(item.id)}
-                                        />
-                                    </div>
+                                    {item.state==="pending" && (<div className="p-col-12 p-mt-2 p-text-right">
+                                        <div className="p-d-flex p-ai-center">
+                                            <div className="p-mr-2">Approve</div>
+                                            <InputSwitch checked={changes.some(change => change.id === item.id && change.newState === 'approved')} onChange={() => handleApprove(item.id)} />
+                                        </div>
+                                        <div className="p-d-flex p-ai-center p-mt-2">
+                                            <div className="p-mr-2">Reject</div>
+                                            <InputSwitch checked={changes.some(change => change.id === item.id && change.newState === 'rejected')} onChange={() => handleReject(item.id)} />
+                                        </div>
+                                    </div>)}
                                 </div>
                                 <Divider />
                             </div>
@@ -120,7 +122,8 @@ const ReservationDetails = () => {
                             label="Submit"
                             icon="pi pi-send"
                             rounded
-                            text raised
+                            text
+                            raised
                             className="tailwind-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                             onClick={handleSubmit}
                         />

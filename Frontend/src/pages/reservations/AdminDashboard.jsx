@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
     return (
         <div className='p-4'>
-            <h1>Admin Dashboard</h1>
+            <h1 className='text-3xl my-8 mx-4 text-[#730202]'>Admin Dashboard</h1>
             <ModelCardRes model={groupedReservations} />
         </div>
     );
