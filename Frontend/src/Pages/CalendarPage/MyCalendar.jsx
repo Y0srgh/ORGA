@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import moment from "moment";
 import Calendar from "../Calendar";
 import "./calendarStyle.css";
@@ -135,6 +135,7 @@ export default function MyCalendar() {
     axios
       .get(`http://localhost:5500/reservations`)
       .then((response) => {
+        //console.log('here');
         console.log(response.data.data);
         const fetchedEvents = response.data.data.map((event) => {
           const { date, time } = event;
@@ -152,19 +153,21 @@ export default function MyCalendar() {
               `${date.split("T")[0]} ${endTime}`,
               "YYYY-MM-DD hh:mm A"
             ).format("YYYY-MM-DDTHH:mm:ss");
+            console.log(event._id,'&',date,'&',start,'&', end);
 
             return {
               start: moment(start).toDate(),
               end: moment(end).toDate(),
-              title: event.motive,
+              title: event.facility,
               facility: event.facility,
               state: event.state,
+              club: event.club,
               id: event._id,
             };
           }
         });
         console.log(fetchedEvents);
-        console.log(events);
+        
 
         setEVENTS(fetchedEvents);
       })
@@ -187,7 +190,151 @@ export default function MyCalendar() {
         defaultView={"month"}
         views={["month", "week", "day"]}
         eventPropGetter={eventStyleGetter}
+        onSelectEvent={event => {
+          console.log(event.id);
+          console.log(event);
+          navigate(`/reservation/${event.id}`);
+        }}
       />
+    </div>
+  );
+}
+ */
+
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import Calendar from "../Calendar";
+import "./calendarStyle.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+const colorsEvent = {
+  "En attente": "#fcb96b",
+  Annulée: "#fff493",
+  Approuvée: "#a3f394",
+  Refusée: "#fcacac",
+};
+
+export default function MyCalendar() {
+  const navigate = useNavigate();
+  const [EVENTS, setEVENTS] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [userIdLogIn, setUserIdLogIn] = useState([]);
+  const eventStyleGetter = (event, start, end, isSelected) => {
+    let style = {};
+    style.backgroundColor = colorsEvent[event.state];
+    style.display = "flex";
+    style.alignItems = "center";
+    style.justifyContent = "center";
+    style.textAlign = "center";
+    style.padding = "4px";
+    style.borderRadius = "8px";
+    style.height = "25px";
+    return { style };
+  };
+
+
+  useEffect(() => {
+    const userIdLogIn = localStorage.getItem('userId');
+    console.log(userIdLogIn);
+    setUserIdLogIn(userIdLogIn);
+    axios
+      .get(`http://localhost:5500/reservations`)
+      .then((response) => {
+        const fetchedEvents = response.data.data.map((event) => {
+          const { date, time } = event;
+          if (time && time.includes("-")) {
+            const [startTime, endTime] = time.split("-").map((t) => t.trim());
+            const start = moment(
+              `${date.split("T")[0]} ${startTime}`,
+              "YYYY-MM-DD hh:mm A"
+            ).format("YYYY-MM-DDTHH:mm:ss");
+            const end = moment(
+              `${date.split("T")[0]} ${endTime}`,
+              "YYYY-MM-DD hh:mm A"
+            ).format("YYYY-MM-DDTHH:mm:ss");
+            return {
+              start: moment(start).toDate(),
+              end: moment(end).toDate(),
+              title: event.facility,
+              facility: event.facility,
+              state: event.state,
+              club: event.club,
+              id: event._id,
+              userId: event.userId,
+            };
+          }
+          return null;
+        }).filter(event => event !== null);
+        setEVENTS(fetchedEvents);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
+
+  const handleSelectEvent = (event) => {
+    console.log(event);
+    setSelectedEvent(event);
+    setShowModal(true);
+  };
+  const handleEditReservation = (event) => {
+    console.log(event);
+    
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedEvent(null);
+  };
+
+  return (
+    <div className="calendar-container">
+      <button
+        className="reservation-btn"
+        onClick={() => {
+          navigate("/reserver");
+        }}
+      >
+        <FontAwesomeIcon icon={faPlus} /> Réserver
+      </button>
+      <Calendar
+        events={EVENTS}
+        defaultView={"month"}
+        views={["month", "week", "day"]}
+        eventPropGetter={eventStyleGetter}
+        onSelectEvent={handleSelectEvent}
+      />
+       {selectedEvent && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedEvent.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p><strong>Salle:</strong> {selectedEvent.facility}</p>
+            <p><strong>État:</strong> {selectedEvent.state}</p>
+            <p><strong>Club:</strong> {selectedEvent.club}</p>
+            <p><strong>Date de début:</strong> {moment(selectedEvent.start).format('LLLL')}</p>
+            <p><strong>Date de fin:</strong> {moment(selectedEvent.end).format('LLLL')}</p>
+          </Modal.Body>
+          <Modal.Footer>
+          {selectedEvent.userId === userIdLogIn && (
+              <Button variant="primary" onClick={()=>handleEditReservation(selectedEvent)}>
+                Modifier
+              </Button>
+            )}
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Fermer
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }
