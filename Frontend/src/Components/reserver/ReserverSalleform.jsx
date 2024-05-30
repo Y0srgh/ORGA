@@ -1,94 +1,153 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Reserver.css';
 
-function ReserverSalleform({ onSubmit,onBack }) {
-  // Define state variables
-  const [facility, setSalle] = useState('');
+const ReserverSalleform = ({ onSubmit, onBack }) => {
+  const [facility, setFacility] = useState('');
   const [motif, setMotif] = useState('');
-  const [formVisible, setFormVisible] = useState(true);
-  const [errors, setErrors] = useState({}); // Add state for errors
+  const [otherMotif, setOtherMotif] = useState('');
+  const [files, setFiles] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    facility: '',
+    motif: '',
+    otherMotif: '',
+    files: []
+  });
+  const fileInputRef = useRef(null);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const newErrors = {}; // Create new errors object
+    const newErrors = {};
 
     if (!facility) {
       newErrors.facility = 'Veuillez choisir une salle.';
     }
-    if (!motif) {
-      newErrors.motif = 'Veuillez saisir le motif de réservation.';
+    if (!motif && !otherMotif) {
+      newErrors.motif = 'Veuillez choisir ou saisir le motif de réservation.';
     }
 
-    // Update errors state
     setErrors(newErrors);
 
-    // Submit only if no errors
     if (Object.keys(newErrors).length === 0) {
-      onSubmit(facility, motif);
+      // Determine which motif to send based on which one is filled
+      const motifToSend = motif ? motif : otherMotif;
+      onSubmit(formData.facility, motifToSend);
     }
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles(selectedFiles);
+    setFormData({ ...formData, files: selectedFiles });
   };
 
   const handleQuitClick = () => {
     setFormVisible(false);
   };
 
+  const handleUploadButtonClick = () => {
+    fileInputRef.current.click(); // Trigger file input click
+  };
+
   return (
     <div className="container">
-      {formVisible && (
-        <>
-          <div className="button-group">
-            <button type="button" className="back-button" onClick={onBack}>
-              <span>&#8592;</span>
+      <div className="button-group">
+        <button type="button" className="back-button" onClick={onBack}>
+          <span>&#8592;</span>
+        </button>
+        <button className="quit-button" onClick={handleQuitClick}>X</button>
+      </div>
+      <div>
+        <h4 className="form-title">Réservation</h4>
+        <form onSubmit={handleFormSubmit}>
+          <div className="form-group">
+            <label htmlFor="facility" className="required-label">
+              Choisissez une salle
+            </label>
+            <select
+              id="facility"
+              value={facility}
+              onChange={(e) => {
+                setFacility(e.target.value);
+                setFormData({ ...formData, facility: e.target.value });
+              }}
+            >
+              <option value="">Sélectionner une salle</option>
+              <option value="A8">Amphi A8</option>
+              <option value="audito">Auditorium</option>
+            </select>
+            {errors.facility && <p className="error-message">{errors.facility}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="motif" className="required-label">
+              Motifs de réservation
+            </label>
+            <select
+              id="motif"
+              value={motif}
+              onChange={(e) => {
+                setMotif(e.target.value);
+                setFormData({ ...formData, motif: e.target.value });
+              }}
+            >
+              <option value="">Sélectionner un motif</option>
+              <option value="Réunion du club">Réunion du club</option>
+              <option value="Atelier">Atelier</option>
+              <option value="Conférence">Conférence</option>
+              <option value="Événement spécial">Événement spécial</option>
+            </select>
+            {errors.motif && <p className="error-message">{errors.motif}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="otherMotif" className="label">
+              Autres motifs (optionnel)
+            </label>
+            <textarea
+              id="otherMotif"
+              value={otherMotif}
+              onChange={(e) => {
+                setOtherMotif(e.target.value);
+                setFormData({ ...formData, otherMotif: e.target.value });
+              }}
+              rows="6"
+              cols="30"
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="file" className="label">
+              Joindre un fichier
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: 'none' }} // Hide the default file input
+              multiple // Enable multiple file selection
+            />
+            <button type="button" onClick={handleUploadButtonClick} className="custom-file-input">
+              Joindre un fichier
             </button>
-            <button className="quit-button" onClick={handleQuitClick}>X</button>
+            {files.length > 0 && (
+              <div>
+                <p>Fichiers sélectionnés:</p>
+                <ul>
+                  {files.map((file, index) => (
+                    <li key={index}>{file.name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-          <div>
-            <h4 className="form-title">Réservation</h4>
-            <form onSubmit={handleFormSubmit}>
-              <div className="form-group">
-                <label htmlFor="salle" className="required-label">
-                  Choisissez une salle
-                </label>
-                <select
-                  id="salle"
-                  value={facility}
-                  onChange={(e) => {
-                    setSalle(e.target.value);
-                    
-                  }}
-                >
-                  <option value="">Sélectionner une salle</option>
-                  <option value="A8">Amphi A8</option>
-                  <option value="audito">Auditorium</option>
-                  {/* Option elements for clubs */}
-                </select></div>
-                {errors.facility && <p className="error-message">{errors.facility}</p>}
-              
-              <div className="form-group">
-                <label htmlFor="motif" className="required-label">
-                  Motifs de réservation
-                </label>
-                <textarea
-                  id="motif"
-                  value={motif}
-                  onChange={(e) => {
-                    setMotif(e.target.value);
-                    
-                  }}
-                  rows="6"
-                  cols="30"
-                ></textarea></div>
-                {errors.motif && <p className="error-message">{errors.motif}</p>}
-              
-              <button type="submit" className="button">
-                Réserver
-              </button>
-            </form>
+          <div className="warning-message">
+            Attention ! Les CV des formateurs et la liste des participants sont obligatoires à joindre pour les ateliers.
           </div>
-        </>
-      )}
+          <button type="submit" className="button">
+            Réserver
+          </button>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
 export default ReserverSalleform;
