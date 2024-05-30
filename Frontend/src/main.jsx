@@ -7,6 +7,8 @@ import './flags.css';
 import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from 'primereact/api';
 import Tailwind from 'primereact/passthrough/tailwind';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

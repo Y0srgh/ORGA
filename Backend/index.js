@@ -7,20 +7,23 @@ import clubRoutes from "./Routes/clubRoutes.js";
 import cron from "node-cron"; // Import the cron module
 import "./cron/tokenCleanup.js"; // Import the cron job logic
 import "./cron/usersCleanup.js"; // Import the cron job logic
+import reservationRoutes from "./Routes/reservationRoutes.js";
+import facilityRoutes from "./Routes/facilityRoutes.js";
+import cookieParser from "cookie-parser";
 
-export const app = express();
+const app = express(); // Initialize Express framework
 
 // Middleware for parsing request body
 app.use(express.json());
 
 // Enable CORS
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
-// Mount userRoutes middleware at the '/users' path
-app.use("/users", userRoutes);
-
-// Mount clubRoutes middleware at the '/clubs' path
-app.use("/clubs", clubRoutes);
+// Middleware for parsing cookies
+app.use(cookieParser());
 
 // Set up route to handle OPTIONS requests for CORS preflight
 app.options("*", cors());
@@ -35,6 +38,12 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+// Mount routes middleware
+app.use("/users", userRoutes);
+app.use("/clubs", clubRoutes);
+app.use('/reservations', reservationRoutes);
+app.use('/facilities', facilityRoutes);
 
 // Connect to MongoDB and start the server
 mongoose
@@ -54,3 +63,5 @@ mongoose
   .catch((error) => {
     console.error(error);
   });
+
+export default app; // Export the app for testing or further usage

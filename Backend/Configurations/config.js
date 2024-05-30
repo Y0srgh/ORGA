@@ -4,3 +4,5 @@ export const PORT =5500;
 export const mongoDBURL=
 'mongodb+srv://orgaAdmin:Fss4xpv1GWOPkvyc@clusterorga.hsvfrao.mongodb.net/ORGA?retryWrites=true&w=majority&appName=ClusterOrga'
 //"mongodb://localhost:27017/orga"
+// Définition du clé de chiffrement pour le JWT
+export const JWT_SECRET= 'jwt-secret-Fss4xpv'

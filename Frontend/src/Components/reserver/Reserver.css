@@ -1,0 +1,211 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.9); 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 500px; 
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-title {
+  color: black;
+  text-align: left;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #630000; 
+  margin-bottom: 60px;
+}
+
+.required-label::after {
+  content: "*";
+  color: red;
+}
+
+.form-group {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 20px;
+}
+
+.required-label {
+  display: inline-block;
+  width: 200px; 
+  color: black;
+  font-weight: bold;
+  text-align: left;
+  font-size: 15px; 
+  font-family: 'Lato', sans-serif; 
+}
+.label {
+  display: inline-block;
+  width: 200px; 
+  color: black;
+  font-weight: bold;
+  text-align: left;
+  font-size: 15px; 
+  font-family: 'Lato', sans-serif; 
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; 
+  width: 100%;
+}
+
+input[type="date"],
+input[type="text"],
+select {
+  display: inline-block;
+  width: 300px; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #B4B4B8;
+  color: black;
+  font-family: 'Montserrat', sans-serif; 
+}
+
+.button {
+  width: 60%;
+  height: auto;
+  padding: 10px;
+  background-color: #630000;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 0 auto; 
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif; 
+  margin-top: 70px;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+textarea {
+  flex: 1; 
+  width: calc(100% - 200px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #B4B4B8; 
+  color: black; 
+  font-family: 'Montserrat', sans-serif;
+  resize: vertical; 
+  min-height: 100px;
+  max-height: 200px; 
+  overflow-y: auto; 
+  border-radius: 15px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.quit-button,
+.back-button {
+  width: 25px;
+  height: 25px;
+  background-color: #B4B4B8;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.quit-button:hover,
+.quit-button1:hover,
+.back-button:hover {
+  color: red;
+}
+
+.quit-button1 {
+  float: right;
+  width: 25px;
+  height: 25px;
+  background-color: #B4B4B8;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.error-message {
+  color: red;
+  font-size: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-top: 5px; /* Ensure there is some space between the error message and input */
+  display: block;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+.popup.success {
+  color: green;
+}
+
+.popup.failed {
+  color: red;
+}
+
+.info-message {
+  background-color: #e7f3fe;
+  border-left: 6px solid #2196F3;
+  color: #31708f;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+.warning-message {
+  background-color: #fef3e7; /* Change background color to indicate warning */
+  border-left: 6px solid #f39c12; /* Change border color to a warning color */
+  color: #9c6612; /* Change text color to a darker shade */
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+
+.custom-file-input {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #B4B4B8; 
+  color: black; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-file-input:hover {
+  background-color: #ffffff; 
+}
+
+

@@ -46,6 +46,7 @@ const userSchema = mongoose.Schema(
         return this.role === "Président"; // Student ID
       },
       default: null,
+      unique: true,
     },
     clubs: [{
       type: mongoose.Schema.Types.ObjectId,
