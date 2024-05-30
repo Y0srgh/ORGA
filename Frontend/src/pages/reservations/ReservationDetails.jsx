@@ -124,7 +124,7 @@ const ReservationDetails = () => {
                             rounded
                             text
                             raised
-                            className="tailwind-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                            className="tailwind-button bg-[#102161] hover:bg-[#172f8a] text-white font-bold py-2 px-4 rounded-full"
                             onClick={handleSubmit}
                         />
                     </div>
