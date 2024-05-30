@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../Components/Input";
+import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const ForgotPassword = () => {

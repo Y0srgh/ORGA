@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../Components/Input";
+import Input from "../components/Input";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 /* import { validatePassword } from "./../formValidation.js";

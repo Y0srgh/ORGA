@@ -1,16 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { SnackbarProvider, useSnackbar } from "notistack";
-import SignIn from "./Pages/Sign-In";
-import Home from "./Pages/Home";
-import ForgotPassword from "./Pages/forgotPassword";
-import ResetPassword from "./Pages/resetPassword";
-import ParentComponent from "./Components/reserver/ParentComponent";
-import ReserverTimeDate from "./Components/reserver/ReserverTimeDate";
-import ReserverSalleform from "./Components/reserver/ReserverSalleform";
-import ReservationDetails from "./Components/reserver/DetailsReservation";
-import MyCalendar from "./Pages/CalendarPage/MyCalendar.jsx";
-import EditReservation from "./Components/reserver/EditReservation.jsx";
+import SignIn from "./pages/Sign-In";
+import Home from "./pages/Home";
+import ForgotPassword from "./pages/forgotPassword";
+import ResetPassword from "./pages/resetPassword";
+import ParentComponent from "./components/reserver/ParentComponent";
+import ReserverTimeDate from "./components/reserver/ReserverTimeDate";
+import ReserverSalleform from "./components/reserver/ReserverSalleform";
+import ReservationDetails from "./components/reserver/DetailsReservation";
+import MyCalendar from "./pages/CalendarPage/MyCalendar.jsx";
+import EditReservation from "./components/reserver/EditReservation.jsx";
 
 import SignupPage from './pages/signup/SignupPage';
 import EmailVerify from './components/EmailVerify/EmailVerify';
@@ -28,8 +28,8 @@ import DeleteClub from './pages/signup/AdminTasks/ClubFeatures/DeleteClub';
 import EditClub from './pages/signup/AdminTasks/ClubFeatures/EditClub';
 import ShowClub from './pages/signup/AdminTasks/ClubFeatures/ShowClub';
 import AdminDashboard from './pages/reservations/AdminDashboard';
-import "./server"
-import ReservationDetails from './pages/reservations/ReservationDetails';
+//import "./server"
+import ReservationsDetails from './pages/reservations/ReservationDetails';
 const App = () => {
   return (
     <SnackbarProvider>
@@ -51,9 +51,7 @@ const App = () => {
         <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
 
         <Route path='/admin-dashboard' className="app-container" element={<AdminDashboard />} />
-        <Route path='/reservation-details' className="app-container" element={<ReservationDetails />} />
-
-
+        <Route path='/reservation-details' className="app-container" element={<ReservationsDetails />} />
 
         <Route exact path="/" element={<SignIn />} />
         <Route exact path="/home" element={<Home />} />

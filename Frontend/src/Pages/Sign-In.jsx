@@ -2,7 +2,7 @@ import React from "react";
 import "./design/signIn.css";
 
 import { Link } from "react-router-dom";
-import Input from "../Components/Input.jsx";
+import Input from "../components/Input.jsx";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
