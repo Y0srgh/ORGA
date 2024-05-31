@@ -1,6 +1,8 @@
 import { Reservation } from "../Models/reservationModel.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../Configurations/config.js";
+import moment from 'moment';
+import { Salle } from "../Models/facilityModel.js";
 
 export const addReservation = async (req, res) => {
   try {
@@ -133,6 +135,46 @@ export const findReservationsByUserId = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: "Une erreur est survenue lors de la récupération des réservations.",
+    });
+  }
+};
+
+// Time overlap function
+const timesOverlap = (time1, time2) => {
+  const [start1, end1] = time1.split('-').map(t => moment(t.trim(), 'hh:mm A'));
+  const [start2, end2] = time2.split('-').map(t => moment(t.trim(), 'hh:mm A'));
+  return start1.isBefore(end2) && start2.isBefore(end1);
+};
+
+export const getAvailableFacilities = async (req, res) => {
+  try {
+    const { date, time } = req.query;
+    const reservations = await Reservation.find({ date });
+    
+    const approvedReservations = reservations.filter(reservation => reservation.state === "Approuvée");
+    const pendingReservations = reservations.filter(reservation => reservation.state === "En attente");
+
+    const overlappingApprovedReservations = approvedReservations.filter(reservation => timesOverlap(reservation.time, time));
+    const overlappingPendingReservations = pendingReservations.filter(reservation => timesOverlap(reservation.time, time));
+
+    // Extract the facility names from the overlapping reservations
+    const reservedFacilityNames = overlappingApprovedReservations.map(reservation => reservation.facility);
+    const pendingFacilityNames = overlappingPendingReservations.map(reservation => reservation.facility);
+
+    // Find all facilities
+    const allFacilities = await Salle.find();
+
+    // Filter out reserved facilities
+    const availableFacilities = allFacilities.filter(facility => !reservedFacilityNames.includes(facility.label));
+
+    // Return the available and pending facilities
+    return res.status(200).json({ 
+      availableFacilities,
+      pendingFacilities: pendingFacilityNames 
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Une erreur est survenue lors de la récupération des salles disponibles.",
     });
   }
 };
