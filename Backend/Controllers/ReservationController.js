@@ -97,7 +97,7 @@ export const updateState = async (req, res) => {
   try {
     const { id } = req.params;
     const { state } = req.body;
-
+    
     const updatedReservation = await Reservation.findByIdAndUpdate(
       id,
       { state },
@@ -108,13 +108,14 @@ export const updateState = async (req, res) => {
       return res.status(404).json({ message: "Réservation non trouvée." });
     }
 
-    return res.status(200).json({ message: "État de la réservation mis à jour avec succès." });
+    return res.status(200).json({ message: "État de la réservation mis à jour avec succès.", updatedReservation });
   } catch (error) {
     return res.status(500).json({
       message: "Une erreur est survenue lors de la mise à jour de l'état de la réservation.",
+      error: error.message
     });
   }
-};
+}
 
 export const findReservationsByUserId = async (req, res) => {
   try {

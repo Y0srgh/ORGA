@@ -15,6 +15,22 @@ const AdminDashboard = () => {
     const [dateSortOrder, setDateSortOrder] = useState('asc');
 
     useEffect(() => {
+        const groupReservations = () => {
+            const grouped = reservations.reduce((acc, reservation) => {
+                const key = `${reservation.club}-${reservation.motive}-${reservation.date}`;
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+                acc[key].push(reservation);
+                return acc;
+            }, {});
+            setGroupedReservations(Object.values(grouped));
+        };
+
+        groupReservations();
+    }, [reservations]);
+    
+    useEffect(() => {
         const fetchReservations = async () => {
             axios
                 .get("http://localhost:5500/reservations")
@@ -35,42 +51,37 @@ const AdminDashboard = () => {
         fetchReservations();
     }, []);
 
-    useEffect(() => {
-        const groupReservations = () => {
-            const filteredReservations = reservations.filter(reservation => {
-                const reservationDate = new Date(reservation.createdAt);
-                const isWithinDateRange = (!startDate || reservationDate >= new Date(startDate)) && (!endDate || reservationDate <= new Date(endDate));
-                const isClubMatch = !selectedClub || reservation.club === selectedClub;
-                return isWithinDateRange && isClubMatch;
-            });
-
-            let sortedReservations = filteredReservations;
-            if (dateSortOrder === 'asc') {
-                sortedReservations.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-            } else {
-                sortedReservations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            }
-
-            const grouped = sortedReservations.reduce((acc, reservation) => {
-                const key = `${reservation.club}-${reservation.motive}-${reservation.createdAt}`;
-                if (!acc[key]) {
-                    acc[key] = [];
-                }
-                acc[key].push(reservation);
-                return acc;
-            }, {});
-            setGroupedReservations(Object.values(grouped));
-        };
-
-        groupReservations();
-    }, [reservations, startDate, endDate, selectedClub, dateSortOrder]);
-
     const toggleDateSortOrder = () => {
         setDateSortOrder(prevOrder => prevOrder === 'asc' ? 'desc' : 'asc');
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
+
+    // Filtrage par date
+    const filteredReservations = groupedReservations.filter(reservation => {
+        const reservationDate = new Date(reservation[0].createdAt);
+        const startFilterDate = startDate ? new Date(startDate) : null;
+        const endFilterDate = endDate ? new Date(endDate) : null;
+
+        if (startFilterDate && reservationDate < startFilterDate) {
+            return false;
+        }
+        if (endFilterDate && reservationDate > endFilterDate) {
+            return false;
+        }
+        return true;
+    });
+
+    // Filtrage par club
+    const filteredByClub = selectedClub ? filteredReservations.filter(reservation => reservation[0].club === selectedClub) : filteredReservations;
+
+    // Tri des réservations
+    const sortedReservations = filteredByClub.sort((a, b) => {
+        const dateA = new Date(a[0].createdAt);
+        const dateB = new Date(b[0].createdAt);
+        return dateSortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
 
     return (
         <div className='p-4'>
@@ -89,7 +100,7 @@ const AdminDashboard = () => {
                 </select>
                 <button onClick={toggleDateSortOrder} className="mr-4">{`Sort Date ${dateSortOrder === 'asc' ? 'Ascending' : 'Descending'}`}</button>
             </div>
-            <ModelCardRes model={groupedReservations} />
+            <ModelCardRes model={sortedReservations} />
         </div>
     );
 };
