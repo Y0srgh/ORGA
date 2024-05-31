@@ -40,3 +40,20 @@
 .p-mr-2 {
     margin-right: 0.5rem;
 }
+
+.filters {
+    display: flex;
+    align-items: center;
+}
+
+.filters label {
+    font-weight: bold;
+}
+
+.filters input,
+.filters select {
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

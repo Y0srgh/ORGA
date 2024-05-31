@@ -48,7 +48,7 @@ const ReservationDetails = () => {
                                 </div>
                                 <div className="p-field">
                                     <label><strong>Date:</strong></label>
-                                    <p>{detail[0].date}</p>
+                                    <p>{new Date(detail[0].date).toLocaleDateString()}</p>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@ const ReservationDetails = () => {
                                     <div className="p-col-12 p-md-4">
                                         <div className="p-field">
                                             <label><strong>l'Id de la salle:</strong></label>
-                                            <p>{item.facilityId}</p>
+                                            <p>{item.facility}</p>
                                         </div>
                                     </div>
                                     <div className="p-col-12 p-md-4">
@@ -124,7 +124,7 @@ const ReservationDetails = () => {
                             rounded
                             text
                             raised
-                            className="tailwind-button bg-[#102162] hover:bg-[#172f8b] text-white font-bold py-2 px-4 rounded-full"
+                            className="tailwind-button bg-[#102161] hover:bg-[#172f8a] text-white font-bold py-2 px-4 rounded-full"
                             onClick={handleSubmit}
                         />
                     </div>
