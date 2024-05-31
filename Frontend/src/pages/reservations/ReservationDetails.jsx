@@ -102,7 +102,7 @@ const ReservationDetails = () => {
                                             })}</p>
                                         </div>
                                     </div>
-                                    {item.state==="pending" && (<div className="p-col-12 p-mt-2 p-text-right">
+                                    {item.state==="En attente" && (<div className="p-col-12 p-mt-2 p-text-right">
                                         <div className="p-d-flex p-ai-center">
                                             <div className="p-mr-2">Approve</div>
                                             <InputSwitch checked={changes.some(change => change.id === item.id && change.newState === 'approved')} onChange={() => handleApprove(item.id)} />

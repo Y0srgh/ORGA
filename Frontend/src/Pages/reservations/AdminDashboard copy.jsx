@@ -12,46 +12,24 @@ import "./style.css"
     state: "En attente",
     createdAt: "2024-05-04T09:11:04.481+00:00"
   };*/
-
-/*
-const fetchClub = async (transformedPres) => {
-    axios
-      .get(`http://localhost:5500/clubs/${id}`)
-      .then((response) => {
-        console.log("club resp", response.data);
-        setClub(response.data);
-*/
 const AdminDashboard = () => {
     const [reservations, setReservations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [groupedReservations, setGroupedReservations] = useState([]);
-    //http://localhost:5500/users
+
     useEffect(() => {
         const fetchReservations = async () => {
-            /*const url = "http://localhost:5500/reservations";
+            const url = "/api/reservations";
             try {
                 const response = await axios.get(url);
-                console.log("reservation response", response);
                 setReservations(response.data.reservations);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching reservations:", error);
                 setError("Failed to fetch reservations");
                 setLoading(false);
-            }*/
-            axios
-                .get("http://localhost:5500/reservations")
-                .then((response) => {
-                    console.log("reservation response", response.data.data);
-                    setReservations(response.data.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Error fetching reservations:", error);
-                    setError("Failed to fetch reservations");
-                    setLoading(false)
-                })
+            }
         };
 
         fetchReservations();
