@@ -79,13 +79,13 @@
 /*here*/
 
 
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-/*
-body {
+
+/*body{
   font-family: 'Poppins', sans-serif;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
@@ -97,8 +97,8 @@ body {
   background: url(../../assets/audito.jpg) no-repeat;
   background-size: cover;
   background-position: center;
-}
-*/
+}*/
+
 .wrapper {
   width: 100%;
   background: white;

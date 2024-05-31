@@ -70,7 +70,7 @@ const ShowClub = () => {
             <DetailRow label="ID" value={club._id} />
             <DetailRow label="Pseudo-Identité" value={club.clubName} />
             <DetailRow label="Selected" value={club.selected?"Vrai":"Faux"} />
-            {club.selected && (<DetailRow label="President" value={selectedPresident.name} />)}            
+            {club.selected && (<DetailRow label="President" value={selectedPresident?.name} />)}            
             <DetailRow label="Date d'ajout" value={new Date(club.createdAt).toLocaleString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} />
             <DetailRow label="Date de la dernière mise à jour" value={new Date(club.updatedAt).toLocaleString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} />
 

@@ -6,17 +6,17 @@ import ReservationDetails from "./DetailsReservation";
 function ParentComponent() {
   const [reserverTimeDateSubmitted, setReserverTimeDateSubmitted] = useState(false);
   const [showReservationDetails, setShowReservationDetails] = useState(false);
-  const [reservationDetails, setReservationDetails] = useState({ date: null, time: null,club : null, facility: null, motif: null });
+  const [reservationDetails, setReservationDetails] = useState({ date: null, time: null, club: null, facility: null, motif: null });
 
-  const handleReservationTimeDateSubmit = (date, time,club) => {
+  const handleReservationTimeDateSubmit = (date, time, club) => {
     setReserverTimeDateSubmitted(true);
-    setReservationDetails(prevState => ({ ...prevState, date, time,club }));
+    setReservationDetails(prevState => ({ ...prevState, date, time, club }));
   };
   const handleReservationSalleformSubmit = (facility, motif) => {
     setShowReservationDetails(true);
-    setReservationDetails(prevState => ({ ...prevState, facility, motif}));
+    setReservationDetails(prevState => ({ ...prevState, facility, motif }));
   };
-  
+
 
   const handleBackToTimeDate = () => {
     setReserverTimeDateSubmitted(false);
@@ -36,17 +36,17 @@ function ParentComponent() {
         <ReserverSalleform onSubmit={handleReservationSalleformSubmit} onBack={handleBackToTimeDate} />
       )}
       {showReservationDetails && (
-    <ReservationDetails
-    date={reservationDetails.date}
-    time={reservationDetails.time}
-    facility={reservationDetails.facility}
-    club={reservationDetails.club}
+        <ReservationDetails
+          date={reservationDetails.date}
+          time={reservationDetails.time}
+          facility={reservationDetails.facility}
+          club={reservationDetails.club}
 
-    motif={reservationDetails.motif}
-    onBack={handleBackToSalleForm}
-    onQuit={() => setShowReservationDetails(false)}
-  />
-  
+          motif={reservationDetails.motif}
+          onBack={handleBackToSalleForm}
+          onQuit={() => setShowReservationDetails(false)}
+        />
+
       )}
     </div>
   );

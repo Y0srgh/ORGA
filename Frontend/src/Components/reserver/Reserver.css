@@ -55,9 +55,9 @@
 }
 /*here*/
 
-.input[type="date"],
-.input[type="text"],
-.select {
+.container input[type="date"],
+.container input[type="text"],
+.container select {
   display: inline-block;
   width: 300px; 
   padding: 10px;

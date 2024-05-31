@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const colorsEvent = {
   "En attente": "#fcb96b",
@@ -20,7 +22,6 @@ export default function MyCalendar() {
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [userIdLogIn, setUserIdLogIn] = useState([]);
-
   const eventStyleGetter = (event, start, end, isSelected) => {
     let style = {};
     style.backgroundColor = colorsEvent[event.state];
@@ -74,7 +75,6 @@ export default function MyCalendar() {
         console.error("Error fetching events:", error);
       });
   }, []);
-
   const handleCancelReservation = async () => {
     try {
       const response = await axios.put(
@@ -100,7 +100,6 @@ export default function MyCalendar() {
     setSelectedEvent(event);
     setShowModal(true);
   };
-
   const handleEditReservation = (event) => {
     const reservationId = event.id;
     console.log(reservationId);
@@ -130,72 +129,95 @@ export default function MyCalendar() {
         onSelectEvent={handleSelectEvent}
       />
       {selectedEvent && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center ${showModal ? "block" : "hidden"}`}>
-          <div className="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity" onClick={handleCloseModal}></div>
-          <div className="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-lg sm:w-full">
-            <div className="border-b border-red-600 p-4">
-              <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold">{selectedEvent.title}</h3>
-                <button
-                  type="button"
-                  className="text-gray-400 hover:text-gray-600 transition duration-200"
-                  onClick={handleCloseModal}
-                >
-                  &times;
-                </button>
-              </div>
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          className="custom-modal"
+        >
+          <Modal.Header closeButton className="modal-header">
+            <Modal.Title className="modal-title">
+              {selectedEvent.title}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="modal-body">
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Salle</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.facility}
+                readOnly
+              />
             </div>
-            <div className="p-4 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold">Salle</span>
-                <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{selectedEvent.facility}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold">État</span>
-                <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{selectedEvent.state}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold">Club</span>
-                <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{selectedEvent.club}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold">Date de début</span>
-                <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{moment(selectedEvent.start).format("LLLL")}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold">Date de fin</span>
-                <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{moment(selectedEvent.end).format("LLLL")}</span>
-              </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>État</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.state}
+                readOnly
+              />
             </div>
-            <div className="border-t border-red-600 p-4 flex justify-end space-x-2">
-              {selectedEvent.userId === userIdLogIn && selectedEvent.state !== "Approuvée" && (
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-yellow-600 text-white font-medium rounded-md hover:bg-yellow-700 transition duration-200"
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Club</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={selectedEvent.club}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Date de début</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={moment(selectedEvent.start).format("LLLL")}
+                readOnly
+              />
+            </div>
+            <div className="modal-detail">
+              <span className="modal-detail-label">
+                <strong>Date de fin</strong>
+              </span>
+              <input
+                type="text"
+                className="modal-detail-value"
+                value={moment(selectedEvent.end).format("LLLL")}
+                readOnly
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer className="modal-footer">
+            {selectedEvent.userId === userIdLogIn &&
+              selectedEvent.state !== "Approuvée" && (
+                <Button
+                  variant="secondary"
                   onClick={() => handleEditReservation(selectedEvent)}
+                  className="button"
                 >
                   Modifier
-                </button>
+                </Button>
               )}
-              {selectedEvent.userId === userIdLogIn && (selectedEvent.state === "Approuvée" || selectedEvent.state === "En attente") && (
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition duration-200"
-                  onClick={handleCancelReservation}
-                >
-                  Annuler
-                </button>
-              )}
-              {/*<button
-                type="button"
-                className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-200"
-                onClick={handleCloseModal}
-              >
-                Fermer
-              </button>*/}
-            </div>
-          </div>
-        </div>
+              {selectedEvent.userId === userIdLogIn &&
+              (selectedEvent.state == "Approuvée" || selectedEvent.state == "En attente") && (
+            <Button
+              variant="secondary"
+              onClick={handleCancelReservation}
+              className="button"
+            >
+              Annuler
+            </Button>)}
+          </Modal.Footer>
+        </Modal>
       )}
     </div>
   );
