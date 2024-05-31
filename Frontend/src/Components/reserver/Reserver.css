@@ -1,3 +1,20 @@
+
+
+.body{
+  font-family: 'Poppins', sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  background: url(../../assets/audito.jpg) no-repeat;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 50px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,8 +23,8 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  max-width: 500px; 
   font-family: 'Roboto', sans-serif;
+  width: 30px;
 }
 
 .form-title {
@@ -55,9 +72,9 @@
 }
 /*here*/
 
-.container input[type="date"],
-.container input[type="text"],
-.container select {
+.container1 input[type="date"],
+.container1 input[type="text"],
+.container1 select {
   display: inline-block;
   width: 300px; 
   padding: 10px;
@@ -210,3 +227,130 @@
 }
 
 
+
+
+/*
+  font-family: 'Poppins', sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  background: url(../../assets/audito.jpg) no-repeat;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 50px;
+
+
+*/
+
+
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../assets/audito.jpg'); /* Use the correct path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  /*padding: 20px;*/
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.form-title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  width: 550px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label, .required-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+.required-label:after {
+  content: '*';
+  color: red;
+  margin-left: 5px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.info-message {
+  font-size: 14px;
+  color: #31708f;
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: #5c0e0e;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 50%;
+  text-align: center;
+  margin-top: 0;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+
+@media (min-width: 1024px) {
+  .container1 {
+      max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container1 {
+      max-width: 100%;
+  }
+}

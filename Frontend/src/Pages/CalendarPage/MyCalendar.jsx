@@ -133,7 +133,7 @@ export default function MyCalendar() {
         <div className={`fixed inset-0 z-50 flex items-center justify-center ${showModal ? "block" : "hidden"}`}>
           <div className="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity" onClick={handleCloseModal}></div>
           <div className="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-lg sm:w-full">
-            <div className="border-b border-red-600 p-4">
+            <div className="border-b border-red-900 p-4">
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-semibold">{selectedEvent.title}</h3>
                 <button
@@ -167,11 +167,11 @@ export default function MyCalendar() {
                 <span className="rounded-full bg-gray-300 p-2" style={{ width: "300px" }}>{moment(selectedEvent.end).format("LLLL")}</span>
               </div>
             </div>
-            <div className="border-t border-red-600 p-4 flex justify-end space-x-2">
+            <div className="border-t border-red-900 p-4 flex justify-end space-x-2">
               {selectedEvent.userId === userIdLogIn && selectedEvent.state !== "Approuvée" && (
                 <button
                   type="button"
-                  className="px-4 py-2 bg-yellow-600 text-white font-medium rounded-md hover:bg-yellow-700 transition duration-200"
+                  className="button-2"
                   onClick={() => handleEditReservation(selectedEvent)}
                 >
                   Modifier
@@ -179,8 +179,8 @@ export default function MyCalendar() {
               )}
               {selectedEvent.userId === userIdLogIn && (selectedEvent.state === "Approuvée" || selectedEvent.state === "En attente") && (
                 <button
+                className="button-2"
                   type="button"
-                  className="px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition duration-200"
                   onClick={handleCancelReservation}
                 >
                   Annuler

@@ -82,22 +82,9 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-/*body{
-  font-family: 'Poppins', sans-serif;
-  font-synthesis: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: url(../../assets/audito.jpg) no-repeat;
-  background-size: cover;
-  background-position: center;
-}*/
+
 
 .wrapper {
   width: 100%;

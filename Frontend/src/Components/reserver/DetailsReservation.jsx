@@ -70,36 +70,41 @@ const ReservationDetails = ({ date, time, club, facility, motif, otherMotif, onB
   };
 
   return (
-    <div className="container">
-      <div className="button-group">
+    <div className="container1">
+
+      <div className="form">
+              <div className="button-group">
         <button type="button" className="back-button" onClick={onBack}>
           <span>&#8592;</span>
         </button>
         <button className="quit-button" onClick={onQuit}>X</button>
       </div>
-      <h4 className="form-title">Détails de la Réservation</h4>
-      <div className="form-group">
-        <label htmlFor="club" className="label">Club</label>
-        <input type="text" id="club" value={formData.club} readOnly />
+      <div className="form-title-container">
+        <h4 className="form-title">Détails de la Réservation</h4>
       </div>
-      <div className="form-group">
-        <label htmlFor="salle" className="label">Salle n°</label>
-        <input type="text" id="salle" value={formData.facility} readOnly />
+        <div className="form-group">
+          <label htmlFor="club" className="label">Club</label>
+          <input type="text" id="club" className="input" value={formData.club} readOnly />
+        </div>
+        <div className="form-group">
+          <label htmlFor="salle" className="label">Salle n°</label>
+          <input type="text" id="salle" className="input" value={formData.facility} readOnly />
+        </div>
+        <div className="form-group">
+          <label htmlFor="motif" className="label">Motifs de réservation</label>
+          <textarea id="motif" rows="5" cols="20" className="textarea" value={formData.motif} readOnly />
+        </div>
+        <div className="form-group">
+          <label htmlFor="date" className="label">Date</label>
+          <input type="text" id="date" className="input" value={formatDate(formData.date)} readOnly />
+        </div>
+        <div className="form-group">
+          <label htmlFor="temps" className="label">Temps</label>
+          <input type="text" id="time" className="input" value={formData.time} readOnly />
+        </div>
+        {renderPopup()}
+        <button type="button" className="button" onClick={handleSubmit}>Confirmer</button>
       </div>
-      <div className="form-group">
-        <label htmlFor="motif" className="label">Motifs de réservation</label>
-        <textarea id="motif" rows="5" cols="20" value={formData.motif} readOnly />
-      </div>
-      <div className="form-group">
-        <label htmlFor="date" className="label">Date</label>
-        <input type="text" id="date" value={formatDate(formData.date)} readOnly />
-      </div>
-      <div className="form-group">
-        <label htmlFor="temps" className="label">Temps</label>
-        <input type="text" id="time" value={formData.time} readOnly />
-      </div>
-      {renderPopup()}
-      <button type="button" className="button" onClick={handleSubmit}>Confirmer</button>
     </div>
   );
 };

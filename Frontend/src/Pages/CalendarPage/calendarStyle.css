@@ -140,7 +140,35 @@
   /* Adjusted margin for spacing */
 }
 
-.custom-modal .button:hover {
+.button-2:hover {
   background-color: #f0f0f0;
   color: black;
 }
+
+.button-2 {
+  width: 40%;
+  height: auto;
+  padding: 7px 14px;
+  /* Reduced padding for smaller button size */
+  background-color: #630000;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 0 auto;
+  font-size: 12px;
+  /* Smaller font size */
+  font-family: 'Roboto', sans-serif;
+  margin-top: 20px;
+  /* Adjusted margin for spacing */
+}
+
+
+/*
+{                  //className="px-4 py-2 bg-red-900 text-white font-medium rounded-md hover:bg-red-700 transition duration-200 button-2"}                  onClick={handleCancelReservation}
+
+                  className="px-4 py-2 bg-red-700 text-white font-medium rounded-md hover:bg-yellow-700 transition duration-200 button-2"
+
+*/

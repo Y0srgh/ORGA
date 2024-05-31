@@ -12,7 +12,7 @@ const schema = yup.object().shape({
       /^(0?[1-9]|1[0-2]):([0-5]\d)\s?(?:AM|PM)\s*-\s*(0?[1-9]|1[0-2]):([0-5]\d)\s?(?:AM|PM)$/i,
       "Veuillez saisir l'heure dans ce format 'HH:MM-HH:MM AM/PM'"
     )
-    .required("Le temps est requis"),
+    .required("Veuillez saisir le temps de la réservation"),
 });
 
 function ReserverTimeDate({ onSubmit }) {
@@ -82,9 +82,12 @@ function ReserverTimeDate({ onSubmit }) {
   }
 
   return (
-    <div className="container">
-      <h4 className="form-title">Réservation</h4>
-      <form onSubmit={handleFormSubmit}>
+    <div className="container1">
+      
+      <form className="form" onSubmit={handleFormSubmit}>
+      <div className="form-title-container">
+        <h4 className="form-title">Réservation</h4>
+      </div>
         <div className="form-group">
           <label htmlFor="date" className="required-label">Date</label>
           <div className="input-container">
@@ -92,6 +95,7 @@ function ReserverTimeDate({ onSubmit }) {
               type="date"
               id="date"
               name="date"
+              className="input"
               value={formData.date}
               min={new Date().toISOString().split("T")[0]}
               onChange={handleInputChange}
@@ -107,6 +111,7 @@ function ReserverTimeDate({ onSubmit }) {
               type="text"
               id="time"
               name="time"
+              className="input"
               value={formData.time}
               onChange={handleInputChange}
             />
@@ -121,6 +126,7 @@ function ReserverTimeDate({ onSubmit }) {
               type="text"
               id="club"
               name="club"
+              className="input"
               value={formData.club}
               onChange={handleInputChange}
               readOnly

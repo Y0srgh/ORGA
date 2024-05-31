@@ -36,6 +36,17 @@ const SignIn = () => {
     } catch (error) {
       console.log(error);
     }
+    /*axios.post(`http://localhost:5500/users/login`, {
+      email,
+      password,
+    })
+    .then((resp)=>{
+      console.log(resp);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })*/
+
   };
 
   return (

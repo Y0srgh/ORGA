@@ -26,7 +26,7 @@ app.use(cors({
 app.use(cookieParser());
 
 // Set up route to handle OPTIONS requests for CORS preflight
-app.options("*", cors());
+/*app.options("*", cors());
 
 // Set up middleware to add CORS headers to all responses
 app.use((req, res, next) => {
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   next();
-});
+});*/
 
 // Mount routes middleware
 app.use("/users", userRoutes);
