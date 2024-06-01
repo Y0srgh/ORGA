@@ -16,6 +16,8 @@ const EditReservation = () => {
   const [facilities, setFacilities] = useState([]);
   const { reservationId } = useParams(); 
   const navigate = useNavigate();
+  const [isEdited, setIsEdited] = useState(false); 
+
 
   useEffect(() => {
 
@@ -44,6 +46,8 @@ const EditReservation = () => {
   }, [reservationId]);
 
   const handleInputChange = (e) => {
+    setIsEdited(true); 
+
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -52,10 +56,11 @@ const EditReservation = () => {
   };
 
   const handleDateChange = (date) => {
+    setIsEdited(true); 
     setSelectedDate(date);
     setFormData(prevState => ({
       ...prevState,
-      date: moment(date).toISOString() // Convert date to ISO string format
+      date: moment(date).toISOString() 
     }));
   };
 
@@ -73,7 +78,8 @@ const EditReservation = () => {
   };
 
   const handleSubmit = async () => {
-    try {
+    if (isEdited) {
+      try {
      
         handleReservationState(reservationId);
         
@@ -85,6 +91,8 @@ const EditReservation = () => {
       console.error('Error updating reservation:', error);
       setSubmissionStatus('failed');
     }
+  }
+    handleCloseForm();
   };
   const handleCloseForm = () => {
     navigate('/calendar');

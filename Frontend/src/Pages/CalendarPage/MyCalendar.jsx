@@ -96,7 +96,10 @@ export default function MyCalendar() {
   };
 
   const handleSelectEvent = (event) => {
+
     console.log(event);
+    console.log(new Date(event.start));
+
     setSelectedEvent(event);
     setShowModal(true);
   };
@@ -199,7 +202,7 @@ export default function MyCalendar() {
           <Modal.Footer className="modal-footer">
            {selectedEvent.userId === userIdLogIn &&
   selectedEvent.state !== "Approuvée" &&
-  new Date(selectedEvent.date) > new Date() && (  
+  (new Date(selectedEvent.start) > new Date()) && (  
     <Button
       variant="secondary"
       onClick={() => handleEditReservation(selectedEvent)}
