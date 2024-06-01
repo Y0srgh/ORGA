@@ -23,7 +23,7 @@ const HomeUsers = () => {
 
 
   return (
-    <div className='p-4'>
+    <div className='p-4 home-club'>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl my-8 mx-4 text-[#730202]'>Liste des membres</h1>
         <Link to='/user/add-user'>

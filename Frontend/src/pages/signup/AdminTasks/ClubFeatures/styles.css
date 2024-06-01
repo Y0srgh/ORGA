@@ -43,4 +43,6 @@ button[type="submit"]:disabled {
   color: #800000;
 }
 
-
+.home-club {
+  margin-top: 40px;
+}
