@@ -122,6 +122,7 @@ const EditReservation = () => {
           dateFormat="yyyy-MM-dd"
           className="form-control" // Add any additional CSS classes here
           locale="fr"
+          minDate={new Date()}
         />
       </div>
       <div className="form-group">

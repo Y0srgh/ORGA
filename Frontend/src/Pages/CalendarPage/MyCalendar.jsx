@@ -197,18 +197,19 @@ export default function MyCalendar() {
             </div>
           </Modal.Body>
           <Modal.Footer className="modal-footer">
-            {selectedEvent.userId === userIdLogIn &&
-              selectedEvent.state !== "Approuvée" && (
-                <Button
-                  variant="secondary"
-                  onClick={() => handleEditReservation(selectedEvent)}
-                  className="button"
-                >
-                  Modifier
-                </Button>
-              )}
+           {selectedEvent.userId === userIdLogIn &&
+  selectedEvent.state !== "Approuvée" &&
+  new Date(selectedEvent.date) > new Date() && (  
+    <Button
+      variant="secondary"
+      onClick={() => handleEditReservation(selectedEvent)}
+      className="button"
+    >
+      Modifier
+    </Button>
+)}
               {selectedEvent.userId === userIdLogIn &&
-              (selectedEvent.state == "Approuvée" || selectedEvent.state == "En attente") && (
+              (selectedEvent.state == "Approuvée" || selectedEvent.state == "En attente")  && (
             <Button
               variant="secondary"
               onClick={handleCancelReservation}
