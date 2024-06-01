@@ -1,4 +1,3 @@
-// Navbar.jsx
 
 import Profile from './Profile'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
@@ -7,6 +6,7 @@ import React, { useState } from 'react';
 
 function Navbar() {
     const profileImgUrl = "https://cdn.loeildelaphotographie.com/wp-content/uploads/2013/02/original_1-facebook-profile-picture-jpg-500x350.jpg";
+    //statique pour le test a remplacer par la photo de profil de l'utilisateur 
     const [isProfileCardOpen, setProfileCardOpen] = useState(false);
 
     const toggleProfileCard = () => {
@@ -19,8 +19,10 @@ function Navbar() {
                 <NotificationsNoneIcon className="notifications" fontSize="small" style={{ color: '#FFFFFF' }} />
                 <Profile profileImg={profileImgUrl} onClick={toggleProfileCard} />
             </div>
-            {isProfileCardOpen && <ProfileCard username="Username" profileImg={profileImgUrl} />}
+            {isProfileCardOpen && <ProfileCard username="Username" profileImg={profileImgUrl} />} 
+            
         </div>
+        //username statique pour le test a remplacer par le nom de user 
     );
 }
 

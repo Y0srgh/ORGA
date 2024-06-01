@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
       required: true, // Password of the user
     },
     levelOfStudy: {
-      type:Number,
+      type: Number,
       enum: [1, 2, 3, 4, 5], // Enumerated levels of study (1-5)
       required: function () {
         return this.role === "Président"; // Level of study required only if the role is "Président"
@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     role: {
-      type:String,
+      type: String,
       enum: ["Président", "Admin", "Dvure"], // Enumerated roles for the user
       required: true,
     },
@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema(
       required: function () {
         return this.role === "Président"; // Clubs information required only if the role is "Président"
       },
+    },
+    profilePhoto: {
+      type: String, // ObjectID de la photo stockée dans GridFS
+      required: false, // La photo de profil n'est pas requise
     },
   },
   {

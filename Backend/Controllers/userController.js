@@ -299,7 +299,7 @@ export const loginUser = async (req, res) => {
     });
   }
 }; */
-//code non testé 
+/*
 export const updatePassworduser = async (req, res) => {
   try {
     // Destructurer le corps de la requête pour extraire les mots de passe
@@ -337,4 +337,4 @@ export const updatePassworduser = async (req, res) => {
       message: "Une erreur est survenue lors de la mise à jour du mot de passe.",
     });
   }
-};
+};*/

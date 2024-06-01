@@ -8,18 +8,20 @@ import Userprofile from './Components/Userprofile'
 import './Components/Userprofile.css'
 import ProfileCard from './Components/Profilecard'
 import './Components/Profilecard.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
+import Sidebaradmin from './Components/Sidebaradmin'
+import { Sidebarobjects } from './Components/Sidebarobjects'
 
 
-function App() {
-    const photo = "https://static.vecteezy.com/ti/vecteur-libre/p1/6026787-avatar-profil-default-social-media-photo-icon-vector-in-flat-style-vectoriel.jpg";
-    const username = "roua timoumi"; 
-    const profileImgUrl = "https://static.vecteezy.com/ti/vecteur-libre/p1/6026787-avatar-profil-default-social-media-photo-icon-vector-in-flat-style-vectoriel.jpg"; 
 
-    return (
-    <div className="app">
-   
-   <Userprofile profileImg={profileImgUrl} username={username} />
-    </div>)
-}
 
-export default App;
+    function App() {
+        
+        return (
+          <></>
+        
+        );
+    }
+    
+    export default App

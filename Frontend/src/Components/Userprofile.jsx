@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
-function Userprofile({ profileImg, username }) {
+ //donnée statique pour le test a remplacer par les données de user 
+ function Userprofile({ profileImg = "https://static.vecteezy.com/ti/vecteur-libre/p1/6026787-avatar-profil-default-social-media-photo-icon-vector-in-flat-style-vectoriel.jpg", username = "roua timoumi" }) {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Profileobjects } from "./Profileobjects";  // Assurez-vous que le chemin est correct
+import { Profileobjects } from "./Profileobjects";  
 
 function ProfileCard({ username, profileImg }) {
     return (
