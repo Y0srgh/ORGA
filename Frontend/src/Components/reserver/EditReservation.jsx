@@ -40,6 +40,8 @@ const EditReservation = () => {
   }, [reservationId]);
 
   const handleInputChange = (e) => {
+    setIsEdited(true); 
+
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -48,10 +50,11 @@ const EditReservation = () => {
   };
 
   const handleDateChange = (date) => {
+    setIsEdited(true); 
     setSelectedDate(date);
     setFormData(prevState => ({
       ...prevState,
-      date: moment(date).toISOString()
+      date: moment(date).toISOString() 
     }));
   };
 
@@ -68,15 +71,26 @@ const EditReservation = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      await handleReservationState(reservationId);
-      const response = await axios.put(`http://localhost:5500/reservations/${reservationId}`, formData);
+    if (isEdited) {
+      try {
+     
+        handleReservationState(reservationId);
+        
+     const response = await axios.put(`http://localhost:5500/reservations/${reservationId}`, formData);
+
+      console.log('Reservation updated successfully:', response.data);
       setSubmissionStatus('success');
     } catch (error) {
       console.error('Error updating reservation:', error);
       setSubmissionStatus('failed');
     }
+  }
+    handleCloseForm();
   };
+
+
+
+ 
 
   const handleCloseForm = () => {
     navigate('/calendar');
@@ -118,6 +132,7 @@ const EditReservation = () => {
             dateFormat="yyyy-MM-dd"
             className="input"
             locale="fr"
+            minDate={new Date()}
           />
         </div>
         <div className="form-group">

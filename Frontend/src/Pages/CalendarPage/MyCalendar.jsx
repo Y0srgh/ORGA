@@ -168,7 +168,7 @@ export default function MyCalendar() {
               </div>
             </div>
             <div className="border-t border-red-900 p-4 flex justify-end space-x-2">
-              {selectedEvent.userId === userIdLogIn && selectedEvent.state !== "Approuvée" && (
+              {selectedEvent.userId === userIdLogIn && selectedEvent.state !== "Approuvée" && (new Date(selectedEvent.start) > new Date())&& (
                 <button
                   type="button"
                   className="button-2"
@@ -186,13 +186,7 @@ export default function MyCalendar() {
                   Annuler
                 </button>
               )}
-              {/*<button
-                type="button"
-                className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-200"
-                onClick={handleCloseModal}
-              >
-                Fermer
-              </button>*/}
+            
             </div>
           </div>
         </div>
