@@ -31,6 +31,7 @@ import AdminDashboard from './pages/reservations/AdminDashboard';
 import ReservationsDetails from './pages/reservations/ReservationDetails';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import PrimeNavbar from './components/Home/PrimeNavbar.jsx';
+import Profile from './pages/Profile/Profile.jsx';
 
 
 const App = () => {
@@ -71,6 +72,8 @@ const App = () => {
 
             <Route path='/admin-dashboard' className="app-container" element={<AdminDashboard />} />
             <Route path='/reservation-details' className="app-container" element={<ReservationsDetails />} />
+
+            <Route exact path="/profile" element={<Profile />} />
 
             <Route exact path="/" element={<SignIn />} />
             <Route exact path="/home" element={<Home />} />
