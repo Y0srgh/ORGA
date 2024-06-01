@@ -4,45 +4,33 @@ const reservationSchema = mongoose.Schema(
   {
     date: {
       type: Date,
-      required: true, // Date of the reservation
+      required: true,
     },
     time: {
       type: String,
-      required: true, // Time of the reservation
+      required: true,
     },
     motive: {
       type: String,
-      required: true, // Motive for the reservation
+      required: true,
     },
-
     facility: {
-      //type: mongoose.Schema.Types.ObjectId,
-      //ref: "Facility", // Reference to the facility collection
       type: String,
-      required: true, // Reference to the facility for which the reservation is made
+      required: true,
     },
     state: {
       type: String,
-      enum: ["En attente", "Approuvée", "Refusée" ,"Annulée"], // State of the reservation
-      default: "En attente", // Default state is pending
+      enum: ["En attente", "Approuvée", "Refusée", "Annulée"],
+      default: "En attente",
     },
     club: {
       type: String,
- 
     },
-  
-   userId: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false, // Reference to the user who made the reservation
+      required: false,
     },
-    
-  
-    /*adminId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        default: null, 
-      },*/
   },
   {
     timestamps: true,

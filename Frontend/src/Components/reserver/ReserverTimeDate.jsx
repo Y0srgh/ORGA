@@ -12,7 +12,7 @@ const schema = yup.object().shape({
       /^(0?[1-9]|1[0-2]):([0-5]\d)\s?(?:AM|PM)\s*-\s*(0?[1-9]|1[0-2]):([0-5]\d)\s?(?:AM|PM)$/i,
       "Veuillez saisir l'heure dans ce format 'HH:MM-HH:MM AM/PM'"
     )
-    .required("Veuillez saisir le temps de la réservation"),
+    .required("Le temps est requis"),
 });
 
 function ReserverTimeDate({ onSubmit }) {
@@ -76,6 +76,7 @@ function ReserverTimeDate({ onSubmit }) {
         setErrors(newErrors);
       });
   };
+
 
   if (loading) {
     return <div>Loading...</div>;

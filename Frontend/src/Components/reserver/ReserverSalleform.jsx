@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import './Reserver.css';
 
-const ReserverSalleform = ({ onSubmit, onBack }) => {
+const ReserverSalleform = ({ onSubmit, onBack, date, time }) => {
   const [facility, setFacility] = useState('');
   const [motif, setMotif] = useState('');
   const [otherMotif, setOtherMotif] = useState('');
@@ -13,7 +14,38 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
     otherMotif: '',
     files: []
   });
+  const [availableFacilities, setAvailableFacilities] = useState([]);
+  const [pendingFacilities, setPendingFacilities] = useState([]);
+  const [warningMessage, setWarningMessage] = useState('');
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const fetchAvailableFacilities = async () => {
+      try {
+        const response = await axios.get('http://localhost:5500/reservations/available-facilities', {
+          params: { date, time }
+        });
+        setAvailableFacilities(response.data.availableFacilities.map(fac => fac.label)); // Extract labels
+        setPendingFacilities(response.data.pendingFacilities);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching available facilities:", error);
+      }
+    };
+
+    fetchAvailableFacilities();
+  }, [date, time]);
+
+  const handleFacilityChange = (e) => {
+    const selectedFacility = e.target.value;
+    setFacility(selectedFacility);
+    setFormData({ ...formData, facility: selectedFacility });
+    if (pendingFacilities.includes(selectedFacility)) {
+      setWarningMessage('Attention : Cette salle est probablement déjà réservée pour ce créneau horaire.');
+    } else {
+      setWarningMessage('');
+    }
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -29,7 +61,6 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Determine which motif to send based on which one is filled
       const motifToSend = motif ? motif : otherMotif;
       onSubmit(formData.facility, motifToSend);
     }
@@ -46,7 +77,7 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
   };
 
   const handleUploadButtonClick = () => {
-    fileInputRef.current.click(); // Trigger file input click
+    fileInputRef.current.click();
   };
 
   return (
@@ -62,25 +93,27 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
       <div className="form-title-container">
         <h4 className="form-title">Réservation</h4>
       </div>
-        <div className="form-group">
-          <label htmlFor="facility" className="required-label">
-            Choisissez une salle
-          </label>
-          <select
-            id="facility"
-            className="input"
-            value={facility}
-            onChange={(e) => {
-              setFacility(e.target.value);
-              setFormData({ ...formData, facility: e.target.value });
-            }}
-          >
-            <option value="">Sélectionner une salle</option>
-            <option value="A8">Amphi A8</option>
-            <option value="audito">Auditorium</option>
-          </select>
-          {errors.facility && <p className="error-message">{errors.facility}</p>}
-        </div>
+      
+      <div className="form-group">
+            <label htmlFor="facility" className="required-label">
+              Choisissez une salle
+            </label>
+            <select
+              id="facility"
+              value={facility}
+              onChange={handleFacilityChange}
+            >
+              <option value="">Sélectionner une salle</option>
+              {availableFacilities.map((fac, index) => (
+                <option key={index} value={fac}>{fac}</option>
+              ))}
+            </select>
+            
+          </div>
+          <div className="form-group">
+            {errors.facility && <p className="error-message">{errors.facility}</p>}
+            {warningMessage && <p className="warning-message">{warningMessage}</p>}
+            </div>
         <div className="form-group">
           <label htmlFor="motif" className="required-label">
             Motifs de réservation

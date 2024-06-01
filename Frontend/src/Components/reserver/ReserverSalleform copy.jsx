@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import './Reserver.css';
 
-const ReserverSalleform = ({ onSubmit, onBack }) => {
+const ReserverSalleform = ({ onSubmit, onBack, date, time }) => {
   const [facility, setFacility] = useState('');
   const [motif, setMotif] = useState('');
   const [otherMotif, setOtherMotif] = useState('');
@@ -13,7 +14,37 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
     otherMotif: '',
     files: []
   });
+  const [availableFacilities, setAvailableFacilities] = useState([]);
+  const [pendingFacilities, setPendingFacilities] = useState([]);
+  const [warningMessage, setWarningMessage] = useState('');
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const fetchAvailableFacilities = async () => {
+      try {
+        const response = await axios.get('http://localhost:5500/reservations/available-facilities', {
+          params: { date, time }
+        });
+        setAvailableFacilities(response.data.availableFacilities.map(fac => fac.label)); // Extract labels
+        setPendingFacilities(response.data.pendingFacilities);
+      } catch (error) {
+        console.error("Error fetching available facilities:", error);
+      }
+    };
+
+    fetchAvailableFacilities();
+  }, [date, time]);
+
+  const handleFacilityChange = (e) => {
+    const selectedFacility = e.target.value;
+    setFacility(selectedFacility);
+    setFormData({ ...formData, facility: selectedFacility });
+    if (pendingFacilities.includes(selectedFacility)) {
+      setWarningMessage('Attention : Cette salle est probablement déjà réservée pour ce créneau horaire.');
+    } else {
+      setWarningMessage('');
+    }
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -29,7 +60,6 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Determine which motif to send based on which one is filled
       const motifToSend = motif ? motif : otherMotif;
       onSubmit(formData.facility, motifToSend);
     }
@@ -42,7 +72,8 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
   };
 
   const handleQuitClick = () => {
-    setFormVisible(false);
+    // Functionality to quit the form can be handled here
+    // For example, you might want to reset the form or redirect the user
   };
 
   const handleUploadButtonClick = () => {
@@ -50,7 +81,7 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
   };
 
   return (
-    <div className="container1">
+    <div className="container">
       <div className="button-group">
         <button type="button" className="back-button" onClick={onBack}>
           <span>&#8592;</span>
@@ -67,16 +98,15 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
             <select
               id="facility"
               value={facility}
-              onChange={(e) => {
-                setFacility(e.target.value);
-                setFormData({ ...formData, facility: e.target.value });
-              }}
+              onChange={handleFacilityChange}
             >
               <option value="">Sélectionner une salle</option>
-              <option value="A8">Amphi A8</option>
-              <option value="audito">Auditorium</option>
+              {availableFacilities.map((fac, index) => (
+                <option key={index} value={fac}>{fac}</option>
+              ))}
             </select>
             {errors.facility && <p className="error-message">{errors.facility}</p>}
+            {warningMessage && <p className="warning-message">{warningMessage}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="motif" className="required-label">
@@ -121,8 +151,8 @@ const ReserverSalleform = ({ onSubmit, onBack }) => {
               ref={fileInputRef}
               type="file"
               onChange={handleFileChange}
-              style={{ display: 'none' }} // Hide the default file input
-              multiple // Enable multiple file selection
+              style={{ display: 'none' }}
+              multiple
             />
             <button type="button" onClick={handleUploadButtonClick} className="custom-file-input">
               Joindre un fichier

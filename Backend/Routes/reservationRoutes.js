@@ -6,30 +6,19 @@ import {
   findOneReservation,
   updateReservation,
   updateState,
-  findReservationsByUserId
-} from "../Controllers/ReservationController.js"; 
+  findReservationsByUserId,
+  getAvailableFacilities
+} from "../Controllers/ReservationController.js";
 
-// Creating an Express router instance
 const router = express.Router();
 
-// Endpoint for adding a new reservation
+router.get('/available-facilities', getAvailableFacilities); // Define this route first
 router.post("/", addReservation);
-
-// Endpoint for retrieving all reservations
 router.get("/", findAllReservations);
-
-// Endpoint for retrieving a specific reservation by ID
 router.get("/:id", findOneReservation);
-
-// Endpoint for updating reservation state
 router.put("/:id/update-state", updateState);
-
-// Endpoint for updating a reservation
 router.put("/:id", updateReservation);
-
-// Endpoint for deleting a reservation by ID
 router.delete("/:id", deleteReservation);
-router.get('/reservations/user/:userId', findReservationsByUserId); 
+router.get('/user/:userId', findReservationsByUserId);
 
-
-export default router; 
+export default router;
