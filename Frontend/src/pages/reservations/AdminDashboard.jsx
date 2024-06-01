@@ -84,7 +84,7 @@ const AdminDashboard = () => {
     });
 
     return (
-        <div className='p-4'>
+        <div className='p-4 home-club'>
             <h1 className='text-3xl my-8 mx-4 text-[#730202]'>Admin Dashboard</h1>
             <div className="filters mb-4">
                 <label className="mr-2">Start Date:</label>

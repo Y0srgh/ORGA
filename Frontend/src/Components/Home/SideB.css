@@ -1,0 +1,128 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f3f4f6;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 100;
+    overflow: auto;
+}
+
+.sidebar-component {
+    margin-top: 35px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    color: #374151;
+    text-decoration: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e2e2e2;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.close-btn {
+    font-size: 24px;
+    color: rgb(87, 13, 13);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
+.sidebar-item {
+    margin-left: 20px;
+
+}
+
+.sidebar-toggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    top: 12px;
+    left: 10px;
+    z-index: 101;
+    margin: 10px;
+    transition: transform 0.3s ease;
+    color: rgb(87, 13, 13);
+}
+
+.sidebar-toggle.rotated {
+    transform: rotate(360deg);
+}
+
+.logo-sidebar {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logo-name {
+    font-size: 43px;
+    font-weight: 700;
+    color: rgb(118, 15, 15);
+}
+
+.logo-slogan {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgb(118, 15, 15);
+}
+
+.logo-divider{
+    margin-top: 40px;
+    border: none;
+    border-top: 2px solid #d8d7d7;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Media Queries */
+@media (max-width: 673.60px) {
+    .sidebar-toggle,
+    .close-btn {
+        top: 24px;
+    }
+}
+
+@media (min-width: 639px) and (max-width: 673px) {
+    .sidebar-toggle,
+    .close-btn {
+        top: 12px;
+        }
+}
+
+
+@media (max-width: 639px) {
+    .sidebar-toggle,
+    .close-btn {
+        top: 7px;
+    }
+}

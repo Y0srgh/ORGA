@@ -5,6 +5,7 @@
   align-items: center !important;
   height: 100vh !important;
   background-color: #f5f5f5 !important;
+  padding-top: 50px;
 }
 
 .rbc-calendar {

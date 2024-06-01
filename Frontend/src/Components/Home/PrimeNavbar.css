@@ -1,0 +1,37 @@
+.menubar-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f3f4f6;
+    z-index: 99;
+}
+
+.logo {
+    margin-left: 45px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #5c0e0e;
+    /* or any other color you prefer */
+}
+
+/* PrimeNavbar.css */
+.p-menubar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-menubar-start {
+    margin-right: auto;
+}
+
+.p-menubar-root-list {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
