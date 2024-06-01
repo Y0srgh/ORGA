@@ -177,7 +177,7 @@ export default function MyCalendar() {
                   Modifier
                 </button>
               )}
-              {selectedEvent.userId === userIdLogIn && (selectedEvent.state === "Approuvée" || selectedEvent.state === "En attente") && (
+              {selectedEvent.userId === userIdLogIn && (selectedEvent.state === "Approuvée" || selectedEvent.state === "En attente") &&(new Date(selectedEvent.start) > new Date())&& (
                 <button
                 className="button-2"
                   type="button"
