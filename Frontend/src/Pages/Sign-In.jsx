@@ -23,7 +23,7 @@ const SignIn = () => {
       localStorage.setItem('userId', userID);
       localStorage.role = response.data.role;
       localStorage.token = response.data.token;
-      window.location.href = "/reserver";
+      window.location.href = response.data.role==="Président"?"/reserver":"/admin-dashboard";
     } catch (error) {
       console.log(error);
     }
