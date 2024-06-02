@@ -15,8 +15,8 @@ export default function TemplateDemo() {
 
     const start = <h1 className='logo ml-20 mr-10'>ORGA</h1>;
     const end = (
-        <div className="flex align-items-center gap-2 pr-10 ">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size='large' shape="circle" />
+        <div className="flex align-items-center gap-2 pr-10 avatar-navbar">
+            <Avatar image={`http://localhost:5500/${localStorage.profilePicture}`} size='large' shape="circle"/>
         </div>
     );
 

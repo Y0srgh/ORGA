@@ -10,6 +10,7 @@ import {
   verifyEmail,
   loginUser,
   forgotPassword,
+  updatePwd,
 } from "../Controllers/userController.js";
 import { User } from "../Models/userModel.js";
 import multer from 'multer';
@@ -111,6 +112,7 @@ router.get("/:id", findOneUser);
 
 // Endpoint for updating a user's password 
 router.post("/update-password/:token", updatePassword);
+router.post("/modifier-password/:id", updatePwd);
 
 // Endpoint for updating a user's details by ID
 router.put("/update-details/:id", updateUser);

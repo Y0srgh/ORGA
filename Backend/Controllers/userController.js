@@ -560,3 +560,33 @@ export const loginUser = async (req, res) => {
   }
 };
 
+export const updatePwd = async (req, res) => {
+  try {
+    // Destructure request body to extract password and token
+    const { password } = req.body;
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    const salt = await bcrypt.genSalt(10);
+
+    // Hachage du nouveau mot de passe
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Mettre à jour le mot de passe de l'utilisateur avec le mot de passe haché
+    user.password = hashedPassword;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (error) {
+    return res.status(500).json({
+      message:
+        "Une erreur est survenue lors de la mise à jour du mot de passe.",
+    });
+  }
+};

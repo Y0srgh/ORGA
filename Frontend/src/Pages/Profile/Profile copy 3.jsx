@@ -7,14 +7,9 @@ import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 import { Image } from 'primereact/image';
 import { Divider } from 'primereact/divider';
-import { Splitter, SplitterPanel } from 'primereact/splitter';
-import { InputText } from "primereact/inputtext";
-import { Password } from 'primereact/password';
-
 
 import './Profile.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export default function TemplateDemo() {
     const toast = useRef(null);
@@ -25,7 +20,6 @@ export default function TemplateDemo() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const id = localStorage.userId;
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -233,17 +227,13 @@ export default function TemplateDemo() {
     const handlePasswordUpdate = () => {
         if (password === confirmPassword) {
             axios
-                .post(`http://localhost:5500/users//modifier-password/${id}`, { password })
+                .post(`http://localhost:5500/users/update-password/${id}`, { password })
                 .then((resp) => {
-                    console.log(resp);
                     toast.current.show({
                         severity: 'success',
                         summary: 'Success',
                         detail: 'Password Updated',
                     });
-                    //navigate('/profile');
-                    setPassword('')
-                    setConfirmPassword('')
                 })
                 .catch((error) => {
                     toast.current.show({
@@ -266,49 +256,51 @@ export default function TemplateDemo() {
             <div className="profile-picture flex justify-content-center">
                 <Image src={`http://localhost:5500/${profilePicture}`} alt="Image" width="250" preview />
             </div>
-            <Splitter style={{ height: '410px', width: '100%' }}>
-                <SplitterPanel className="flex align-items-center justify-content-center">
-                    <div className="profile-container">
-                        <Toast ref={toast}></Toast>
-                        <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-                        <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-                        <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+            <div className="profile-update">
+                <div className="profile-container">
+                    <Toast ref={toast}></Toast>
 
-                        <FileUpload
-                            ref={fileUploadRef}
-                            name="file" // Make sure the name matches the backend expectation
-                            url={`http://localhost:5500/users/update-profile/${id}`} // Corrected backend URL
-                            multiple={false} // Assuming single file upload
-                            accept="image/*"
-                            maxFileSize={1000000}
-                            onUpload={onTemplateUpload}
-                            onSelect={onTemplateSelect}
-                            onError={onTemplateClear}
-                            onClear={onTemplateClear}
-                            headerTemplate={headerTemplate}
-                            itemTemplate={itemTemplate}
-                            emptyTemplate={emptyTemplate}
-                            chooseOptions={chooseOptions}
-                            uploadOptions={uploadOptions}
-                            cancelOptions={cancelOptions}
-                        />
-                    </div>
-                </SplitterPanel>
-                <SplitterPanel className="flex align-items-center justify-content-center">
-                    <div className="inputs-container">
-                        
-                        <h1>Mot de passe</h1>
-                        <div className="card5 flex justify-content-center">
-                            <Password value={password} onChange={(e) => setPassword(e.target.value)} toggleMask />
-                        </div>
-                        <h1>Confirmer votre mot de passe</h1>
-                        <div className="card5 flex justify-content-center">
-                            <Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} feedback={false} toggleMask />
-                        </div>
-                        <button className='submit-button' onClick={handlePasswordUpdate}>Confirmer</button>
-                    </div>
-                </SplitterPanel>
-            </Splitter>
+                    <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
+                    <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
+                    <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+
+                    <FileUpload
+                        ref={fileUploadRef}
+                        name="file" // Make sure the name matches the backend expectation
+                        url={`http://localhost:5500/users/update-profile/${id}`} // Corrected backend URL
+                        multiple={false} // Assuming single file upload
+                        accept="image/*"
+                        maxFileSize={1000000}
+                        onUpload={onTemplateUpload}
+                        onSelect={onTemplateSelect}
+                        onError={onTemplateClear}
+                        onClear={onTemplateClear}
+                        headerTemplate={headerTemplate}
+                        itemTemplate={itemTemplate}
+                        emptyTemplate={emptyTemplate}
+                        chooseOptions={chooseOptions}
+                        uploadOptions={uploadOptions}
+                        cancelOptions={cancelOptions}
+                    />
+                </div>
+                <Divider layout="vertical" />
+
+                <div className="inputs-container">
+                <input
+                    type="password"
+                    placeholder="New Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <button onClick={handlePasswordUpdate}>Update Password</button>
+            </div>
+            </div>
         </>
     );
 }
