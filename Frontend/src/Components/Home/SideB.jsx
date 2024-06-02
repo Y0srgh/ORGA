@@ -17,7 +17,11 @@ const SideB = ({ isOpen, toggleSidebar }) => {
         <hr className="logo-divider" />
       </div>
       {((localStorage.role === "Président")||(localStorage.role === "Admin"))&&(<ul className='sidebar-component'>
-        {(localStorage.role === "Président") && (<li><Link to="/calendar" className='icons pi pi-calendar'> <p className='sidebar-item'>Calendar </p></Link></li>)}
+        {(localStorage.role === "Président") && (<>
+        <li><Link to="/calendar" className='icons pi pi-calendar'> <p className='sidebar-item'>Calendar </p></Link></li>
+        <li><Link to="/reserver" className='icons pi pi-clipboard'> <p className='sidebar-item'>Reserver </p></Link></li>
+        
+        </>)}
         {(localStorage.role === "Admin") && (<>
           <li><Link to="/admin-dashboard" className='icons pi pi-warehouse'><p className='sidebar-item'>Admin Dashboard </p></Link></li>
           <li><Link to="/user" className='icons pi pi-users'><p className='sidebar-item'>Users </p></Link></li>

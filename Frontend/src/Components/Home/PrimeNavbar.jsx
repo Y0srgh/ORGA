@@ -31,7 +31,7 @@ export default function TemplateDemo() {
         {
             label: 'Home',
             icon: 'pi pi-home',
-            url: '/home'
+            url: (localStorage.role==="Admin"&&'/admin-dashboard')||(localStorage.role==="Président"&&'/calendar')
         },
     ];
 
@@ -40,9 +40,9 @@ export default function TemplateDemo() {
 
 
         <div className="flex align-items-center gap-2 pr-10 avatar-navbar">
-            <Link to={"/profile"}>
+            {(localStorage.token)&&(<Link to={"/profile"}>
                 <Avatar image={localStorage.profilePicture && `http://localhost:5500/${localStorage.profilePicture}` || "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg"} size='large' shape="circle" />
-            </Link>
+            </Link>)}
         </div>
     );
 
@@ -50,7 +50,7 @@ export default function TemplateDemo() {
         <div className="card3">
             <div className="menubar-fixed">
                 <Menubar
-                    model={items.map(item => ({
+                    model={(localStorage.token)&&items.map(item => ({
                         ...item,
                         command: () => { window.location.href = item.url; }
                     }))}
