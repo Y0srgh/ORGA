@@ -1,20 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
+import { Image } from 'primereact/image';
 import './Profile.css';
-
-
+import axios from 'axios';
 
 export default function TemplateDemo() {
     const toast = useRef(null);
     const [totalSize, setTotalSize] = useState(0);
     const fileUploadRef = useRef(null);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const id = localStorage.userId;
+
+    useEffect(()=>{
+        axios
+            .get(`http://localhost:5500/users/${id}`)
+            .then((resp)=>{
+                console.log(resp.data);
+                setProfilePicture(resp.data.profilePicture)
+                localStorage.setItem("profilePicture" ,resp.data.profilePicture)
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+    },[])
 
 
     const onTemplateSelect = (e) => {
@@ -207,6 +221,10 @@ export default function TemplateDemo() {
     };
 
     return (
+        <>
+        <div className="profile-picture flex justify-content-center">
+            <Image src={`http://localhost:5500/${profilePicture}`} alt="Image" width="250" preview />
+        </div>
         <div className="profile-container">
             <Toast ref={toast}></Toast>
 
@@ -233,5 +251,6 @@ export default function TemplateDemo() {
                 cancelOptions={cancelOptions}
             />
         </div>
+        </>
     );
 }
