@@ -11,7 +11,6 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 
-
 import './Profile.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -32,8 +31,13 @@ export default function TemplateDemo() {
             .get(`http://localhost:5500/users/${id}`)
             .then((resp) => {
                 console.log(resp.data);
-                setProfilePicture(resp.data.profilePicture)
-                localStorage.setItem("profilePicture", resp.data.profilePicture)
+                if (resp.data.profilePicture) {
+                    setProfilePicture(resp.data.profilePicture)
+                    localStorage.setItem("profilePicture", resp.data.profilePicture)
+                }else {
+                    setProfilePicture("")
+                    localStorage.setItem("profilePicture", "")
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -233,7 +237,7 @@ export default function TemplateDemo() {
     const handlePasswordUpdate = () => {
         if (password === confirmPassword) {
             axios
-                .post(`http://localhost:5500/users//modifier-password/${id}`, { password })
+                .post(`http://localhost:5500/users/modifier-password/${id}`, { password })
                 .then((resp) => {
                     console.log(resp);
                     toast.current.show({
@@ -260,11 +264,11 @@ export default function TemplateDemo() {
             });
         }
     };
-
+    
     return (
         <>
             <div className="profile-picture flex justify-content-center">
-                <Image src={`http://localhost:5500/${profilePicture}`} alt="Image" width="250" preview />
+                <Image src={profilePicture&&`http://localhost:5500/${profilePicture}`||"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg"} alt="Image" width="250" preview />
             </div>
             <Splitter style={{ height: '410px', width: '100%' }}>
                 <SplitterPanel className="flex align-items-center justify-content-center">
@@ -296,7 +300,7 @@ export default function TemplateDemo() {
                 </SplitterPanel>
                 <SplitterPanel className="flex align-items-center justify-content-center">
                     <div className="inputs-container">
-                        
+
                         <h1>Mot de passe</h1>
                         <div className="card5 flex justify-content-center">
                             <Password value={password} onChange={(e) => setPassword(e.target.value)} toggleMask />

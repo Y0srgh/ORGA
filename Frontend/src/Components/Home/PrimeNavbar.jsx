@@ -16,7 +16,7 @@ export default function TemplateDemo() {
     const start = <h1 className='logo ml-20 mr-10'>ORGA</h1>;
     const end = (
         <div className="flex align-items-center gap-2 pr-10 avatar-navbar">
-            <Avatar image={`http://localhost:5500/${localStorage.profilePicture}`} size='large' shape="circle"/>
+            <Avatar image={localStorage.profilePicture&&`http://localhost:5500/${localStorage.profilePicture}`||"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg"} size='large' shape="circle"/>
         </div>
     );
 
