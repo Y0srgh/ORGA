@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Menubar } from 'primereact/menubar';
 import { Avatar } from 'primereact/avatar';
 import "./PrimeNavbar.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function TemplateDemo() {
+
+    const id = localStorage.userId;
+    const navigate = useNavigate();
+//1717290803544_yosrg.jpeg
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5500/users/${id}`)
+            .then((resp) => {
+                console.log(resp.data);
+                if (resp.data.profilePicture) {
+                    localStorage.setItem("profilePicture", resp.data.profilePicture)
+                }else {
+                    setProfilePicture("")
+                    localStorage.profilePicture="";
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
     const items = [
         {
             label: 'Home',

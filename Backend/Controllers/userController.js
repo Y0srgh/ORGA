@@ -533,7 +533,7 @@ export const forgotPassword = async (req, res) => {
     });
   }
 };*/
-export const loginUser = async (req, res) => {
+/*export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -551,6 +551,37 @@ export const loginUser = async (req, res) => {
     return res.status(200).json({
       message: "Utilisateur connecté avec succès.",
       userID: user._id,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:
+        "Une erreur est survenue lors de la connexion de l'utilisateur.",
+    });
+  }
+};*/
+
+export const loginUser = async (req, res) => {
+  try {
+    const { userName, password } = req.body;
+    console.log(req.body);
+    const user = await User.findOne({ userName });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    console.log("user",user);
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: "Mot de passe incorrect." });
+    }
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+    res.cookie("token", token, { maxAge: 360000, httpOnly: true });
+
+    // Return the UserID along with the success message
+    return res.status(200).json({
+      message: "Utilisateur connecté avec succès.",
+      userID: user._id,
+      role:user.role,
+      token
     });
   } catch (error) {
     return res.status(500).json({

@@ -24,7 +24,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
+    <div className="sign-in-container">
       <div className="wrapper">
         <form onSubmit={handleSubmit}>
           <h1>Mot de passe oublié </h1>
@@ -42,11 +42,11 @@ const ForgotPassword = () => {
             />
           </div>
 
-          <button type="submit">Réinitialiser le mot de passe</button>
+          <button type="submit">Confirmer</button>
           <div className="login-link">
             <p id="create-account">
               Vous n'avez pas un compte ?{" "}
-              <Link id="create-account-link" to="/sign-up">
+              <Link id="create-account-link" to="/user/add-president">
                 Créer un compte
               </Link>
             </p>

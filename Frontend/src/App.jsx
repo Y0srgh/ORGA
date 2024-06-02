@@ -32,7 +32,7 @@ import ReservationsDetails from './pages/reservations/ReservationDetails';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import PrimeNavbar from './components/Home/PrimeNavbar.jsx';
 import Profile from './pages/Profile/Profile.jsx';
-
+import Logout from './pages/Logout.jsx';
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,47 +44,51 @@ const App = () => {
   return (
     <SnackbarProvider>
       <div className="app">
-        <button
+        {(localStorage.token) &&(<><button
           className={`sidebar-toggle ${isSidebarOpen ? 'rotated' : ''}`}
           onClick={toggleSidebar}
         >
-          {isSidebarOpen ? < GoSidebarExpand/> : <GoSidebarCollapse />}
+          {isSidebarOpen ? < GoSidebarExpand /> : <GoSidebarCollapse />}
         </button>
-        <SideB isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <PrimeNavbar/>
+        <SideB isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /></>)}
+        <PrimeNavbar />
         <div className="main-content">
           <Routes>
-            <Route path='/user' className="app-container" element={<HomeUsers />} />
-            <Route path='/user/add-user' className="app-container " element={<AddUser />} />
-            <Route path='/user/add-president' className="app-container " element={<AddPresident />} />
-            <Route path='/user/edit-user/:id' className="app-container" element={<EditUser />} />
-            <Route path='/user/show-user/:id' className="app-container" element={<ShowUser />} />
-            <Route path='/user/delete-user/:id' className="app-container" element={<DeleteUser />} />
-            <Route path='/user/add-dvure' classNam e="app-container" element={<AddDvure />} />
-            <Route path='/user/add-def' className="app-container" element={<AddDef />} />
+            {(localStorage.token) && (
+              <>
+                <Route path='/user' className="app-container" element={<HomeUsers />} />
+                <Route path='/user/add-user' className="app-container " element={<AddUser />} />
+                <Route path='/user/add-president' className="app-container " element={<AddPresident />} />
+                <Route path='/user/edit-user/:id' className="app-container" element={<EditUser />} />
+                <Route path='/user/show-user/:id' className="app-container" element={<ShowUser />} />
+                <Route path='/user/delete-user/:id' className="app-container" element={<DeleteUser />} />
+                <Route path='/user/add-dvure' classNam e="app-container" element={<AddDvure />} />
+                <Route path='/user/add-def' className="app-container" element={<AddDef />} />
 
-            <Route path='/club' className="app-container" element={<HomeClubs />} />
-            <Route path='/club/add-club' className="app-container " element={<AddClub />} />
-            <Route path='/club/delete-club/:id' className="app-container " element={<DeleteClub />} />
-            <Route path='/club/edit-club/:id' className="app-container " element={<EditClub />} />
-            <Route path='/club/show-club/:id' className="app-container " element={<ShowClub />} />
-            <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
+                <Route path='/club' className="app-container" element={<HomeClubs />} />
+                <Route path='/club/add-club' className="app-container " element={<AddClub />} />
+                <Route path='/club/delete-club/:id' className="app-container " element={<DeleteClub />} />
+                <Route path='/club/edit-club/:id' className="app-container " element={<EditClub />} />
+                <Route path='/club/show-club/:id' className="app-container " element={<ShowClub />} />
+                <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
 
-            <Route path='/admin-dashboard' className="app-container" element={<AdminDashboard />} />
-            <Route path='/reservation-details' className="app-container" element={<ReservationsDetails />} />
+                <Route path='/admin-dashboard' className="app-container" element={<AdminDashboard />} />
+                <Route path='/reservation-details' className="app-container" element={<ReservationsDetails />} />
 
-            <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/profile" element={<Profile />} />
 
-            <Route exact path="/" element={<SignIn />} />
-            <Route exact path="/home" element={<Home />} />
-            <Route exact path="/calendar" element={<MyCalendar />} />
-            <Route exact path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route exact path="/reserver" element={<ParentComponent />} />
-            <Route exact path="/reserver/edit-reservation/:reservationId" element={<EditReservation />} />
-            <Route exact path="/reserver/ReserverTimeDate" element={<ReserverTimeDate />} />
-            <Route exact path="/reserver/ReserverSalleform" element={<ReserverSalleform />} />
-            <Route exact path="/reserver/DetailsReservation" element={<ReservationDetails />} />
+                
+                <Route exact path="/home" element={<Home />} />
+                <Route exact path="/calendar" element={<MyCalendar />} />
+                <Route exact path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
+                <Route exact path="/reserver" element={<ParentComponent />} />
+                <Route exact path="/reserver/edit-reservation/:reservationId" element={<EditReservation />} />
+                <Route exact path="/reserver/ReserverTimeDate" element={<ReserverTimeDate />} />
+                <Route exact path="/reserver/ReserverSalleform" element={<ReserverSalleform />} />
+                <Route exact path="/reserver/DetailsReservation" element={<ReservationDetails />} />
+              </>)||<Route exact path="/*" element={<SignIn />} />}
+              <Route exact path="/log-out" element={<Logout/>}/>
           </Routes>
         </div>
       </div>
