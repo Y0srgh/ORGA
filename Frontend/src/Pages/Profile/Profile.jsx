@@ -25,7 +25,7 @@ export default function TemplateDemo() {
 
     const id = localStorage.userId;
     const navigate = useNavigate();
-
+//1717290803544_yosrg.jpeg
     useEffect(() => {
         axios
             .get(`http://localhost:5500/users/${id}`)
@@ -36,7 +36,7 @@ export default function TemplateDemo() {
                     localStorage.setItem("profilePicture", resp.data.profilePicture)
                 }else {
                     setProfilePicture("")
-                    localStorage.setItem("profilePicture", "")
+                    localStorage.profilePicture="";
                 }
             })
             .catch((error) => {
