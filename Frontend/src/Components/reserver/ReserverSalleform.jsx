@@ -81,7 +81,7 @@ const ReserverSalleform = ({ onSubmit, onBack, date, time }) => {
   };
 
   return (
-    <div className="container1">
+    <div className="container1 container2">
       
       <form className="form" onSubmit={handleFormSubmit}>
       <div className="button-group">

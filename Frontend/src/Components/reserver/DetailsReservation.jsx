@@ -70,7 +70,7 @@ const ReservationDetails = ({ date, time, club, facility, motif, otherMotif, onB
   };
 
   return (
-    <div className="container1">
+    <div className="container1 container2">
 
       <div className="form">
               <div className="button-group">
