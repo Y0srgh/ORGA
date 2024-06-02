@@ -1,13 +1,16 @@
 import { User } from "../Models/userModel.js";
 import { Club } from "../Models/clubModel.js";
-import bcrypt from "bcrypt";
 import { Token } from "../Models/token.js";
 import { sendEmail } from "../utils/sendEmail.js";
-import crypto from "crypto";
 import { updateSelected } from "./clubContoller.js";
 import { JWT_SECRET } from "../Configurations/config.js";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import express from "express";
+
+
 
 export const addUser = async (req, res) => {
   try {

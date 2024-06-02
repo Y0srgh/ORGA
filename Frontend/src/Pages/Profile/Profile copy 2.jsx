@@ -5,17 +5,12 @@ import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
-import './Profile.css';
-
-
+import './Profile.css'
 
 export default function TemplateDemo() {
     const toast = useRef(null);
     const [totalSize, setTotalSize] = useState(0);
     const fileUploadRef = useRef(null);
-
-    const id = localStorage.userId;
-
 
     const onTemplateSelect = (e) => {
         let _totalSize = totalSize;
@@ -55,7 +50,7 @@ export default function TemplateDemo() {
     const headerTemplate = (options) => {
         const { className, chooseButton, uploadButton, cancelButton } = options;
         const value = totalSize / 10000;
-        const formattedValue =
+        const formatedValue =
             fileUploadRef && fileUploadRef.current
                 ? fileUploadRef.current.formatSize(totalSize)
                 : '0 B';
@@ -73,7 +68,7 @@ export default function TemplateDemo() {
                 {uploadButton}
                 {cancelButton}
                 <div className="flex align-items-center gap-3 ml-auto">
-                    <span>{formattedValue} / 1 MB</span>
+                    <span>{formatedValue} / 1 MB</span>
                     <ProgressBar
                         value={value}
                         showValue={false}
@@ -104,13 +99,16 @@ export default function TemplateDemo() {
                     severity="warning"
                     className="px-3 py-2"
                     style={{
+                        //width: '50px',
                         height: '50px',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderColor: '#f00e0e',
-                        marginLeft: '100px',
-                    }}
+                        marginLeft:'100px'
+                    }
+            
+                    }
                 />
                 <Button
                     type="button"
@@ -125,8 +123,10 @@ export default function TemplateDemo() {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        borderColor: '#f00e0e',
-                    }}
+                        borderColor: '#f00e0e'
+                    }
+            
+                    }
                 />
             </div>
         );
@@ -168,13 +168,14 @@ export default function TemplateDemo() {
             alignItems: 'center',
             paddingLeft: '25px',
             cursor: 'pointer',
-            margin: '20px',
-        },
+            margin: '20px'
+        }
     };
     const uploadOptions = {
         icon: <i className="pi pi-fw pi-cloud-upload" style={{ fontSize: '1rem', color: '#12a612' }}></i>,
         iconOnly: true,
-        className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
+        className:
+            'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
         style: {
             backgroundColor: 'white',
             borderRadius: '50%',
@@ -185,13 +186,16 @@ export default function TemplateDemo() {
             alignItems: 'center',
             paddingLeft: '22px',
             borderColor: '#12a612',
-            margin: '20px',
-        },
+            margin: '20px'
+
+        }
+
     };
     const cancelOptions = {
         icon: <i className="pi pi-fw pi-times" style={{ fontSize: '1rem', color: '#f00e0e' }}></i>,
         iconOnly: true,
-        className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
+        className:
+            'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
         style: {
             backgroundColor: 'white',
             borderRadius: '50%',
@@ -202,12 +206,13 @@ export default function TemplateDemo() {
             alignItems: 'center',
             paddingLeft: '22px',
             borderColor: '#f00e0e',
-            margin: '20px',
-        },
+            margin: '20px'
+
+        }
     };
 
     return (
-        <div className="profile-container">
+        <div className='profile-container'>
             <Toast ref={toast}></Toast>
 
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
@@ -216,9 +221,9 @@ export default function TemplateDemo() {
 
             <FileUpload
                 ref={fileUploadRef}
-                name="file" // Make sure the name matches the backend expectation
-                url={`http://localhost:5500/users/update-profile/${id}`} // Corrected backend URL
-                multiple={false} // Assuming single file upload
+                name="demo[]"
+                url="/api/upload"
+                multiple
                 accept="image/*"
                 maxFileSize={1000000}
                 onUpload={onTemplateUpload}

@@ -1,0 +1,31 @@
+.profile-container {
+    margin: 50px;
+    margin-top: 100px;
+}
+
+.choose-button{
+    background: white;
+    margin-right: 20px;
+    background-color: transparent;
+    color: #6366f1;
+    border: 1px solid;
+}
+
+.buttoon {
+    background-color: white;
+    border-radius: 50px; /* Ajustez la valeur selon vos préférences */
+}
+
+.profile-container{
+    background-color: white;
+    border-radius: 20px; /* Ajustez la valeur selon vos préférences */
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    background-color: #f9fafb;
+    width: 700px;
+}
+
+
+
+
+

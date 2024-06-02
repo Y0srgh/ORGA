@@ -8,6 +8,10 @@ const userSchema = mongoose.Schema(
       required: true, // the user name of the user
       unique: true,
     },
+    profilePicture: {
+      type: String,
+      default: null
+    },
     firstName: {
       type: String,
     },

@@ -16,6 +16,9 @@ const app = express(); // Initialize Express framework
 // Middleware for parsing request body
 app.use(express.json());
 
+app.use(express.static('uploads/profile_pictures'))
+
+
 // Enable CORS
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -24,20 +27,6 @@ app.use(cors({
 
 // Middleware for parsing cookies
 app.use(cookieParser());
-
-// Set up route to handle OPTIONS requests for CORS preflight
-/*app.options("*", cors());
-
-// Set up middleware to add CORS headers to all responses
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  next();
-});*/
 
 // Mount routes middleware
 app.use("/users", userRoutes);

@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
@@ -5,17 +6,13 @@ import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
-import './Profile.css';
+import './Profile.css'
+import { borderColor, height, padding, width } from '@mui/system';
 
-
-
-export default function TemplateDemo() {
+export default function Profile() {
     const toast = useRef(null);
     const [totalSize, setTotalSize] = useState(0);
     const fileUploadRef = useRef(null);
-
-    const id = localStorage.userId;
-
 
     const onTemplateSelect = (e) => {
         let _totalSize = totalSize;
@@ -36,11 +33,7 @@ export default function TemplateDemo() {
         });
 
         setTotalSize(_totalSize);
-        toast.current.show({
-            severity: 'info',
-            summary: 'Success',
-            detail: 'File Uploaded',
-        });
+        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
     };
 
     const onTemplateRemove = (file, callback) => {
@@ -55,30 +48,16 @@ export default function TemplateDemo() {
     const headerTemplate = (options) => {
         const { className, chooseButton, uploadButton, cancelButton } = options;
         const value = totalSize / 10000;
-        const formattedValue =
-            fileUploadRef && fileUploadRef.current
-                ? fileUploadRef.current.formatSize(totalSize)
-                : '0 B';
+        const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
 
         return (
-            <div
-                className={className}
-                style={{
-                    backgroundColor: 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
+            <div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
                 {chooseButton}
                 {uploadButton}
                 {cancelButton}
                 <div className="flex align-items-center gap-3 ml-auto">
-                    <span>{formattedValue} / 1 MB</span>
-                    <ProgressBar
-                        value={value}
-                        showValue={false}
-                        style={{ width: '10rem', height: '12px' }}
-                    ></ProgressBar>
+                    <span>{formatedValue} / 1 MB</span>
+                    <ProgressBar value={value} showValue={false} style={{ width: '10rem', height: '12px' }}></ProgressBar>
                 </div>
             </div>
         );
@@ -88,46 +67,14 @@ export default function TemplateDemo() {
         return (
             <div className="flex align-items-center flex-wrap">
                 <div className="flex align-items-center" style={{ width: '40%' }}>
-                    <img
-                        alt={file.name}
-                        role="presentation"
-                        src={file.objectURL}
-                        width={100}
-                    />
+                    <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
                     <span className="flex flex-column text-left ml-3">
                         {file.name}
                         <small>{new Date().toLocaleDateString()}</small>
                     </span>
                 </div>
-                <Tag
-                    value={props.formatSize}
-                    severity="warning"
-                    className="px-3 py-2"
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderColor: '#f00e0e',
-                        marginLeft: '100px',
-                    }}
-                />
-                <Button
-                    type="button"
-                    icon={<i className="pi pi-fw pi-times" style={{ fontSize: '1rem', color: '#f00e0e' }}></i>}
-                    className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-                    onClick={() => onTemplateRemove(file, props.onRemove)}
-                    style={{
-                        backgroundColor: 'white',
-                        borderRadius: '50%',
-                        width: '50px',
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderColor: '#f00e0e',
-                    }}
-                />
+                <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
+                <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
             </div>
         );
     };
@@ -135,25 +82,19 @@ export default function TemplateDemo() {
     const emptyTemplate = () => {
         return (
             <div className="flex align-items-center flex-column">
-                <i
-                    className="pi pi-image mt-3 p-5"
-                    style={{
-                        fontSize: '5em',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--surface-b)',
-                        color: 'var(--surface-d)',
-                    }}
-                ></i>
-                <span
-                    style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}
-                    className="my-5"
-                >
+                <i className="pi pi-image mt-3 p-5" style={{ fontSize: '5em', borderRadius: '50%', backgroundColor: 'var(--surface-b)', color: 'var(--surface-d)' }}></i>
+                <span style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} className="my-5">
                     Drag and Drop Image Here
                 </span>
             </div>
         );
     };
-
+    /*
+    background-color: transparent;
+        color: #6366f1;
+        border: 1px solid;
+    
+    */
     const chooseOptions = {
         icon: <i className="pi pi-fw pi-images" style={{ fontSize: '1rem', color: 'blue' }}></i>,
         iconOnly: true,
@@ -166,28 +107,28 @@ export default function TemplateDemo() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            paddingLeft: '25px',
-            cursor: 'pointer',
-            margin: '20px',
-        },
+            paddingLeft: '25px'
+        }
     };
+
     const uploadOptions = {
         icon: <i className="pi pi-fw pi-cloud-upload" style={{ fontSize: '1rem', color: '#12a612' }}></i>,
         iconOnly: true,
-        className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
+        className:
+            'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
         style: {
-            backgroundColor: 'white',
-            borderRadius: '50%',
-            width: '50px',
-            height: '50px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingLeft: '22px',
-            borderColor: '#12a612',
-            margin: '20px',
-        },
+                backgroundColor: 'white',
+                borderRadius: '50%',
+                width: '50px',
+                height: '50px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: '22px',
+                borderColor: '#12a612'
+        }
     };
+
     const cancelOptions = {
         icon: <i className="pi pi-fw pi-times" style={{ fontSize: '1rem', color: '#f00e0e' }}></i>,
         iconOnly: true,
@@ -201,13 +142,13 @@ export default function TemplateDemo() {
             justifyContent: 'center',
             alignItems: 'center',
             paddingLeft: '22px',
-            borderColor: '#f00e0e',
-            margin: '20px',
-        },
+            borderColor: '#f00e0e'
+
+        }
     };
 
     return (
-        <div className="profile-container">
+        <div className='profile-container'>
             <Toast ref={toast}></Toast>
 
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
@@ -216,9 +157,9 @@ export default function TemplateDemo() {
 
             <FileUpload
                 ref={fileUploadRef}
-                name="file" // Make sure the name matches the backend expectation
-                url={`http://localhost:5500/users/update-profile/${id}`} // Corrected backend URL
-                multiple={false} // Assuming single file upload
+                name="demo[]"
+                url="/api/upload"
+                multiple
                 accept="image/*"
                 maxFileSize={1000000}
                 onUpload={onTemplateUpload}
@@ -234,4 +175,4 @@ export default function TemplateDemo() {
             />
         </div>
     );
-}
+}        
